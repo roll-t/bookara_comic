@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "35644670840",
+    "project_id": "bookara-cfa06",
+    "storage_bucket": "bookara-cfa06.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:35644670840:android:329899393b163ae4e67e8d",
+        "android_client_info": {
+          "package_name": "com.example.bookara"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkrmxbVZknTfS6B6gTvVczLtN0NquaCos"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

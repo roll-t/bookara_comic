@@ -1,0 +1,23 @@
+import 'package:bookara/core/config/const/app_content.dart';
+
+Map<String, String> en = {
+  AppContent.appName: 'Comic Reader',
+  AppContent.login: 'Log In',
+  AppContent.logout: 'Log Out',
+  AppContent.email: 'Email',
+  AppContent.password: 'Password',
+  AppContent.signUp: 'Sign Up',
+  AppContent.forgotPassword: 'Forgot Password?',
+  AppContent.home: 'Home',
+  AppContent.library: 'Library',
+  AppContent.chapters: 'Chapters',
+  AppContent.readNow: 'Read Now',
+  AppContent.favorite: 'Favorite',
+  AppContent.settings: 'Settings',
+  AppContent.language: 'Language',
+  AppContent.changeLanguage: 'Change Language',
+  AppContent.profile: 'Profile',
+  AppContent.errorOccurred: 'An error occurred',
+  AppContent.back: 'Back',
+  AppContent.continueReading: 'Continue Reading',
+};

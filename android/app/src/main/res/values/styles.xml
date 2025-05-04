@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Theme khi app vừa khởi động (có thể dùng cho launch_background.xml) -->
+    <style name="LaunchTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/launch_background</item>
+        <item name="android:forceDarkAllowed">false</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+    </style>
+    <!-- Theme chính khi Flutter UI được render -->
+    <style name="NormalTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">?android:colorBackground</item>
+    </style>
+    <!-- Theme dùng riêng cho SplashScreen nếu bạn gọi thủ công -->
+    <style name="SplashTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+</resources>
