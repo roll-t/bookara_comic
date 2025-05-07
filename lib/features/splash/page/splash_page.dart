@@ -7,16 +7,16 @@ class SplashPage extends GetView<SplashController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const CircularProgressIndicator(),
-            const SizedBox(height: 20),
-            const Text("Loading...", style: TextStyle(fontSize: 18)),
+            CircularProgressIndicator(),
+            SizedBox(height: 20),
+            Text("Loading...", style: TextStyle(fontSize: 18)),
           ],
         ),
       ),

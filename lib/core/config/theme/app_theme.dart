@@ -14,6 +14,9 @@ class AppTheme {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: AppThemeColors.primary,
+      ),
       textTheme: TextTheme(
         bodyLarge: TextStyle(color: colors.textPrimary),
         bodyMedium: TextStyle(color: colors.textSecondary),
@@ -35,6 +38,9 @@ class AppTheme {
         backgroundColor: AppThemeColors.primary,
         foregroundColor: Colors.white,
         elevation: 0,
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: AppThemeColors.primary,
       ),
       textTheme: const TextTheme(
         bodyLarge: TextStyle(color: Colors.white),

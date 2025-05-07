@@ -1,7 +1,6 @@
 import 'package:bookara/core/config/const/app_dimens.dart';
 import 'package:bookara/core/config/const/app_icons.dart';
 import 'package:bookara/core/config/theme/app_colors.dart';
-import 'package:bookara/core/config/theme/app_theme_colors.dart';
 import 'package:bookara/core/ui/widgets/text_widget.dart';
 import 'package:bookara/core/utils/helper.dart';
 import 'package:bookara/features/category/presentation/page/category_page.dart';
@@ -53,8 +52,8 @@ class NavigationBarWidget extends StatelessWidget {
       ),
     ];
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      decoration: BoxDecoration(color: AppThemeColors.primary),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      color: Theme.of(context).navigationBarTheme.backgroundColor,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -121,7 +120,7 @@ class NavigationBarWidget extends StatelessWidget {
                                     const SizedBox(height: 4),
                                     TextWidget(
                                       text: navChild.name ?? "",
-                                      size: AppDimens.fontSizeSmall,
+                                      size: AppDimens.fontSize8,
                                     ),
                                   ],
                                 )

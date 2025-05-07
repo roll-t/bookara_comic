@@ -18,6 +18,7 @@ class AppDimens {
   static const double fontSizeSmall = 12.0;
   static const double fontSizeMedium = 16.0;
   static const double fontSizeLarge = 20.0;
+  static const double fontSize8 = 8.0;
 
   // Icon size constants
   static const double iconSizeSmall = 16.0;

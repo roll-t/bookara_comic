@@ -7,10 +7,7 @@ import 'app_colors.dart';
 
 class AppThemeColors {
   // Thêm một kiểm tra để tránh tạo lại controller nếu nó đã tồn tại
-  static final ThemeController _themeController =
-      Get.isRegistered<ThemeController>()
-          ? Get.find<ThemeController>()
-          : Get.put(ThemeController());
+  static final ThemeController _themeController = Get.find<ThemeController>();
 
   // Check if the current theme is dark
   static bool get isDark => _themeController.themeMode.value == ThemeMode.dark;

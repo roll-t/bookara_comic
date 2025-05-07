@@ -7,6 +7,7 @@ class AppContent {
   static const String signUp = 'sign_up';
   static const String forgotPassword = 'forgot_password';
   static const String home = 'home';
+  static const String category = 'category';
   static const String library = 'library';
   static const String chapters = 'chapters';
   static const String readNow = 'read_now';

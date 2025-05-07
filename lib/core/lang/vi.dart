@@ -9,6 +9,7 @@ Map<String, String> vi = {
   AppContent.signUp: 'Đăng Ký',
   AppContent.forgotPassword: 'Quên Mật Khẩu?',
   AppContent.home: 'Trang Chủ',
+  AppContent.category: 'Danh Mục',
   AppContent.library: 'Thư Viện',
   AppContent.chapters: 'Chương',
   AppContent.readNow: 'Đọc Ngay',

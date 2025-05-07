@@ -11,21 +11,25 @@ class ThemeController extends GetxController {
   final Rx<AppColorTheme> currentThemeIndex = AppColorTheme.theme1.obs;
 
   /// Scheme màu hiện tại (sẽ cập nhật mỗi khi thay đổi theme)
-  Rx<AppColorScheme> appColorScheme = AppColorThemeScheme.getColorScheme(AppColorTheme.theme1).obs;
+  Rx<AppColorScheme> appColorScheme =
+      AppColorThemeScheme.getColorScheme(AppColorTheme.theme1).obs;
 
   @override
   void onInit() {
     super.onInit();
 
     // Load theme mode từ bộ nhớ
-    themeMode.value = AppGetStorage.getTheme() ? ThemeMode.dark : ThemeMode.light;
+    themeMode.value =
+        AppGetStorage.getTheme() ? ThemeMode.dark : ThemeMode.light;
     // Load theme chính từ bộ nhớ
     currentThemeIndex.value = AppGetStorage.getPrimaryTheme(
       AppColorTheme.theme1,
     );
 
     // Khởi tạo appColorScheme và áp dụng theme
-    applyCurrentTheme();
+    Future.delayed(Duration.zero, () {
+      applyCurrentTheme();
+    });
   }
 
   /// Chuyển đổi giữa light/dark

@@ -9,6 +9,7 @@ Map<String, String> en = {
   AppContent.signUp: 'Sign Up',
   AppContent.forgotPassword: 'Forgot Password?',
   AppContent.home: 'Home',
+  AppContent.category: 'Category',
   AppContent.library: 'Library',
   AppContent.chapters: 'Chapters',
   AppContent.readNow: 'Read Now',
