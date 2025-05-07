@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SettingPage extends GetView<SettingController> {
+  static String routeName = "/settings";
   const SettingPage({super.key});
 
   @override

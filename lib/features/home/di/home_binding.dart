@@ -1,6 +1,9 @@
+import 'package:bookara/features/home/presentation/controller/home_controller.dart';
 import 'package:get/get.dart';
 
 class HomeBinding extends Bindings {
   @override
-  void dependencies() {}
+  void dependencies() {
+    Get.lazyPut(() => HomeController());
+  }
 }
