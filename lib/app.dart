@@ -3,6 +3,7 @@ import 'package:bookara/core/config/theme/app_theme.dart';
 import 'package:bookara/core/lang/translation_service.dart';
 import 'package:bookara/core/routes/app_pages.dart';
 import 'package:bookara/core/routes/app_routes.dart';
+import 'package:bookara/features/notFound/page/not_found_page.dart';
 import 'package:bookara/features/splash/page/splash_page.dart';
 import 'package:bookara/features/theme/controller/theme_controller.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,11 @@ class App extends StatelessWidget {
             fallbackLocale: LocalizationService.fallbackLocale,
             getPages: appPage,
             initialRoute: AppRoutes.initial,
-            home: SplashPage(),
+            home: const SplashPage(),
+            unknownRoute: GetPage(
+              name: NotFoundPage.routeName,
+              page: () => const NotFoundPage(),
+            ),
             theme: AppTheme.light(colorScheme.value),
             darkTheme: AppTheme.dark(colorScheme.value),
             themeMode: themeController.themeMode.value,

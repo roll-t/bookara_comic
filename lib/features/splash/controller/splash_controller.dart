@@ -14,6 +14,8 @@ class SplashController extends GetxController with LoadingMixinController {
     setLoadingState(true);
     await Future.delayed(const Duration(seconds: 1));
     setLoadingState(false);
-    Get.toNamed(AppRoutes.setting); // Chuyển trang
+    Get.offAndToNamed(
+      AppRoutes.home,
+    ); // sau khi loading thành công di chuyển đến trang home
   }
 }
