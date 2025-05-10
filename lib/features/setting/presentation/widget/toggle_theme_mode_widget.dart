@@ -2,8 +2,8 @@ import 'package:bookara/features/theme/controller/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ToggleThemeWidget extends GetView<ThemeController> {
-  const ToggleThemeWidget({super.key});
+class ToggleThemeModeWidget extends GetView<ThemeController> {
+  const ToggleThemeModeWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

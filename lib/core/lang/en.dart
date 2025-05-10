@@ -21,4 +21,11 @@ Map<String, String> en = {
   AppContent.errorOccurred: 'An error occurred',
   AppContent.back: 'Back',
   AppContent.continueReading: 'Continue Reading',
+  AppContent.languageEnglish: 'English',
+  AppContent.languageVietnamese: 'Vietnamese',
+  AppContent.countryVietnam: 'Vietnam',
+  AppContent.dark: 'Night',
+  AppContent.darkMode: 'Night mode',
+  AppContent.theme: 'theme',
+  AppContent.selectThem: 'Select a theme',
 };

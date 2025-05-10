@@ -1,4 +1,5 @@
 import 'package:bookara/core/config/const/app_dimens.dart';
+import 'package:bookara/core/config/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,6 +14,7 @@ class TextWidget extends StatelessWidget {
   final TextDecoration? textDecoration;
   final FontStyle? fontStyle;
   final String? fontFamily;
+  final TextTransformType transform;
 
   const TextWidget({
     super.key,
@@ -25,13 +27,39 @@ class TextWidget extends StatelessWidget {
     this.fontWeight = FontWeight.normal,
     this.fontStyle = FontStyle.normal,
     this.textDecoration = TextDecoration.none,
-    this.fontFamily, // Initialize the fontFamily parameter
+    this.fontFamily,
+    this.transform = TextTransformType.normal,
   });
+
+  String _applyTransform(String value) {
+    switch (transform) {
+      case TextTransformType.uppercase:
+        return value.toUpperCase();
+      case TextTransformType.lowercase:
+        return value.toLowerCase();
+      case TextTransformType.capitalize:
+        if (value.isEmpty) return value;
+        return value[0].toUpperCase() + value.substring(1).toLowerCase();
+      case TextTransformType.capitalizeWords:
+        return value
+            .split(' ')
+            .map(
+              (word) =>
+                  word.isNotEmpty
+                      ? '${word[0].toUpperCase()}${word.substring(1).toLowerCase()}'
+                      : '',
+            )
+            .join(' ');
+      case TextTransformType.normal:
+        return value;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final transformedText = _applyTransform(text.tr);
     return Text(
-      text.tr,
+      transformedText,
       maxLines: maxLines,
       textAlign: textAlign,
       style: TextStyle(
