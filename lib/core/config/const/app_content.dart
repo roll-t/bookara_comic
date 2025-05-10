@@ -13,10 +13,17 @@ class AppContent {
   static const String readNow = 'read_now';
   static const String favorite = 'favorite';
   static const String settings = 'settings';
-  static const String language = 'language';
   static const String changeLanguage = 'change_language';
   static const String profile = 'profile';
   static const String errorOccurred = 'error_occurred';
   static const String back = 'back';
   static const String continueReading = 'continue_reading';
+  static const String language = 'Ngôn ngữ';
+  static const String languageVietnamese = 'Tiếng Việt';
+  static const String languageEnglish = 'Tiếng Anh';
+  static const String countryVietnam = 'Việt Nam';
+  static const String theme = 'Chủ đề';
+  static const String selectThem = 'Chọn chủ đề';
+  static const String darkMode = 'chế độ ban đêm';
+  static const String dark = 'Ban đêm';
 }

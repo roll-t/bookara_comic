@@ -3,7 +3,7 @@ import 'package:bookara/features/category/presentation/page/category_page.dart';
 import 'package:bookara/features/home/di/home_binding.dart';
 import 'package:bookara/features/home/presentation/page/home_page.dart';
 import 'package:bookara/features/setting/di/setting_binding.dart';
-import 'package:bookara/features/setting/page/setting_page.dart';
+import 'package:bookara/features/setting/presentation/page/setting_page.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
