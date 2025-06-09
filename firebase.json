@@ -1,0 +1,25 @@
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "bookara-cfa06",
+                    "appId": "1:35644670840:android:329899393b163ae4e67e8d",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "bookara-cfa06",
+                    "configurations": {
+                        "android": "1:35644670840:android:329899393b163ae4e67e8d",
+                        "ios": "1:35644670840:ios:fcd420821fd0c999e67e8d",
+                        "macos": "1:35644670840:ios:fcd420821fd0c999e67e8d",
+                        "web": "1:35644670840:web:5cb46a19adb7ac84e67e8d",
+                        "windows": "1:35644670840:web:04f770db7f13575ae67e8d"
+                    }
+                }
+            }
+        }
+    }
+}
