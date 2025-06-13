@@ -20,6 +20,7 @@ class AppGetStorage {
   static const String _isLoggedIn = 'isLoggedIn';
   static const String _selectedLanguageKey = 'selected_language';
   static const String _primaryThemeKey = 'primary_theme';
+  static const String _isNotificationEnabled = 'isNotificationEnabled';
 
   // ========== Theme ========== //
   static void saveTheme(bool isDark) => _box.write(_themeKey, isDark);
@@ -40,6 +41,13 @@ class AppGetStorage {
     }
     return fallback;
   }
+
+  // Lưu trạng thái bật/tắt thông báo
+  static void setNotificationEnabled(bool value) =>
+      _box.write(_isNotificationEnabled, value);
+
+  static bool isNotificationEnabled() =>
+      _box.read(_isNotificationEnabled) ?? true;
 
   // ========== Token ========== //
   static void saveToken(String token) => _box.write(_tokenKey, token);

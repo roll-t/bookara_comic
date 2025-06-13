@@ -1,4 +1,4 @@
-import 'package:bookara/notification_service.dart';
+import 'package:bookara/core/config/notification/notification_service.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';

@@ -1,54 +1,33 @@
-import 'package:bookara/background_service.dart';
+import 'package:bookara/core/config/const/notification_constants.dart';
+import 'package:bookara/core/data/local/app_get_storage.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:bookara/core/config/notification/background_service.dart';
 
 class NotificationUtils {
-  static final FlutterLocalNotificationsPlugin _notificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  static bool _initialized = false;
 
-  static Future<void> init() async {
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings(
-          '@drawable/ic_logo',
-        ); // đảm bảo có icon này
-
-    const InitializationSettings initializationSettings =
-        InitializationSettings(android: initializationSettingsAndroid);
-
-    await _notificationsPlugin.initialize(initializationSettings);
+  static Future<void> initialize() async {
+    if (_initialized) return;
+    const androidSettings = AndroidInitializationSettings('@drawable/i_logo');
+    const initSettings = InitializationSettings(android: androidSettings);
+    await flutterLocalNotificationsPlugin.initialize(initSettings);
+    _initialized = true;
   }
-
-  /// Hiển thị thông báo cục bộ
-  // static Future<void> showLocalNotification(RemoteMessage message) async {
-  //   const AndroidNotificationDetails androidDetails =
-  //       AndroidNotificationDetails(
-  //         'default_channel_id',
-  //         'Default Channel',
-  //         channelDescription: 'This channel is used for default notifications.',
-  //         importance: Importance.max,
-  //         priority: Priority.high,
-  //         icon: '@drawable/ic_logo',
-  //       );
-
-  //   const NotificationDetails notificationDetails = NotificationDetails(
-  //     android: androidDetails,
-  //   );
-
-  //   await _notificationsPlugin.show(
-  //     message.hashCode,
-  //     message.notification?.title ?? 'Thông báo',
-  //     message.notification?.body ?? '',
-  //     notificationDetails,
-  //   );
-  // }
 
   static Future<void> showNotification({
     required String title,
     required String body,
   }) async {
+    // Nếu người dùng đã tắt thông báo thì không hiện
+    if (!AppGetStorage.isNotificationEnabled()) return;
+
+    await initialize();
+
     const androidDetails = AndroidNotificationDetails(
-      "default_channel_id",
-      'MY FOREGROUND SERVICE',
-      channelDescription: 'This channel is used for important notifications.',
+      NotificationConstants.defaultNotificationChannelId,
+      NotificationConstants.defaultNotificationChannelName,
+      channelDescription:
+          NotificationConstants.defaultNotificationChannelDescription,
       importance: Importance.max,
       priority: Priority.high,
       icon: '@drawable/i_logo',
@@ -57,7 +36,7 @@ class NotificationUtils {
     const notificationDetails = NotificationDetails(android: androidDetails);
 
     await flutterLocalNotificationsPlugin.show(
-      DateTime.now().millisecondsSinceEpoch ~/ 1000, // ID riêng cho mỗi lần
+      DateTime.now().millisecondsSinceEpoch ~/ 1000,
       title,
       body,
       notificationDetails,

@@ -4,16 +4,6 @@ import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
-/// Default [FirebaseOptions] for use with your Firebase apps.
-///
-/// Example:
-/// ```dart
-/// import 'firebase_options.dart';
-/// // ...
-/// await Firebase.initializeApp(
-///   options: DefaultFirebaseOptions.currentPlatform,
-/// );
-/// ```
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -64,8 +54,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '35644670840',
     projectId: 'bookara-cfa06',
     storageBucket: 'bookara-cfa06.firebasestorage.app',
-    androidClientId: '35644670840-qo48n607regsdgbpehn24ljd3us902ja.apps.googleusercontent.com',
-    iosClientId: '35644670840-tkqm0cid2d8hcnnpf90mnso1jt6o72km.apps.googleusercontent.com',
+    androidClientId:
+        '35644670840-qo48n607regsdgbpehn24ljd3us902ja.apps.googleusercontent.com',
+    iosClientId:
+        '35644670840-tkqm0cid2d8hcnnpf90mnso1jt6o72km.apps.googleusercontent.com',
     iosBundleId: 'com.example.bookara',
   );
 
@@ -75,8 +67,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '35644670840',
     projectId: 'bookara-cfa06',
     storageBucket: 'bookara-cfa06.firebasestorage.app',
-    androidClientId: '35644670840-qo48n607regsdgbpehn24ljd3us902ja.apps.googleusercontent.com',
-    iosClientId: '35644670840-tkqm0cid2d8hcnnpf90mnso1jt6o72km.apps.googleusercontent.com',
+    androidClientId:
+        '35644670840-qo48n607regsdgbpehn24ljd3us902ja.apps.googleusercontent.com',
+    iosClientId:
+        '35644670840-tkqm0cid2d8hcnnpf90mnso1jt6o72km.apps.googleusercontent.com',
     iosBundleId: 'com.example.bookara',
   );
 

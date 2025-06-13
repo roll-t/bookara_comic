@@ -1,12 +1,12 @@
 import 'package:bookara/app_binding.dart';
 import 'package:bookara/core/lang/translation_service.dart';
-import 'package:bookara/core/service/firebase/realtime_service.dart';
-import 'package:bookara/core/storage/app_get_storage.dart';
-import 'package:bookara/notification_service.dart';
+import 'package:bookara/core/config/firebase/realtime_service.dart';
+import 'package:bookara/core/data/local/app_get_storage.dart';
+import 'package:bookara/core/config/notification/notification_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'firebase_options.dart';
-import 'background_service.dart';
+import 'core/config/firebase/firebase_options.dart';
+import 'core/config/notification/background_service.dart';
 
 Future<void> configs() async {
   WidgetsFlutterBinding.ensureInitialized();

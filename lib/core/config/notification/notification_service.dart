@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:bookara/core/data/local/app_get_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationService {
@@ -84,5 +86,20 @@ class NotificationService {
       message.notification?.body ?? '',
       notificationDetails,
     );
+  }
+
+  Future<void> toggleNotification(bool enabled) async {
+    AppGetStorage.setNotificationEnabled(enabled);
+
+    final service = FlutterBackgroundService();
+
+    if (enabled) {
+      await service.startService();
+      await NotificationService.initialize();
+    } else {
+      service.invoke("stopService"); // ✅ gửi tín hiệu
+      await _notificationsPlugin.cancelAll(); // ✅ xoá thông báo
+      await _messaging.setAutoInitEnabled(false); // ✅ tắt fcm tự init
+    }
   }
 }

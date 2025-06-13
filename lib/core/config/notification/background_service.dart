@@ -1,21 +1,19 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:bookara/core/config/const/notification_constants.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
-const notificationChannelId = 'my_foreground';
-const notificationId = 888;
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 Future<void> initialBackgroundService() async {
   final service = FlutterBackgroundService();
+
   // Tạo kênh thông báo cho Android
   const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    notificationChannelId,
-    'MY FOREGROUND SERVICE',
-    description: 'This channel is used for important notifications.',
+    NotificationConstants.notificationChannelId,
+    NotificationConstants.defaultNotificationChannelName,
     importance: Importance.min,
   );
 
@@ -29,12 +27,10 @@ Future<void> initialBackgroundService() async {
   await service.configure(
     androidConfiguration: AndroidConfiguration(
       onStart: onStart,
-      autoStart: true,
+      autoStart: false,
       isForegroundMode: true,
-      notificationChannelId: notificationChannelId,
-      // initialNotificationTitle: 'Dịch vụ đang chạy',
-      // initialNotificationContent: 'Đang chờ gửi thông báo...',
-      foregroundServiceNotificationId: notificationId,
+      notificationChannelId: NotificationConstants.notificationChannelId,
+      foregroundServiceNotificationId: NotificationConstants.notificationId,
     ),
     iosConfiguration: IosConfiguration(),
   );
@@ -48,5 +44,10 @@ void onStart(ServiceInstance service) {
 
   if (service is AndroidServiceInstance) {
     service.setAsForegroundService();
+
+    // 👇 Lắng nghe sự kiện stopService
+    service.on("stopService").listen((event) {
+      service.stopSelf();
+    });
   }
 }
