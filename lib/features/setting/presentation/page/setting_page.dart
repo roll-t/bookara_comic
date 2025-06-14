@@ -32,6 +32,8 @@ class SettingPage extends GetView<SettingController> {
           _buildLanguageOption(),
           const SizedBox(height: 12),
           _buildPrimaryTheme(),
+          const SizedBox(height: 12),
+          _buildNotificationOption(),
         ],
       ),
     );
@@ -48,6 +50,18 @@ class SettingPage extends GetView<SettingController> {
     return _buildSettingContainer(
       title: AppContent.dark.tr,
       trailing: const ToggleThemeModeWidget(),
+    );
+  }
+
+  Widget _buildNotificationOption() {
+    return Obx(
+      () => _buildSettingContainer(
+        title: "Thông báo",
+        trailing: Switch(
+          value: controller.isNotificationEnabled.value,
+          onChanged: controller.toggleNotification,
+        ),
+      ),
     );
   }
 
