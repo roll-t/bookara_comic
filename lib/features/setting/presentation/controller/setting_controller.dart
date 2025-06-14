@@ -1,5 +1,5 @@
-import 'package:bookara/core/config/notification/notification_service.dart';
 import 'package:bookara/core/data/local/app_get_storage.dart';
+import 'package:bookara/core/services/notification/notification_service.dart';
 import 'package:bookara/core/utils/mixin_controller/language_mixin_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

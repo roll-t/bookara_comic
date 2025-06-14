@@ -10,7 +10,7 @@ import 'package:bookara/features/notFound/page/not_found_page.dart';
 import 'package:bookara/features/setting/di/setting_binding.dart';
 import 'package:bookara/features/setting/presentation/page/setting_page.dart';
 import 'package:bookara/features/splash/di/splash_binding.dart';
-import 'package:bookara/features/splash/page/splash_page.dart';
+import 'package:bookara/features/splash/presentation/page/splash_page.dart';
 import 'package:get/get.dart';
 
 final appPage = [

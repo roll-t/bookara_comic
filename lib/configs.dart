@@ -1,27 +1,29 @@
 import 'package:bookara/app_binding.dart';
-import 'package:bookara/core/lang/translation_service.dart';
-import 'package:bookara/core/config/firebase/realtime_service.dart';
 import 'package:bookara/core/data/local/app_get_storage.dart';
-import 'package:bookara/core/config/notification/notification_service.dart';
+import 'package:bookara/core/lang/translation_service.dart';
+import 'package:bookara/core/services/firebase/realtime_service.dart';
+import 'package:bookara/core/services/notification/notification_service.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'core/config/firebase/firebase_options.dart';
-import 'core/config/notification/background_service.dart';
+import 'package:get/get.dart';
+
+import 'core/services/firebase/firebase_options.dart';
 
 Future<void> configs() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  await AppGetStorage.init();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  // Khởi tạo Firebase Messaging
-  await NotificationService.initialize();
+  // Nếu chưa được đăng ký thì mới tạo
+  if (!Get.isRegistered<NotificationService>()) {
+    Get.put(NotificationService());
+  }
 
-  await initialBackgroundService();
+  // Sau đó mới gọi hàm
+  final notificationService = Get.find<NotificationService>();
+  await notificationService.initialize();
 
   // Cấu hình thông báo realtime
   listenToRealtimeDatabase();
-
-  await AppGetStorage.init();
 
   // Lấy ngôn ngữ mặc định, mặc định là tiếng Anh
   String language = AppGetStorage.getLanguage();
