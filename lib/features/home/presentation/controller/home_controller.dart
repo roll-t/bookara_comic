@@ -36,8 +36,6 @@ class HomeController extends GetxController {
       'message': message,
       'createdAt': DateTime.now().toIso8601String(),
     });
-
-    Get.snackbar("Thành công", "Đã gửi thông báo qua Realtime DB");
   }
 
   @override

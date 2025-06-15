@@ -5,6 +5,6 @@
     "source.fixAll": "true"
   },
   "[dart]": {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": false
   }
 }

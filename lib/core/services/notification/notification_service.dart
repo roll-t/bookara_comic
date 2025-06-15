@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:ui';
 
+import 'package:bookara/core/config/app_logger.dart';
 import 'package:bookara/core/data/local/app_get_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -23,10 +24,22 @@ const _defaultNotificationDetails = NotificationDetails(
 );
 
 Future<void> initializeLocalNotifications() async {
-  const settings = InitializationSettings(
-    android: AndroidInitializationSettings('@drawable/i_logo'),
-  );
+  const androidSettings = AndroidInitializationSettings('@drawable/i_logo');
+  const settings = InitializationSettings(android: androidSettings);
   await _localNoti.initialize(settings);
+
+  // 👇 Thêm đoạn này để tạo channel
+  const androidChannel = AndroidNotificationChannel(
+    'loop_channel_id',
+    'Bookara Foreground Service',
+    description: 'Thông báo khi chạy nền',
+    importance: Importance.high,
+  );
+  await _localNoti
+      .resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin
+      >()
+      ?.createNotificationChannel(androidChannel);
 }
 
 Future<void> showNotification({
@@ -45,7 +58,7 @@ Future<void> showNotification({
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   await initializeLocalNotifications();
-  log("📩 [Background] ${message.notification?.title}");
+  AppLogger.i("📩 [Background] ${message.notification?.title}");
   await showNotification(
     title: message.notification?.title ?? 'Thông báo',
     body: message.notification?.body ?? '',
@@ -58,9 +71,7 @@ void onStartServiceBackground(ServiceInstance service) async {
   DartPluginRegistrant.ensureInitialized();
   await Firebase.initializeApp();
   await initializeLocalNotifications();
-
   log("✅ Background service started");
-
   FirebaseDatabase.instance
       .ref()
       .child('notifications')

@@ -1,6 +1,7 @@
 import 'package:bookara/core/config/const/app_content.dart';
 import 'package:bookara/core/config/const/app_dimens.dart';
 import 'package:bookara/core/config/enum.dart';
+import 'package:bookara/core/config/feature_configs.dart';
 import 'package:bookara/core/config/theme/app_theme_colors.dart';
 import 'package:bookara/core/ui/widgets/text_widget.dart';
 import 'package:bookara/features/setting/presentation/controller/setting_controller.dart';
@@ -12,71 +13,87 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SettingPage extends GetView<SettingController> {
-  static String routeName = "/settings";
+  static const String routeName = "/settings";
   const SettingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: TextWidget(
-          text: AppContent.settings.tr,
-          size: AppDimens.fontSizeAppBar,
+        title: Text(
+          AppContent.settings.tr,
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge?.copyWith(fontSize: AppDimens.fontSizeAppBar),
         ),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
-        children: [
-          _buildThemeOption(),
-          const SizedBox(height: 12),
-          _buildLanguageOption(),
-          const SizedBox(height: 12),
-          _buildPrimaryTheme(),
-          const SizedBox(height: 12),
-          _buildNotificationOption(),
-        ],
+        children: _buildSettingsList(),
       ),
     );
   }
 
-  Widget _buildPrimaryTheme() {
-    return _buildSettingContainer(
-      title: AppContent.theme.tr,
-      trailing: SelectPrimaryThemeWidget(width: 30.w),
-    );
-  }
+  List<Widget> _buildSettingsList() {
+    final List<Widget> widgets = [];
 
-  Widget _buildThemeOption() {
-    return _buildSettingContainer(
-      title: AppContent.dark.tr,
-      trailing: const ToggleThemeModeWidget(),
-    );
-  }
-
-  Widget _buildNotificationOption() {
-    return Obx(
-      () => _buildSettingContainer(
-        title: "Thông báo",
-        trailing: Switch(
-          value: controller.isNotificationEnabled.value,
-          onChanged: controller.toggleNotification,
+    if (FeatureConfigs.isThemeSwitchEnabled) {
+      widgets.addAll([
+        const SettingItemWidget(
+          titleKey: AppContent.dark,
+          trailing: ToggleThemeModeWidget(),
         ),
-      ),
-    );
-  }
+        const SizedBox(height: 12),
+        SettingItemWidget(
+          titleKey: AppContent.theme,
+          trailing: SelectPrimaryThemeWidget(width: 30.w),
+        ),
+        const SizedBox(height: 12),
+      ]);
+    }
 
-  Widget _buildLanguageOption() {
-    return _buildSettingContainer(
-      title: AppContent.language.tr,
-      trailing: SelectLanguageWidget(controller: controller, width: 30.w),
-    );
-  }
+    if (FeatureConfigs.isSwitchLanguageEnanled) {
+      widgets.addAll([
+        SettingItemWidget(
+          titleKey: AppContent.language,
+          trailing: SelectLanguageWidget(controller: controller, width: 30.w),
+        ),
+        const SizedBox(height: 12),
+      ]);
+    }
 
-  Widget _buildSettingContainer({
-    required String title,
-    required Widget trailing,
-    Color? backgroundColor,
-  }) {
+    if (FeatureConfigs.isNotificationEnabled) {
+      widgets.add(
+        Obx(
+          () => SettingItemWidget(
+            titleKey: 'notification',
+            trailing: Switch(
+              value: controller.isNotificationEnabled.value,
+              onChanged: controller.toggleNotification,
+            ),
+          ),
+        ),
+      );
+    }
+
+    return widgets;
+  }
+}
+
+class SettingItemWidget extends StatelessWidget {
+  final String titleKey;
+  final Widget trailing;
+  final Color? backgroundColor;
+
+  const SettingItemWidget({
+    super.key,
+    required this.titleKey,
+    required this.trailing,
+    this.backgroundColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       decoration: BoxDecoration(
@@ -88,7 +105,7 @@ class SettingPage extends GetView<SettingController> {
         children: [
           Expanded(
             child: TextWidget(
-              text: title,
+              text: titleKey.tr,
               transform: TextTransformType.capitalizeWords,
             ),
           ),

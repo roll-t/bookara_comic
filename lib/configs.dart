@@ -1,39 +1,19 @@
 import 'package:bookara/app_binding.dart';
-import 'package:bookara/core/data/local/app_get_storage.dart';
-import 'package:bookara/core/lang/translation_service.dart';
-import 'package:bookara/core/services/firebase/realtime_service.dart';
-import 'package:bookara/core/services/notification/notification_service.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:get/get.dart';
-
-import 'core/services/firebase/firebase_options.dart';
+import 'package:bookara/core/config/app_logger.dart';
+import 'package:bookara/core/config/load_env.dart';
+import 'package:bookara/core/data/local/storage_configs.dart';
+import 'package:bookara/core/lang/language_configs.dart';
+import 'package:bookara/core/services/firebase/firebase_config.dart';
+import 'package:bookara/core/services/notification/notification_config.dart';
+import 'package:flutter/material.dart';
 
 Future<void> configs() async {
-  await AppGetStorage.init();
-
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  // Nếu chưa được đăng ký thì mới tạo
-  if (!Get.isRegistered<NotificationService>()) {
-    Get.put(NotificationService());
-  }
-
-  // Sau đó mới gọi hàm
-  final notificationService = Get.find<NotificationService>();
-  await notificationService.initialize();
-
-  // Cấu hình thông báo realtime
-  listenToRealtimeDatabase();
-
-  // Lấy ngôn ngữ mặc định, mặc định là tiếng Anh
-  String language = AppGetStorage.getLanguage();
-
-  // Thiết lập ngôn ngữ sử dụng dịch vụ localization của bạn
-  LocalizationService.changeLocale(language == 'English' ? 'en' : 'vi');
-
-  // Ví dụ sử dụng
-  AppGetStorage.printCacheSize();
-
-  // Khởi tạo các ràng buộc
+  WidgetsFlutterBinding.ensureInitialized();
+  await loadEnv();
+  AppLogger.init();
   AppBinding().dependencies();
+  await storageConfigs();
+  await firebaseConfigs();
+  await notificationConfigs();
+  await languageConfigs();
 }
