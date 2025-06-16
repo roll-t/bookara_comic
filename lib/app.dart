@@ -17,7 +17,6 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeController = Get.find<ThemeController>();
-
     return ResponsiveSizer(
       builder: (context, orientation, screenType) {
         Rx<AppColorScheme> colorScheme = themeController.appColorScheme;
