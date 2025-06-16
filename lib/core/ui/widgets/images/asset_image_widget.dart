@@ -25,15 +25,13 @@ class AssetImageWidget extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
-      errorBuilder: (context, error, stackTrace) =>
-          errorWidget ?? const Icon(Icons.broken_image),
+      errorBuilder:
+          (context, error, stackTrace) =>
+              errorWidget ?? const Icon(Icons.broken_image),
     );
 
     if (borderRadius != null) {
-      image = ClipRRect(
-        borderRadius: borderRadius!,
-        child: image,
-      );
+      image = ClipRRect(borderRadius: borderRadius!, child: image);
     }
 
     return image;

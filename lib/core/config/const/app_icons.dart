@@ -6,4 +6,5 @@ class AppIcons {
   static String icHome = "${_root}ic_home$_ext";
   static String icCategory = "${_root}ic_category$_ext";
   static String icNotUrl = "${_root}ic_not_url$_ext";
+  static String icPointer = "${_root}ic_pointer$_ext";
 }

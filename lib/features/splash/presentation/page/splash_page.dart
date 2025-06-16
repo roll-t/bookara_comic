@@ -19,9 +19,10 @@ class SplashPage extends GetView<SplashController> {
       body: Stack(
         children: [
           Obx(() {
+            final state = controller.state.value;
             return AnimatedPositioned(
-              top: controller.top.value,
-              left: controller.left.value,
+              top: state.top,
+              left: state.left,
               duration: const Duration(seconds: 2),
               curve: Curves.easeInOutBack,
               child: Container(
@@ -42,12 +43,13 @@ class SplashPage extends GetView<SplashController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Obx(() {
+                  final state = controller.state.value;
                   return AnimatedPadding(
                     duration: const Duration(milliseconds: 2000),
                     curve: Curves.easeInOutBack,
                     padding: EdgeInsets.only(
                       right: 150.0,
-                      left: controller.logoPaddingLeft.value,
+                      left: state.logoPaddingLeft,
                     ),
                     child: ScaleTransition(
                       scale: controller.scaleAnimation,
@@ -61,18 +63,20 @@ class SplashPage extends GetView<SplashController> {
               ],
             ),
           ),
+
           Positioned(
             left: 0,
             right: 0,
             top: 0,
             bottom: 0,
             child: Obx(() {
+              final state = controller.state.value;
               return AnimatedOpacity(
-                opacity: controller.textOpacity.value,
+                opacity: state.textOpacity,
                 duration: const Duration(milliseconds: 800),
                 child: Padding(
                   padding: EdgeInsets.only(
-                    right: controller.logoPaddingLeft.value,
+                    right: state.logoPaddingLeft,
                     left: 180.0,
                   ),
                   child: SizedBox(
@@ -87,10 +91,11 @@ class SplashPage extends GetView<SplashController> {
                             text: "Cần Thơ Ăn Gì?",
                             size: 20,
                             fontWeight: FontWeight.bold,
+                            fontFamily: "PaytoneOne",
                             color: AppColors.black,
                           ),
                           AnimatedOpacity(
-                            opacity: controller.loadOpacity.value,
+                            opacity: state.loadOpacity,
                             duration: const Duration(milliseconds: 800),
                             child: LoadingAnimationWidget.progressiveDots(
                               size: 30,
@@ -105,14 +110,16 @@ class SplashPage extends GetView<SplashController> {
               );
             }),
           ),
+
           Obx(() {
+            final state = controller.state.value;
             return AnimatedPositioned(
-              right: controller.right.value,
-              bottom: controller.bottom.value,
+              right: state.right,
+              bottom: state.bottom,
               duration: const Duration(seconds: 2),
               curve: Curves.easeInOutBack,
               child: ScaleTransition(
-                scale: controller.scaleCicelAnimation,
+                scale: controller.scaleCircleAnimation,
                 child: Container(
                   decoration: BoxDecoration(
                     color: AppThemeColors.primary,

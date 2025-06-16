@@ -1,12 +1,13 @@
 import 'package:bookara/core/config/const/app_dimens.dart';
 import 'package:bookara/core/config/enum.dart';
+import 'package:bookara/core/config/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TextWidget extends StatelessWidget {
   final String text;
   final double? size;
-  final Color? color;
+  final Color color;
   final int? maxLines;
   final TextAlign? textAlign;
   final FontWeight? fontWeight;
@@ -22,7 +23,7 @@ class TextWidget extends StatelessWidget {
     this.listShadow,
     this.maxLines = 1000,
     required this.text,
-    this.color,
+    this.color = AppColors.black,
     this.size = AppDimens.fontSizeMedium,
     this.fontWeight = FontWeight.normal,
     this.fontStyle = FontStyle.normal,
