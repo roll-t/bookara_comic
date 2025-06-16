@@ -25,15 +25,10 @@ class HomeController extends GetxController {
 
   /// Gửi thông báo qua Firebase Realtime Database
   Future<void> addNotification(String title, String message) async {
-    if (title.trim().isEmpty || message.trim().isEmpty) {
-      Get.snackbar("Lỗi", "Không được để trống tiêu đề hoặc nội dung");
-      return;
-    }
-
     final notiRef = FirebaseDatabase.instance.ref("notifications");
     await notiRef.push().set({
-      'title': title,
-      'message': message,
+      'title': "Thông báo",
+      'message': "Thử nghiệm thông báo",
       'createdAt': DateTime.now().toIso8601String(),
     });
   }

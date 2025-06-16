@@ -18,12 +18,12 @@
             ]
         },
         {
-            "name": "bookara (profile)",
+            "name": "bookara (test)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile",
             "args": [
-                "--dart-define=ENV=prod"
+                "--dart-define=ENV=test"
             ]
         },
         {

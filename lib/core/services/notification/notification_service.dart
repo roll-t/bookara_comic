@@ -12,7 +12,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 final FlutterLocalNotificationsPlugin _localNoti =
     FlutterLocalNotificationsPlugin();
-
+    
 const _defaultNotificationDetails = NotificationDetails(
   android: AndroidNotificationDetails(
     'default_channel_id',
@@ -24,6 +24,7 @@ const _defaultNotificationDetails = NotificationDetails(
 );
 
 Future<void> initializeLocalNotifications() async {
+     
   const androidSettings = AndroidInitializationSettings('@drawable/i_logo');
   const settings = InitializationSettings(android: androidSettings);
   await _localNoti.initialize(settings);
@@ -36,7 +37,7 @@ Future<void> initializeLocalNotifications() async {
     importance: Importance.high,
   );
   await _localNoti
-      .resolvePlatformSpecificImplementation<
+      .resolvePlatformSpecificImplementation< 
         AndroidFlutterLocalNotificationsPlugin
       >()
       ?.createNotificationChannel(androidChannel);
@@ -71,7 +72,7 @@ void onStartServiceBackground(ServiceInstance service) async {
   DartPluginRegistrant.ensureInitialized();
   await Firebase.initializeApp();
   await initializeLocalNotifications();
-  log("✅ Background service started");
+  AppLogger.i("✅ Background service started");
   FirebaseDatabase.instance
       .ref()
       .child('notifications')
@@ -137,7 +138,7 @@ class NotificationService {
     await initializeLocalNotifications();
 
     final token = await _messaging.getToken();
-    log("🔑 FCM Token: $token");
+    AppLogger.i("🔑 FCM Token: $token");
 
     FirebaseMessaging.onMessage.listen((message) {
       log('📩 [Foreground] ${message.notification?.title}');
