@@ -3,7 +3,7 @@ import 'package:bookara/core/config/const/app_dimens.dart';
 import 'package:bookara/core/config/enum.dart';
 import 'package:bookara/core/config/feature_configs.dart';
 import 'package:bookara/core/config/theme/app_theme_colors.dart';
-import 'package:bookara/core/ui/widgets/text_widget.dart';
+import 'package:bookara/core/ui/widgets/texts/text_widget.dart';
 import 'package:bookara/features/setting/presentation/controller/setting_controller.dart';
 import 'package:bookara/features/setting/presentation/widget/select_language_widget.dart';
 import 'package:bookara/features/setting/presentation/widget/select_primary_theme_widget.dart';

@@ -1,7 +1,7 @@
 import 'package:bookara/core/config/const/app_content.dart';
 import 'package:bookara/core/config/enum.dart';
 import 'package:bookara/core/config/theme/app_color_scheme.dart';
-import 'package:bookara/core/ui/widgets/text_widget.dart';
+import 'package:bookara/core/ui/widgets/texts/text_widget.dart';
 import 'package:bookara/features/theme/controller/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -23,6 +23,8 @@ final appPage = [
     name: MainPage.routeName,
     page: () => const MainPage(),
     binding: MainBinding(),
+    transition: Transition.fade,
+    transitionDuration: const Duration(milliseconds: 800),
   ),
   GetPage(name: NotFoundPage.routeName, page: () => const NotFoundPage()),
   GetPage(
