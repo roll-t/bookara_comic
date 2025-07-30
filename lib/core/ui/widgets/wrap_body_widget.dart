@@ -1,0 +1,61 @@
+import 'package:bookara/core/config/theme/app_colors.dart';
+import 'package:flutter/material.dart';
+
+class WrapBodyWidget extends StatelessWidget {
+  final Widget child;
+  final EdgeInsets padding;
+  final Widget? header;
+  final Color backgroundColor;
+  final Color backgroundHeader;
+  final bool isMaxHeight;
+  const WrapBodyWidget({
+    super.key,
+    required this.child,
+    this.header,
+    this.isMaxHeight = false,
+    this.backgroundColor = AppColors.white,
+    this.backgroundHeader = AppColors.white,
+    this.padding = const EdgeInsets.all(12),
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: backgroundColor,
+        border: Border.all(
+          width: .5,
+          color: AppColors.text200,
+        ),
+      ),
+      child: Column(
+        mainAxisSize: isMaxHeight ? MainAxisSize.max : MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (header != null) ...[
+            Container(
+              decoration: BoxDecoration(
+                  color: backgroundHeader,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  )),
+              padding: padding,
+              child: header,
+            ),
+            Divider(
+              height: 0.5,
+              thickness: 0.5,
+              color: AppColors.text300.withValues(alpha: .7),
+            ),
+          ],
+          Container(
+            padding: padding,
+            child: child,
+          ),
+        ],
+      ),
+    );
+  }
+}

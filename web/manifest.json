@@ -1,6 +1,6 @@
 {
-    "name": "bookara",
-    "short_name": "bookara",
+    "name": "auto_fin",
+    "short_name": "auto_fin",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

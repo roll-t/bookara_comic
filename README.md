@@ -1,4 +1,4 @@
-# bookara
+# auto_fin
 
 A new Flutter project.
 
