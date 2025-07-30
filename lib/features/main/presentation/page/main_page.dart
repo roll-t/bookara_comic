@@ -1,7 +1,6 @@
 import 'package:bookara/core/config/theme/app_colors.dart';
 import 'package:bookara/core/extension/rx_extension.dart';
 import 'package:bookara/core/ui/widgets/dialogs/dialog_utils.dart';
-import 'package:bookara/features/dashboard/dashboard_page.dart';
 import 'package:bookara/features/main/presentation/controller/main_controller.dart';
 import 'package:bookara/features/main/presentation/widgets/bottom_navigation_bar_widget.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,7 @@ class MainPage extends GetView<MainController> {
       child: Scaffold(
         body: Navigator(
           key: Get.nestedKey(10),
-          initialRoute: DashboardPage.routeName,
+          initialRoute: "/nav-home-page",
           onGenerateRoute: (settings) => controller.onGenerateRoute(
             settings,
             parentContext: context,

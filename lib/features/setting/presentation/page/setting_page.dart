@@ -1,6 +1,6 @@
 import 'package:bookara/core/config/const/app_content.dart';
 import 'package:bookara/core/config/const/app_dimens.dart';
-import 'package:bookara/core/config/enum.dart';
+import 'package:bookara/core/config/const/enum.dart';
 import 'package:bookara/core/config/feature_configs.dart';
 import 'package:bookara/core/config/theme/app_theme_colors.dart';
 import 'package:bookara/core/ui/widgets/texts/text_widget.dart';

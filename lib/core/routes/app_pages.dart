@@ -1,8 +1,8 @@
 import 'package:bookara/core/routes/app_routes.dart';
-import 'package:bookara/features/auth/page/signin_page.dart';
-import 'package:bookara/features/auth/page/signup_page.dart';
-import 'package:bookara/features/dashboard/dashboard_binding.dart';
-import 'package:bookara/features/dashboard/dashboard_page.dart';
+import 'package:bookara/features/auth/presentation/page/signin_page.dart';
+import 'package:bookara/features/auth/presentation/page/signup_page.dart';
+import 'package:bookara/features/comic/dashboard_binding.dart';
+import 'package:bookara/features/comic/dashboard_page.dart';
 import 'package:bookara/features/main/di/main_binding.dart';
 import 'package:bookara/features/main/presentation/page/main_page.dart';
 import 'package:bookara/features/notFound/page/not_found_page.dart';

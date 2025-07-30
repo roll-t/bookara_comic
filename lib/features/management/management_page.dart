@@ -1,5 +1,5 @@
 import 'package:bookara/core/ui/styles/app_text_styles.dart';
-import 'package:bookara/core/ui/widgets/app_bar/main_appbar.dart';
+import 'package:bookara/core/ui/widgets/app_bar/custom_appbar.dart';
 import 'package:bookara/core/ui/widgets/item_menu_feature_widget.dart';
 import 'package:bookara/core/ui/widgets/standard_layout_widget.dart';
 import 'package:bookara/core/ui/widgets/texts/text_widget.dart';
@@ -16,7 +16,7 @@ class ManagementPage extends GetView<ManagementController> {
   @override
   Widget build(BuildContext context) {
     return StandardLayoutWidget(
-      appBar: const MainAppBar(title: "Quản Lý"),
+      appBar: const CustomAppBar(title: "Quản Lý"),
       bodyBuilder: SingleChildScrollView(
         child: Column(
           children: [

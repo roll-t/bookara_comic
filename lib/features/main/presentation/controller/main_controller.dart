@@ -1,7 +1,6 @@
-import 'package:bookara/features/dashboard/dashboard_binding.dart';
-import 'package:bookara/features/dashboard/dashboard_page.dart';
 import 'package:bookara/features/management/management_binding.dart';
 import 'package:bookara/features/management/management_page.dart';
+import 'package:bookara/features/navigation/presentation/page/nav_home_page.dart';
 import 'package:bookara/features/setting/di/setting_binding.dart';
 import 'package:bookara/features/setting/presentation/page/setting_page.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,7 @@ class MainController extends GetxController {
   final RxString currentTitle = "Báo cáo".obs;
 
   List<String> routeNames = [
-    DashboardPage.routeName,
+    const NavHomePage().routeName,
     ManagementPage.routeName,
     SettingPage.routeName,
   ];
@@ -21,13 +20,10 @@ class MainController extends GetxController {
   Route? onGenerateRoute(RouteSettings settings,
       {BuildContext? parentContext}) {
     switch (settings.name) {
-      case "/DashboardPage":
+      case "/nav-home-page":
         return GetPageRoute(
           settings: settings,
-          page: () => DashboardPage(
-            parentContext: parentContext,
-          ),
-          binding: DashboardBinding(),
+          page: () => const NavHomePage(),
           transition: Transition.fadeIn,
         );
       case '/ManagementPage':

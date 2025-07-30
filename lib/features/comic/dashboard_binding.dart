@@ -1,4 +1,4 @@
-import 'package:bookara/features/dashboard/dashboard_controller.dart';
+import 'package:bookara/features/comic/dashboard_controller.dart';
 import 'package:get/get.dart';
 
 class DashboardBinding extends Bindings {

@@ -1,5 +1,5 @@
 class AppIcons {
-  static const String _root = "assets/icons/";
+  static const String _root = "assets/vectors/";
   static const String _ext = ".svg";
 
   static String icSetting = "${_root}ic_setting$_ext";
@@ -25,35 +25,9 @@ class AppIcons {
   static String icList = "${_root}ic_list$_ext";
   static String icEditing = "${_root}ic_editing$_ext";
   static String icDelete = "${_root}ic_delete$_ext";
-
-  static String icProfig = "${_root}ic_profig.png";
-  static String icAllCar = "${_root}ic_all_car.png";
-  static String icCarInGaga = "${_root}ic_car_in_gaga.png";
-  static String icCarBuy = "${_root}ic_car_buy.png";
-  static String icAddCar = "${_root}ic_add_car.png";
-  static String icCarCategory = "${_root}ic_car_category.png";
-
-  static String icRetail = "${_root}ic_retail.png";
-  static String icGoldInventory = "${_root}ic_gold_inventory.png";
-  static String icExportGold = "${_root}ic_export_gold.png";
-  static String icFlowMoney = "${_root}ic_flow_money.png";
-
-  static String ic20Loan = "${_root}ic_20_loan.png";
-  static String icMonthlyPrincipalInterest =
-      "${_root}ic_monthly_principal_interest.png";
-  static String icReportDebt = "${_root}ic_report_debt.png";
-
-  static String icIncomeExpenseByCategory =
-      "${_root}ic_income_expense_by_category.png";
-  static String icReportWeeklyMonthly = "${_root}ic_report_weekly_monthly.png";
-
-  static String icSalary = "${_root}ic_salary.png";
-  static String icAttendance = "${_root}ic_attendance.png";
-  static String icRose = "${_root}ic_rose.png";
   static String icIncrease = "${_root}ic_increase$_ext";
   static String icDecrease = "${_root}ic_decrease$_ext";
   static String icChart = "${_root}ic_chart$_ext";
-
   static String icManage = "${_root}ic_manage$_ext";
   static String icCash = "${_root}ic_cash$_ext";
   static String icDate = "${_root}ic_date$_ext";

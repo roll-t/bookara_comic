@@ -1,36 +1,44 @@
 import 'dart:developer';
-
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
-mixin ArgumentHandlerMixinControlller<T> on GetxController {
-  late T argsData;
+mixin ArgumentHandlerMixinController<T> on GetxController {
+  T? _argsData;
 
-  ///---> Hàm xử lý khi nhận argument [Handle][Get]
+  /// Getter an toàn (nullable)
+  T? get argumentOrNull => _argsData;
+
+  /// Getter bắt buộc có args, nếu không sẽ throw
+  T get requireArgument {
+    if (_argsData == null) {
+      throw StateError('Argument has not been set or failed to parse.');
+    }
+    return _argsData!;
+  }
+
+  /// Gán argument thủ công
   bool handleArgument(Object? args) {
     if (args is T) {
-      argsData = args;
+      _argsData = args;
       return true;
     }
     return false;
   }
 
-  /// Hàm lấy trực tiếp Get.argument trong page r xử lý [Handle][Get.arguments]
+  /// Gán argument từ Get.arguments
   bool handleArgumentFromGet() {
     return handleArgument(Get.arguments);
   }
 
-  /// Truyền argument đi trang khác
+  /// Điều hướng và truyền argument
   void navigateWithArgument(String routeName, Object argument) {
     Get.toNamed(routeName, arguments: argument);
   }
 
-  /// Giải phóng tài nguyên trong mixin (nếu cần)
+  /// Dọn dẹp argument
   @mustCallSuper
   void disposeArgumentHandler() {
-    // Nếu cần dọn dẹp thêm thì thêm vào đây
-    // Ví dụ: reset args nếu cần
-    // args = null; // nếu để nullable
+    _argsData = null;
     log("🧹 [ArgumentHandlerMixin] Disposed");
   }
 }
