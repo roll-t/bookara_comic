@@ -10,7 +10,10 @@ class ToggleThemeModeWidget extends GetView<ThemeController> {
     return Obx(
       () => Switch(
         value: controller.themeMode.value == ThemeMode.dark,
-        onChanged: (value) => controller.toggleTheme(),
+        onChanged: (value) {
+          controller.toggleTheme();
+          controller.update(["THEME_SETTING_ID"]);
+        },
       ),
     );
   }

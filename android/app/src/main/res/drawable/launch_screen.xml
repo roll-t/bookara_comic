@@ -4,7 +4,7 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/i_logo"
+            android:src="@drawable/ic_launcher"
             android:tileMode="disabled"
             android:scaleType="centerInside" />
     </item>

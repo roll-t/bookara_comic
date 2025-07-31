@@ -1,6 +1,7 @@
 import 'package:bookara/core/config/const/app_content.dart';
 import 'package:bookara/core/config/const/enum.dart';
 import 'package:bookara/core/config/theme/app_color_scheme.dart';
+import 'package:bookara/core/config/theme/app_theme_colors.dart';
 import 'package:bookara/core/ui/widgets/texts/text_widget.dart';
 import 'package:bookara/features/theme/controller/theme_controller.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class SelectPrimaryThemeWidget extends GetView<ThemeController> {
             child: TextWidget(
               text: "${AppContent.theme.tr} ${theme.index + 1}",
               transform: TextTransformType.capitalizeWords,
+              color: AppThemeColors.text,
             ),
           );
         }).toList(),
@@ -31,7 +33,10 @@ class SelectPrimaryThemeWidget extends GetView<ThemeController> {
             controller.changePrimaryTheme(selectedTheme);
           }
         },
-        hint: const TextWidget(text: AppContent.selectThem),
+        hint: TextWidget(
+          text: AppContent.selectThem,
+          color: AppThemeColors.text,
+        ),
         isExpanded: width != null,
       ),
     );

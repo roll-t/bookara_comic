@@ -5,13 +5,11 @@ import 'package:bookara/core/utils/mixin_controller/language_mixin_controller.da
 import 'package:get/get.dart';
 
 class SettingController extends GetxController with LanguageMixinController {
-  final RxBool isNotificationEnabled =
-      AppGetStorage.isNotificationEnabled().obs;
+  final RxBool isNotificationEnabled = AppGetStorage.isNotificationEnabled().obs;
 
   void toggleNotification(bool value) {
     if (isNotificationEnabled.value == value) return;
     isNotificationEnabled.value = value;
-
     LoadingUtils.showOverlayLoading(
       asyncFunction: () => NotificationService().toggleNotification(value),
     );

@@ -23,7 +23,7 @@ class AppThemeColors {
 
   static Color get appBar => primaryTheme.appBar;
 
-  static Color get text => primaryTheme.textDark;
+  static Color get text => primaryTheme.text;
 
   static Color get textSecondary => primaryTheme.textSecondary;
 

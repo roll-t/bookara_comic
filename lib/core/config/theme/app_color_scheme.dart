@@ -13,6 +13,7 @@ class AppColorScheme {
   final Color card;
   final Color appBar;
 
+  final Color text;
   final Color textDark;
   final Color textLight;
 
@@ -42,6 +43,7 @@ class AppColorScheme {
     required this.surface,
     required this.card,
     required this.appBar,
+    required this.text,
     required this.textDark,
     required this.textLight,
     required this.textSecondary,
@@ -76,6 +78,7 @@ class AppColorThemeScheme {
           surface: AppColors.neutralColor6,
           card: AppColors.neutralColor5,
           appBar: AppColors.primary2_500,
+          text: AppColors.text700,
           textDark: AppColors.text700,
           textLight: AppColors.text200,
           textSecondary: AppColors.text500,
@@ -95,7 +98,7 @@ class AppColorThemeScheme {
 
       case AppColorTheme.theme2:
         return const AppColorScheme(
-          primary: AppColors.primary500,
+          primary: AppColors.primary2,
           secondary: AppColors.secondary500,
           error: AppColors.red,
           background300: AppColors.light300,
@@ -104,6 +107,7 @@ class AppColorThemeScheme {
           surface: AppColors.neutralColor2,
           card: AppColors.neutralColor3,
           appBar: AppColors.primary500,
+          text: AppColors.text700,
           textDark: AppColors.text700,
           textLight: AppColors.text200,
           textSecondary: AppColors.neutralColor5,
@@ -136,7 +140,8 @@ class AppColorThemeScheme {
           surface: AppColors.neutralColor6,
           card: AppColors.neutralColor5,
           appBar: AppColors.primary2_500,
-          textDark: AppColors.light300,
+          text: AppColors.light100,
+          textDark: AppColors.light100,
           textLight: AppColors.text100,
           textSecondary: AppColors.light200,
           textDisabled: AppColors.text300,
@@ -155,7 +160,7 @@ class AppColorThemeScheme {
 
       case AppColorTheme.theme2:
         return const AppColorScheme(
-          primary: AppColors.primary700,
+          primary: AppColors.primary2,
           secondary: AppColors.secondary500,
           error: AppColors.red,
           background300: AppColors.dark700,
@@ -164,6 +169,7 @@ class AppColorThemeScheme {
           surface: AppColors.neutralColor6,
           card: AppColors.neutralColor5,
           appBar: AppColors.primary2_500,
+          text: AppColors.light100,
           textDark: AppColors.light300,
           textLight: AppColors.text100,
           textSecondary: AppColors.light200,

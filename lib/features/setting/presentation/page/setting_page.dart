@@ -5,6 +5,7 @@ import 'package:bookara/features/setting/presentation/widget/select_language_wid
 import 'package:bookara/features/setting/presentation/widget/select_primary_theme_widget.dart';
 import 'package:bookara/features/setting/presentation/widget/setting_item_widget.dart';
 import 'package:bookara/features/setting/presentation/widget/toggle_theme_mode_widget.dart';
+import 'package:bookara/features/theme/controller/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -14,7 +15,12 @@ class SettingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const BodyBuilder();
+    return GetBuilder<ThemeController>(
+      id:"THEME_SETTING_ID",
+      builder: (_) {
+        return const BodyBuilder();
+      }
+    );
   }
 }
 

@@ -18,9 +18,12 @@ class SettingItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      padding: const EdgeInsets.symmetric(
+        vertical: 12,
+        horizontal: 16,
+      ),
       decoration: BoxDecoration(
-        color: backgroundColor ?? AppThemeColors.background100,
+        color: backgroundColor ?? AppThemeColors.background200,
         borderRadius: BorderRadius.circular(5),
       ),
       child: Row(
@@ -30,6 +33,7 @@ class SettingItemWidget extends StatelessWidget {
             child: TextWidget(
               text: titleKey.tr,
               transform: TextTransformType.capitalizeWords,
+              color: AppThemeColors.text,
             ),
           ),
           trailing,
