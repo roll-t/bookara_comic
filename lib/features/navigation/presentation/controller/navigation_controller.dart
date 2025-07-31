@@ -1,42 +1,39 @@
-import 'package:bookara/features/management/management_binding.dart';
-import 'package:bookara/features/management/management_page.dart';
-import 'package:bookara/features/navigation/presentation/page/nav_home_page.dart';
+import 'package:bookara/features/navigation/presentation/page/tabs/tab_bookcase.dart';
+import 'package:bookara/features/navigation/presentation/page/tabs/tab_comic_collection.dart';
+import 'package:bookara/features/navigation/presentation/page/tabs/tab_profile.dart';
 import 'package:bookara/features/setting/di/setting_binding.dart';
-import 'package:bookara/features/setting/presentation/page/setting_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-class MainController extends GetxController {
+class NavigationController extends GetxController {
   final RxInt currentPage = 0.obs;
   final RxString currentTitle = "Báo cáo".obs;
 
   List<String> routeNames = [
-    const NavHomePage().routeName,
-    ManagementPage.routeName,
-    SettingPage.routeName,
+    const TabComicCollection().routeName,
+    const TabBookcase().routeName,
+    const TabProfile().routeName,
   ];
 
-  Route? onGenerateRoute(RouteSettings settings,
-      {BuildContext? parentContext}) {
+  Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case "/nav-home-page":
+      case "/tab-comic-collection":
         return GetPageRoute(
           settings: settings,
-          page: () => const NavHomePage(),
+          page: () => const TabComicCollection(),
           transition: Transition.fadeIn,
         );
-      case '/ManagementPage':
+      case '/tab-bookcase':
         return GetPageRoute(
           settings: settings,
-          page: () => const ManagementPage(),
-          binding: ManagementBinding(),
+          page: () => const TabBookcase(),
           transition: Transition.fadeIn,
         );
-      case '/settings':
+      case '/tab-profile':
         return GetPageRoute(
           settings: settings,
-          page: () => const SettingPage(),
+          page: () => const TabProfile(),
           binding: SettingBinding(),
           transition: Transition.fadeIn,
         );

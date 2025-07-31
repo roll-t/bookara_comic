@@ -48,7 +48,7 @@ class ExpandSectionWidget extends StatelessWidget {
                     text: title,
                     size: 14,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.dark1,
+                    color: AppColors.neutralColor2,
                   ),
                 ),
                 Obx(() => Utils.iconSvg(

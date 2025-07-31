@@ -13,7 +13,9 @@ class AppThemeColors {
   static AppColorScheme get primaryTheme =>
       _themeController.appColorScheme.value;
 
-  static Color get background => primaryTheme.background;
+  static Color get background300 => primaryTheme.background300;
+  static Color get background200 => primaryTheme.background200;
+  static Color get background100 => primaryTheme.background100;
 
   static Color get surface => primaryTheme.surface;
 
@@ -21,7 +23,7 @@ class AppThemeColors {
 
   static Color get appBar => primaryTheme.appBar;
 
-  static Color get text => primaryTheme.textPrimary;
+  static Color get text => primaryTheme.textDark;
 
   static Color get textSecondary => primaryTheme.textSecondary;
 
@@ -35,26 +37,26 @@ class AppThemeColors {
 
   static Color get icon => primaryTheme.icon;
 
+  static Color get iconActive => primaryTheme.iconActive;
+  static Color get iconInActive => primaryTheme.iconInactive;
+
   static Color get iconInactive => primaryTheme.iconInactive;
 
   static Color get divider => primaryTheme.divider;
 
   static Color get border => primaryTheme.border;
 
-  static Color get highlight => primaryTheme.highlight;
+  static Color get light300 => primaryTheme.light300;
+  static Color get light200 => primaryTheme.light200;
+  static Color get light100 => primaryTheme.light100;
 
-  static Color get lightest => primaryTheme.lightest;
+  static Color get dark700 => primaryTheme.dark700;
+  static Color get dark500 => primaryTheme.dark500;
+  static Color get dark300 => primaryTheme.dark300;
 
-  static Color get lighter => primaryTheme.lighter;
+  static Color get textDark => primaryTheme.textDark;
 
-  static Color get light => primaryTheme.light;
+  static Color get textLight => primaryTheme.textLight;
 
-  static Color get dark => primaryTheme.dark;
-
-  static Color get darker => primaryTheme.darker;
-
-  static Color get darkest => primaryTheme.darkest;
-
-  // Optional: giữ lại màu disabled text cứng nếu dùng ngoài theme
   static Color get disabledText => AppColors.disabledText;
 }

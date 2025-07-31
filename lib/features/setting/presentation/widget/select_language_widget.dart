@@ -26,7 +26,7 @@ class SelectLanguageWidget extends StatelessWidget {
                 )
                 .toList(),
         onChanged: (value) => controller.setLanguage(value ?? ""),
-        dropdownColor: AppThemeColors.background,
+        dropdownColor: AppThemeColors.background100,
         isExpanded: width != null,
       ),
     );

@@ -12,7 +12,7 @@ class ThemeController extends GetxController {
 
   /// Scheme màu hiện tại (sẽ cập nhật mỗi khi thay đổi theme)
   Rx<AppColorScheme> appColorScheme =
-      AppColorThemeScheme.getColorScheme(AppColorTheme.theme1).obs;
+      AppColorThemeScheme.getColorSchemeLight(AppColorTheme.theme1).obs;
 
   @override
   void onInit() {
@@ -50,9 +50,15 @@ class ThemeController extends GetxController {
 
   /// Áp dụng scheme màu và theme
   void applyCurrentTheme() {
-    appColorScheme.value = AppColorThemeScheme.getColorScheme(
-      currentThemeIndex.value,
-    );
+    if (themeMode.value == ThemeMode.light) {
+      appColorScheme.value = AppColorThemeScheme.getColorSchemeLight(
+        currentThemeIndex.value,
+      );
+    } else if (themeMode.value == ThemeMode.dark) {
+      appColorScheme.value = AppColorThemeScheme.getColorSchemeDark(
+        currentThemeIndex.value,
+      );
+    }
 
     final ThemeData theme = themeMode.value == ThemeMode.dark
         ? AppTheme.dark(appColorScheme.value)

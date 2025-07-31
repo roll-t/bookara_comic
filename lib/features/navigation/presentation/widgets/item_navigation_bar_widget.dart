@@ -1,4 +1,4 @@
-import 'package:bookara/core/config/theme/app_colors.dart';
+import 'package:bookara/core/config/theme/app_theme_colors.dart';
 import 'package:bookara/core/utils/utils.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -35,11 +35,11 @@ BottomNavigationBarItem buildNavItem({
   return BottomNavigationBarItem(
     label: label.tr,
     icon: buildIcon(
-      AppColors.neutralColor1,
+      AppThemeColors.iconInActive,
       isActive: false,
     ),
     activeIcon: buildIcon(
-      AppColors.primary1_500,
+      AppThemeColors.iconActive,
       isActive: true,
     ),
   );

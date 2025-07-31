@@ -12,7 +12,7 @@ class SplashPage extends GetView<SplashController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppThemeColors.darkest,
+      backgroundColor: AppThemeColors.dark700,
       body: Center(
         child: FadeTransition(
           opacity: controller.opacityAnimation,
@@ -24,7 +24,7 @@ class SplashPage extends GetView<SplashController> {
               gradient: RadialGradient(
                 colors: [
                   AppThemeColors.primary,
-                  AppThemeColors.darkest,
+                  AppThemeColors.dark700,
                 ],
               ),
             ),
@@ -35,7 +35,7 @@ class SplashPage extends GetView<SplashController> {
                   TextWidget(
                     text: "WELCOME DUNGLAM",
                     size: 24,
-                    color: AppThemeColors.lightest,
+                    color: AppThemeColors.light100,
                     fontWeight: FontWeight.bold,
                   ),
                   Opacity(
@@ -52,7 +52,7 @@ class SplashPage extends GetView<SplashController> {
                               end: Alignment.topCenter,
                               stops: const [0.0, 0.9],
                               colors: [
-                                AppThemeColors.lightest.withValues(alpha: .3),
+                                AppThemeColors.light100.withValues(alpha: .3),
                                 Colors.transparent,
                               ],
                             ).createShader(bounds);
@@ -61,7 +61,7 @@ class SplashPage extends GetView<SplashController> {
                           child: TextWidget(
                             text: "WELCOME DUNGLAM",
                             size: 24,
-                            color: AppThemeColors.lightest,
+                            color: AppThemeColors.light100,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

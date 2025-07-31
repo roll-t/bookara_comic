@@ -79,7 +79,7 @@ class CustomTextField extends StatelessWidget {
     this.labelColor,
     this.borderRadius = 8,
     this.borderColor = AppColors.text400,
-    this.focusedBorderColor = AppColors.light1,
+    this.focusedBorderColor = AppColors.neutralColor6,
     this.disabledBorderColor = Colors.grey,
     this.errorBorderColor = Colors.red,
     this.borderWidth = .5,
@@ -178,7 +178,7 @@ class CustomTextField extends StatelessWidget {
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: labelColor ?? AppThemeColors.dark,
+              color: labelColor ?? AppThemeColors.text,
             ),
           ),
           const SizedBox(height: 6),
@@ -211,7 +211,7 @@ class CustomTextField extends StatelessWidget {
       enabled: enabled,
       onChanged: onChanged,
       style: TextStyle(
-        color: textColor ?? AppThemeColors.dark,
+        color: textColor ?? AppThemeColors.text,
         fontSize: textSize ?? 12,
       ),
       decoration: InputDecoration(

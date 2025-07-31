@@ -21,7 +21,7 @@ class SearchWidget extends StatelessWidget {
     return CustomTextField(  
       onChanged: onSearch,
       enableBorder: true,
-      borderColor: AppThemeColors.lighter,
+      borderColor: AppThemeColors.light100,
       borderWidth: 1,
       textSize: 14,
       hintText: hint,

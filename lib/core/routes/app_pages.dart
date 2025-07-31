@@ -1,13 +1,11 @@
 import 'package:bookara/core/routes/app_routes.dart';
-import 'package:bookara/features/auth/presentation/page/signin_page.dart';
-import 'package:bookara/features/auth/presentation/page/signup_page.dart';
+import 'package:bookara/features/auth/presentation/page/login/login_page.dart';
+import 'package:bookara/features/auth/presentation/page/register/register_page.dart';
 import 'package:bookara/features/comic/dashboard_binding.dart';
 import 'package:bookara/features/comic/dashboard_page.dart';
-import 'package:bookara/features/main/di/main_binding.dart';
-import 'package:bookara/features/main/presentation/page/main_page.dart';
+import 'package:bookara/features/navigation/di/navigation_binding.dart';
+import 'package:bookara/features/navigation/presentation/page/navigation_page.dart';
 import 'package:bookara/features/notFound/page/not_found_page.dart';
-import 'package:bookara/features/setting/di/setting_binding.dart';
-import 'package:bookara/features/setting/presentation/page/setting_page.dart';
 import 'package:bookara/features/splash/di/splash_binding.dart';
 import 'package:bookara/features/splash/presentation/page/splash_page.dart';
 import 'package:get/get.dart';
@@ -19,9 +17,9 @@ final appPage = [
     binding: SplashBinding(),
   ),
   GetPage(
-    name: MainPage.routeName,
-    page: () => const MainPage(),
-    binding: MainBinding(),
+    name: const NavigationPage().routeName,
+    page: () => const NavigationPage(),
+    binding: NavigationBinding(),
     transition: Transition.fade,
     transitionDuration: const Duration(milliseconds: 800),
   ),
@@ -36,15 +34,10 @@ final appPage = [
   ),
   GetPage(
     name: AppRoutes.signin,
-    page: () => const SigninPage(),
+    page: () => const LoginPage(),
   ),
   GetPage(
     name: AppRoutes.signup,
-    page: () => const SignupPage(),
-  ),
-  GetPage(
-    name: SettingPage.routeName,
-    page: () => const SettingPage(),
-    binding: SettingBinding(),
+    page: () => const RegisterPage(),
   ),
 ];

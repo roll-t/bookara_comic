@@ -33,4 +33,6 @@ class AppIcons {
   static String icDate = "${_root}ic_date$_ext";
   static String icFinance = "${_root}ic_finance$_ext";
   static String icPerson = "${_root}ic_person$_ext";
+  static String icBookcase = "${_root}ic_bookcase$_ext";
+  static String icBook = "${_root}ic_book$_ext";
 }

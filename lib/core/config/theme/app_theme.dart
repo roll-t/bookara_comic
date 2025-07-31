@@ -18,7 +18,7 @@ class AppTheme {
       ),
       brightness: Brightness.light,
       primaryColor: colors.primary,
-      scaffoldBackgroundColor: colors.background,
+      scaffoldBackgroundColor: colors.background200,
       appBarTheme: AppBarTheme(
         backgroundColor: colors.appBar,
         foregroundColor: Colors.white,
@@ -28,7 +28,7 @@ class AppTheme {
         backgroundColor: AppColors.primary1_500,
       ),
       textTheme: TextTheme(
-        bodyLarge: TextStyle(color: colors.textPrimary),
+        bodyLarge: TextStyle(color: colors.textDark),
         bodyMedium: TextStyle(color: colors.textSecondary),
       ),
       colorScheme: ColorScheme.light(

@@ -1,4 +1,4 @@
-import 'package:bookara/features/main/presentation/page/main_page.dart';
+import 'package:bookara/features/navigation/presentation/page/navigation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,7 +28,7 @@ class SplashController extends GetxController
     );
     animationController.forward();
     Future.delayed(const Duration(seconds: 3), () {
-      Get.offAllNamed(MainPage.routeName);
+      Get.offAllNamed(const NavigationPage().routeName);
     });
   }
 

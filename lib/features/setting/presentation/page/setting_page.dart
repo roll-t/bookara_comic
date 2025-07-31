@@ -1,42 +1,37 @@
 import 'package:bookara/core/config/const/app_content.dart';
-import 'package:bookara/core/config/const/app_dimens.dart';
-import 'package:bookara/core/config/const/enum.dart';
 import 'package:bookara/core/config/feature_configs.dart';
-import 'package:bookara/core/config/theme/app_theme_colors.dart';
-import 'package:bookara/core/ui/widgets/texts/text_widget.dart';
 import 'package:bookara/features/setting/presentation/controller/setting_controller.dart';
 import 'package:bookara/features/setting/presentation/widget/select_language_widget.dart';
 import 'package:bookara/features/setting/presentation/widget/select_primary_theme_widget.dart';
+import 'package:bookara/features/setting/presentation/widget/setting_item_widget.dart';
 import 'package:bookara/features/setting/presentation/widget/toggle_theme_mode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class SettingPage extends GetView<SettingController> {
-  static const String routeName = "/settings";
+class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppContent.settings.tr,
-          style: Theme.of(
-            context,
-          ).textTheme.titleLarge?.copyWith(fontSize: AppDimens.fontSizeAppBar),
-        ),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: _buildSettingsList(),
-      ),
+    return const BodyBuilder();
+  }
+}
+
+///---> [Body-builder]
+class BodyBuilder extends GetView<SettingController> {
+  const BodyBuilder({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: _buildSettingsList(),
     );
   }
 
+  ///---> [List-feature-setting]
   List<Widget> _buildSettingsList() {
     final List<Widget> widgets = [];
-
     if (FeatureConfigs.isThemeSwitchEnabled) {
       widgets.addAll([
         const SettingItemWidget(
@@ -52,7 +47,7 @@ class SettingPage extends GetView<SettingController> {
       ]);
     }
 
-    if (FeatureConfigs.isSwitchLanguageEnanled) {
+    if (FeatureConfigs.isSwitchLanguageEnabled) {
       widgets.addAll([
         SettingItemWidget(
           titleKey: AppContent.language,
@@ -75,43 +70,6 @@ class SettingPage extends GetView<SettingController> {
         ),
       );
     }
-
     return widgets;
-  }
-}
-
-class SettingItemWidget extends StatelessWidget {
-  final String titleKey;
-  final Widget trailing;
-  final Color? backgroundColor;
-
-  const SettingItemWidget({
-    super.key,
-    required this.titleKey,
-    required this.trailing,
-    this.backgroundColor,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      decoration: BoxDecoration(
-        color: backgroundColor ?? AppThemeColors.background,
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: TextWidget(
-              text: titleKey.tr,
-              transform: TextTransformType.capitalizeWords,
-            ),
-          ),
-          trailing,
-        ],
-      ),
-    );
   }
 }

@@ -15,7 +15,7 @@ class FeatureConfigs {
   static bool get isRealtimeEnabled =>
       _env['FEATURE_REALTIME']?.toLowerCase() == 'true';
 
-  static bool get isSwitchLanguageEnanled =>
+  static bool get isSwitchLanguageEnabled =>
       _env['FEATURE_LANGUEGE']?.toLowerCase() == 'true';
 
 }

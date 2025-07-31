@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:bookara/core/config/theme/app_colors.dart';
 
 class AppColorScheme {
@@ -7,181 +6,179 @@ class AppColorScheme {
   final Color secondary;
   final Color error;
 
-  final Color background;
+  final Color background300;
+  final Color background200;
+  final Color background100;
   final Color surface;
   final Color card;
   final Color appBar;
 
-  final Color textPrimary;
+  final Color textDark;
+  final Color textLight;
+
   final Color textSecondary;
   final Color textDisabled;
 
   final Color icon;
   final Color iconInactive;
+  final Color iconActive;
 
   final Color divider;
   final Color border;
-  final Color highlight;
-  final Color lightest;
-  final Color lighter;
-  final Color light;
-  final Color dark;
-  final Color darker;
-  final Color darkest;
+  final Color light300;
+  final Color light200;
+  final Color light100;
+  final Color dark700;
+  final Color dark500;
+  final Color dark300;
 
-  AppColorScheme({
+  const AppColorScheme({
     required this.primary,
     required this.secondary,
     required this.error,
-    required this.background,
+    required this.background300,
+    required this.background200,
+    required this.background100,
     required this.surface,
     required this.card,
     required this.appBar,
-    required this.textPrimary,
+    required this.textDark,
+    required this.textLight,
     required this.textSecondary,
     required this.textDisabled,
     required this.icon,
     required this.iconInactive,
+    required this.iconActive,
     required this.divider,
     required this.border,
-    required this.highlight,
-    required this.lighter,
-    required this.lightest,
-    required this.light,
-    required this.dark,
-    required this.darker,
-    required this.darkest,
+    required this.light300,
+    required this.light200,
+    required this.light100,
+    required this.dark700,
+    required this.dark500,
+    required this.dark300,
   });
 }
 
-enum AppColorTheme { theme1, theme2, theme3, theme4, theme5 }
+enum AppColorTheme { theme1, theme2 }
 
 class AppColorThemeScheme {
-  static AppColorScheme getColorScheme(AppColorTheme theme) {
+  static AppColorScheme getColorSchemeLight(AppColorTheme theme) {
     switch (theme) {
       case AppColorTheme.theme1:
-        return AppColorScheme(
+        return const AppColorScheme(
           primary: AppColors.primary700,
-          secondary: AppColors.secondary1_500,
+          secondary: AppColors.secondary500,
           error: AppColors.red,
-          background: AppColors.lightest1,
-          surface: AppColors.light1,
-          card: AppColors.dark1,
-          appBar: AppColors.primary500,
-          textPrimary: AppColors.lightest1,
-          textSecondary: AppColors.lighter1,
-          textDisabled: AppColors.light1,
-          icon: AppColors.lightest1,
-          iconInactive: AppColors.lighter1,
-          divider: AppColors.darker1,
-          border: AppColors.dark1,
-          highlight: AppColors.lightest1,
-          lightest: AppColors.lightest1,
-          lighter: AppColors.lighter1,
-          light: AppColors.light1,
-          dark: AppColors.dark1,
-          darker: AppColors.darker1,
-          darkest: AppColors.darkest1,
+          background300: AppColors.light300,
+          background200: AppColors.light200,
+          background100: AppColors.light100,
+          surface: AppColors.neutralColor6,
+          card: AppColors.neutralColor5,
+          appBar: AppColors.primary2_500,
+          textDark: AppColors.text700,
+          textLight: AppColors.text200,
+          textSecondary: AppColors.text500,
+          textDisabled: AppColors.text400,
+          icon: AppColors.text500,
+          iconActive: AppColors.primary700,
+          iconInactive: AppColors.text400,
+          divider: AppColors.neutralColor2,
+          border: AppColors.neutralColor2,
+          light300: AppColors.light300,
+          light200: AppColors.light200,
+          light100: AppColors.light100,
+          dark700: AppColors.dark700,
+          dark500: AppColors.dark500,
+          dark300: AppColors.dark300,
         );
 
       case AppColorTheme.theme2:
-        return AppColorScheme(
-          primary: AppColors.primary2,
-          secondary: AppColors.secondary2,
-          error: AppColors.error2,
-          background: AppColors.background1,
-          surface: AppColors.surface1,
-          card: AppColors.cardBackground2,
-          appBar: AppColors.primary2,
-          textPrimary: AppColors.text700,
-          textSecondary: AppColors.text600,
-          textDisabled: AppColors.text400,
-          icon: AppColors.primary2,
-          iconInactive: AppColors.text500,
-          divider: AppColors.divider1,
-          border: AppColors.border1,
-          highlight: AppColors.primary2,
-          lightest: AppColors.lightest1,
-          lighter: AppColors.lighter1,
-          light: AppColors.light1,
-          dark: AppColors.dark1,
-          darker: AppColors.darker1,
-          darkest: AppColors.darkest1,
+        return const AppColorScheme(
+          primary: AppColors.primary500,
+          secondary: AppColors.secondary500,
+          error: AppColors.red,
+          background300: AppColors.light300,
+          background200: AppColors.light200,
+          background100: AppColors.light100,
+          surface: AppColors.neutralColor2,
+          card: AppColors.neutralColor3,
+          appBar: AppColors.primary500,
+          textDark: AppColors.text700,
+          textLight: AppColors.text200,
+          textSecondary: AppColors.neutralColor5,
+          textDisabled: AppColors.neutralColor4,
+          icon: AppColors.neutralColor5,
+          iconActive: AppColors.primary700,
+          iconInactive: AppColors.text400,
+          divider: AppColors.neutralColor4,
+          border: AppColors.neutralColor4,
+          light300: AppColors.light300,
+          light200: AppColors.light200,
+          light100: AppColors.light100,
+          dark700: AppColors.dark700,
+          dark500: AppColors.dark500,
+          dark300: AppColors.dark300,
+        );
+    }
+  }
+
+  static AppColorScheme getColorSchemeDark(AppColorTheme theme) {
+    switch (theme) {
+      case AppColorTheme.theme1:
+        return const AppColorScheme(
+          primary: AppColors.primary700,
+          secondary: AppColors.secondary500,
+          error: AppColors.red,
+          background300: AppColors.dark700,
+          background200: AppColors.dark500,
+          background100: AppColors.dark300,
+          surface: AppColors.neutralColor6,
+          card: AppColors.neutralColor5,
+          appBar: AppColors.primary2_500,
+          textDark: AppColors.light300,
+          textLight: AppColors.text100,
+          textSecondary: AppColors.light200,
+          textDisabled: AppColors.text300,
+          icon: AppColors.text200,
+          iconActive: AppColors.primary700,
+          iconInactive: AppColors.text200,
+          divider: AppColors.neutralColor5,
+          border: AppColors.neutralColor5,
+          light300: AppColors.light300,
+          light200: AppColors.light200,
+          light100: AppColors.light100,
+          dark700: AppColors.dark700,
+          dark500: AppColors.dark500,
+          dark300: AppColors.dark300,
         );
 
-      case AppColorTheme.theme3:
-        return AppColorScheme(
-          primary: AppColors.primary3,
-          secondary: AppColors.secondary3,
-          error: AppColors.error1,
-          background: AppColors.background1,
-          surface: AppColors.surface1,
-          card: AppColors.cardBackground1,
-          appBar: AppColors.primary3,
-          textPrimary: AppColors.text700,
-          textSecondary: AppColors.text600,
-          textDisabled: AppColors.text400,
-          icon: AppColors.primary2,
-          iconInactive: AppColors.text500,
-          divider: AppColors.divider1,
-          border: AppColors.border1,
-          highlight: AppColors.primary3,
-          lightest: AppColors.lightest1,
-          lighter: AppColors.lighter1,
-          light: AppColors.light1,
-          dark: AppColors.dark1,
-          darker: AppColors.darker1,
-          darkest: AppColors.darkest1,
-        );
-
-      case AppColorTheme.theme4:
-        return AppColorScheme(
-          primary: AppColors.primary4,
-          secondary: AppColors.secondary4,
-          error: AppColors.error1,
-          background: AppColors.background1,
-          surface: AppColors.surface1,
-          card: AppColors.cardBackground1,
-          appBar: AppColors.primary4,
-          textPrimary: AppColors.text700,
-          textSecondary: AppColors.text600,
-          textDisabled: AppColors.text400,
-          icon: AppColors.primary2,
-          iconInactive: AppColors.text500,
-          divider: AppColors.divider1,
-          border: AppColors.border1,
-          highlight: AppColors.primary4,
-          lightest: AppColors.lightest1,
-          lighter: AppColors.lighter1,
-          light: AppColors.light1,
-          dark: AppColors.dark1,
-          darker: AppColors.darker1,
-          darkest: AppColors.darkest1,
-        );
-
-      case AppColorTheme.theme5:
-        return AppColorScheme(
-          primary: AppColors.primary5,
-          secondary: AppColors.secondary5,
-          error: AppColors.error1,
-          background: AppColors.background1,
-          surface: AppColors.surface1,
-          card: AppColors.cardBackground1,
-          appBar: AppColors.primary5,
-          textPrimary: AppColors.text700,
-          textSecondary: AppColors.text600,
-          textDisabled: AppColors.text400,
-          icon: AppColors.primary2,
-          iconInactive: AppColors.text500,
-          divider: AppColors.divider1,
-          border: AppColors.border1,
-          highlight: AppColors.primary5,
-          lightest: AppColors.lightest1,
-          lighter: AppColors.lighter1,
-          light: AppColors.light1,
-          dark: AppColors.dark1,
-          darker: AppColors.darker1,
-          darkest: AppColors.darkest1,
+      case AppColorTheme.theme2:
+        return const AppColorScheme(
+          primary: AppColors.primary700,
+          secondary: AppColors.secondary500,
+          error: AppColors.red,
+          background300: AppColors.dark700,
+          background200: AppColors.dark500,
+          background100: AppColors.dark300,
+          surface: AppColors.neutralColor6,
+          card: AppColors.neutralColor5,
+          appBar: AppColors.primary2_500,
+          textDark: AppColors.light300,
+          textLight: AppColors.text100,
+          textSecondary: AppColors.light200,
+          textDisabled: AppColors.text300,
+          icon: AppColors.text200,
+          iconActive: AppColors.primary700,
+          iconInactive: AppColors.text200,
+          divider: AppColors.neutralColor5,
+          border: AppColors.neutralColor5,
+          light300: AppColors.light300,
+          light200: AppColors.light200,
+          light100: AppColors.light100,
+          dark700: AppColors.dark700,
+          dark500: AppColors.dark500,
+          dark300: AppColors.dark300,
         );
     }
   }

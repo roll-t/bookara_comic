@@ -11,7 +11,7 @@ class AppContainerStyles {
           offset: const Offset(1, 1),
           blurRadius: 4,
           spreadRadius: 2,
-          color: AppColors.darkest1.withValues(alpha: .1),
+          color: AppColors.neutralColor2.withValues(alpha: .1),
         ),
       ],
     );

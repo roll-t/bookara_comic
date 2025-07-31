@@ -1,3 +1,5 @@
+import 'package:bookara/core/config/theme/app_theme_colors.dart';
+import 'package:bookara/core/ui/widgets/app_bar/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recase/recase.dart';
@@ -11,16 +13,16 @@ abstract class PageStatelessWidget extends StatelessWidget {
   String get routeName => '/${ReCase(runtimeType.toString()).paramCase}';
 
   /// ✅ Tiêu đề cho AppBar mặc định (nếu không custom appBar)
-  String get title => '';
+  String? get title => null;
 
   /// ✅ Có hiển thị nút back không? (dùng cho AppBar mặc định)
-  bool get showBack => false;
+  bool get showBack => true;
 
   /// ✅ Custom AppBar nếu muốn, nếu null thì dùng mặc định
   PreferredSizeWidget? get appBar => null;
 
   /// ✅ Màu nền của Scaffold
-  Color? get backgroundColor => null;
+  Color? get backgroundColor => AppThemeColors.background300;
 
   /// ✅ FAB nếu có
   Widget? get floatingActionButton => null;
@@ -42,9 +44,9 @@ abstract class PageStatelessWidget extends StatelessWidget {
 
   /// ✅ AppBar mặc định nếu không custom
   PreferredSizeWidget buildDefaultAppBar(BuildContext context) {
-    return AppBar(
-      title: Text(title),
-      automaticallyImplyLeading: showBack,
+    return CustomAppBar(
+      showBackButton: showBack,
+      title: title,
     );
   }
 
@@ -66,10 +68,9 @@ abstract class PageStatelessWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: backgroundColor,
-      appBar: appBar ?? buildDefaultAppBar(context),
+      appBar: appBar ?? (title != null ? buildDefaultAppBar(context) : null),
       body: size.width > 800 ? buildTabletBody(context) : buildBody(context),
       floatingActionButton: floatingActionButton,
       bottomNavigationBar: bottomNavigationBar,
