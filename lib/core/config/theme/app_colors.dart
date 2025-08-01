@@ -53,7 +53,6 @@ class AppColors {
   static const primary200 = Color.fromARGB(255, 197, 255, 215); // primary2_200
 
 // === SECONDARY COLORS ===
-// Nhóm second1
   static const secondary500 = Color(0xFF00B7E5);
   static const secondary400 = Color(0xFF4FC8EC);
   static const secondary300 = Color(0xFF8ED9F3);

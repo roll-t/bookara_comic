@@ -4,78 +4,88 @@ import 'package:bookara/features/setting/presentation/controller/setting_control
 import 'package:bookara/features/setting/presentation/widget/select_language_widget.dart';
 import 'package:bookara/features/setting/presentation/widget/select_primary_theme_widget.dart';
 import 'package:bookara/features/setting/presentation/widget/setting_item_widget.dart';
-import 'package:bookara/features/setting/presentation/widget/toggle_theme_mode_widget.dart';
 import 'package:bookara/features/theme/controller/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SettingPage extends StatelessWidget {
-  const SettingPage({super.key});
+  final ThemeController themeController;
+  const SettingPage({
+    super.key,
+    required this.themeController,
+  });
 
   @override
-  Widget build(BuildContext context) {
-    return GetBuilder<ThemeController>(
-      id:"THEME_SETTING_ID",
-      builder: (_) {
-        return const BodyBuilder();
-      }
-    );
-  }
+  Widget build(BuildContext context) => _BodyBuilder(
+        themeController: themeController,
+      );
 }
 
-///---> [Body-builder]
-class BodyBuilder extends GetView<SettingController> {
-  const BodyBuilder({super.key});
+class _BodyBuilder extends GetView<SettingController> {
+  final ThemeController themeController;
+  const _BodyBuilder({
+    required this.themeController,
+  });
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: _buildSettingsList(),
+    return Padding(
+      padding: const EdgeInsetsGeometry.symmetric(horizontal: 16),
+      child: Column(
+        children: _buildSettingsList(),
+      ),
     );
   }
 
-  ///---> [List-feature-setting]
   List<Widget> _buildSettingsList() {
-    final List<Widget> widgets = [];
+    final items = <Widget>[];
+    void addSetting(Widget widget) {
+      if (items.isNotEmpty) items.add(const SizedBox(height: 12));
+      items.add(widget);
+    }
+
     if (FeatureConfigs.isThemeSwitchEnabled) {
-      widgets.addAll([
-        const SettingItemWidget(
+      addSetting(
+        SettingItemWidget(
           titleKey: AppContent.dark,
-          trailing: ToggleThemeModeWidget(),
+          trailing: Switch(
+            value: themeController.themeMode == ThemeMode.dark,
+            onChanged: (_) => themeController.toggleTheme(),
+          ),
         ),
-        const SizedBox(height: 12),
+      );
+      addSetting(
         SettingItemWidget(
           titleKey: AppContent.theme,
           trailing: SelectPrimaryThemeWidget(width: 30.w),
         ),
-        const SizedBox(height: 12),
-      ]);
+      );
     }
 
     if (FeatureConfigs.isSwitchLanguageEnabled) {
-      widgets.addAll([
+      addSetting(
         SettingItemWidget(
           titleKey: AppContent.language,
-          trailing: SelectLanguageWidget(controller: controller, width: 30.w),
-        ),
-        const SizedBox(height: 12),
-      ]);
-    }
-
-    if (FeatureConfigs.isNotificationEnabled) {
-      widgets.add(
-        Obx(
-          () => SettingItemWidget(
-            titleKey: 'notification',
-            trailing: Switch(
-              value: controller.isNotificationEnabled.value,
-              onChanged: controller.toggleNotification,
-            ),
+          trailing: SelectLanguageWidget(
+            controller: controller,
+            width: 30.w,
           ),
         ),
       );
     }
-    return widgets;
+
+    if (FeatureConfigs.isNotificationEnabled) {
+      addSetting(
+        SettingItemWidget(
+          titleKey: 'notification',
+          trailing: Switch(
+            value: controller.isNotificationEnabled.value,
+            onChanged: controller.toggleNotification,
+          ),
+        ),
+      );
+    }
+
+    return items;
   }
 }
