@@ -37,6 +37,9 @@ dependencies:
   recase: ^4.1.0
   flutter_launcher_icons: ^0.14.4
 
+  
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:

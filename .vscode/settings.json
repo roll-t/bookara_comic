@@ -1,3 +1,9 @@
 {
-  "dart.flutterSdkPath": ".fvm/versions/3.32.5"
+  "dart.flutterSdkPath": ".fvm/versions/3.32.5",
+  "cSpell.words": [
+    "bookara",
+    "Dimens",
+    "Tiếng",
+    "Việt"
+  ]
 }

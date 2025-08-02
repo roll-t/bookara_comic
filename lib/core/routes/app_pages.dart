@@ -10,6 +10,11 @@ import 'package:bookara/features/splash/di/splash_binding.dart';
 import 'package:bookara/features/splash/presentation/page/splash_page.dart';
 import 'package:get/get.dart';
 
+final notFoundPage = GetPage(
+  name: NotFoundPage.routeName,
+  page: () => const NotFoundPage(),
+);
+
 final appPage = [
   GetPage(
     name: AppRoutes.initial,

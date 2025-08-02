@@ -1,4 +1,4 @@
-import 'package:bookara/core/config/const/app_dimensions.dart';
+import 'package:bookara/core/config/const/app_dimens.dart';
 import 'package:flutter/material.dart';
 
 class CustomRadio<T> extends StatelessWidget {
@@ -16,8 +16,8 @@ class CustomRadio<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: AppDimensions.radioSize,
-      height: AppDimensions.radioSize,
+      width: AppDimens.radioSize,
+      height: AppDimens.radioSize,
       child: Radio<T>(
         value: value,
         groupValue: groupValue,

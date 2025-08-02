@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:bookara/core/lang/vi.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'en.dart';
 
 class LocalizationService extends Translations {
@@ -17,6 +17,12 @@ class LocalizationService extends Translations {
   static final langCodes = [
     'en',
     'vi',
+  ];
+  // Supported language codes
+  static final delegates = [
+    GlobalMaterialLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
   ];
 
   // Supported locales
@@ -51,6 +57,6 @@ class LocalizationService extends Translations {
     for (int i = 0; i < langCodes.length; i++) {
       if (lang.trim() == langCodes[i].trim()) return locales[i];
     }
-    return fallbackLocale; // Return fallback if language code is not valid
+    return fallbackLocale;
   }
 }

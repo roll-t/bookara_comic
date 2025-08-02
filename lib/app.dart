@@ -4,12 +4,9 @@ import 'package:bookara/core/config/theme/app_theme.dart';
 import 'package:bookara/core/lang/translation_service.dart';
 import 'package:bookara/core/routes/app_pages.dart';
 import 'package:bookara/core/routes/app_routes.dart';
-import 'package:bookara/features/notFound/page/not_found_page.dart';
 import 'package:bookara/features/splash/presentation/page/splash_page.dart';
 import 'package:bookara/features/theme/controller/theme_controller.dart';
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -23,34 +20,32 @@ class App extends StatelessWidget {
     return ResponsiveSizer(
       builder: (context, orientation, screenType) {
         Rx<AppColorScheme> colorScheme = themeController.appColorScheme;
-        return Obx(() {
-          return GetMaterialApp(
-            debugShowCheckedModeBanner: false,
-            translations: LocalizationService(),
-            locale: LocalizationService.locale,
-            fallbackLocale: LocalizationService.fallbackLocale,
-            supportedLocales: const [
-              Locale('vi', 'VN'),
-              Locale('en', 'US'),
-            ],
-            localizationsDelegates: const [
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            getPages: appPage,
-            initialRoute: AppRoutes.initial,
-            initialBinding: AppBinding(),
-            home: const SplashPage(),
-            unknownRoute: GetPage(
-              name: NotFoundPage.routeName,
-              page: () => const NotFoundPage(),
-            ),
-            theme: AppTheme.light(colorScheme.value),
-            darkTheme: AppTheme.dark(colorScheme.value),
-            themeMode: themeController.themeMode.value,
-          );
-        });
+        return Obx(
+          () {
+            return GetMaterialApp(
+              debugShowCheckedModeBanner: false,
+
+              ///---> [Localization service]
+              translations: LocalizationService(),
+              locale: LocalizationService.locale,
+              fallbackLocale: LocalizationService.fallbackLocale,
+              supportedLocales: LocalizationService.locales,
+              localizationsDelegates: LocalizationService.delegates,
+
+              ///---> [Page config]
+              getPages: appPage,
+              initialRoute: AppRoutes.initial,
+              initialBinding: AppBinding(),
+              home: const SplashPage(),
+              unknownRoute: notFoundPage,
+
+              ///---> [Theme config]
+              theme: AppTheme.light(colorScheme.value),
+              darkTheme: AppTheme.dark(colorScheme.value),
+              themeMode: themeController.themeMode.value,
+            );
+          },
+        );
       },
     );
   }

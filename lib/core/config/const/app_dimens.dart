@@ -39,4 +39,8 @@ class AppDimens {
 
   // Screen size constants (these can vary based on your app's design)
   static const double screenPadding = 20.0;
+
+  static const double radioSize = 24.0;
+  static const double radioInnerCircleSize = 12.0;
+  static const double borderRadius = 12.0;
 }
