@@ -1,4 +1,4 @@
-import 'package:bookara/core/config/const/notification_constants.dart';
+import 'package:bookara/core/config/const/app_notification_constants.dart';
 import 'package:bookara/core/data/local/app_get_storage.dart';
 import 'package:bookara/core/services/notification/background_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';

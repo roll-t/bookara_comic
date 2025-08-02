@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:ui';
 
-import 'package:bookara/core/config/app_logger.dart';
+import 'package:bookara/core/config/const/app_logger.dart';
 import 'package:bookara/core/data/local/app_get_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';

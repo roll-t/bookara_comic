@@ -1,4 +1,4 @@
-import 'package:bookara/core/config/app_logger.dart';
+import 'package:bookara/core/config/const/app_logger.dart';
 import 'package:bookara/core/config/feature_configs.dart';
 import 'package:bookara/core/services/firebase/realtime_service.dart';
 import 'package:bookara/core/services/notification/notification_service.dart';

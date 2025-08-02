@@ -1,5 +1,5 @@
 import 'package:bookara/app_binding.dart';
-import 'package:bookara/core/config/app_logger.dart';
+import 'package:bookara/core/config/const/app_logger.dart';
 import 'package:bookara/core/config/load_env.dart';
 import 'package:bookara/core/config/storage_configs.dart';
 import 'package:bookara/core/lang/language_configs.dart';

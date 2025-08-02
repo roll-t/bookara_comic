@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class TabBookcase extends PageStatelessWidget {
   const TabBookcase({super.key});
 
-  // @override
+  @override
   String get title => "Tủ sách";
 
   @override

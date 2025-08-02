@@ -10,30 +10,22 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SettingPage extends StatelessWidget {
-  final ThemeController themeController;
   const SettingPage({
     super.key,
-    required this.themeController,
   });
 
   @override
-  Widget build(BuildContext context) => _BodyBuilder(
-        themeController: themeController,
-      );
+  // Not set const to update the status
+  // ignore: prefer_const_constructors
+  Widget build(BuildContext context) => _BodyBuilder();
 }
 
 class _BodyBuilder extends GetView<SettingController> {
-  final ThemeController themeController;
-  const _BodyBuilder({
-    required this.themeController,
-  });
+  const _BodyBuilder();
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsetsGeometry.symmetric(horizontal: 16),
-      child: Column(
-        children: _buildSettingsList(),
-      ),
+    return Column(
+      children: _buildSettingsList(),
     );
   }
 
@@ -46,13 +38,15 @@ class _BodyBuilder extends GetView<SettingController> {
 
     if (FeatureConfigs.isThemeSwitchEnabled) {
       addSetting(
-        SettingItemWidget(
-          titleKey: AppContent.dark,
-          trailing: Switch(
-            value: themeController.themeMode == ThemeMode.dark,
-            onChanged: (_) => themeController.toggleTheme(),
-          ),
-        ),
+        GetBuilder<ThemeController>(builder: (themeController) {
+          return SettingItemWidget(
+            titleKey: AppContent.dark,
+            trailing: Switch(
+              value: themeController.themeMode.value == ThemeMode.dark,
+              onChanged: (_) => themeController.toggleTheme(),
+            ),
+          );
+        }),
       );
       addSetting(
         SettingItemWidget(

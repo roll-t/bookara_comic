@@ -1,4 +1,4 @@
-import 'package:bookara/core/config/const/enum.dart';
+import 'package:bookara/core/config/const/app_enum.dart';
 import 'package:get/get.dart';
 
 class SortController extends GetxController {

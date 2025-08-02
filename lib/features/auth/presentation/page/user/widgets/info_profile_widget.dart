@@ -1,0 +1,51 @@
+import 'package:bookara/core/config/theme/app_colors.dart';
+import 'package:bookara/core/config/theme/app_theme_colors.dart';
+import 'package:bookara/core/ui/styles/app_text_styles.dart';
+import 'package:bookara/core/ui/widgets/texts/text_widget.dart';
+import 'package:flutter/material.dart';
+
+class InfoProfileWidget extends StatelessWidget {
+  const InfoProfileWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        vertical: 12,
+        horizontal: 16,
+      ),
+      decoration: BoxDecoration(
+        color: AppThemeColors.background200,
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 1,
+                color: AppColors.light300,
+              ),
+              color: AppColors.cardBackground2,
+              shape: BoxShape.circle,
+            ),
+          ),
+          const SizedBox(width: 10),
+          Column(
+            children: [
+              TextWidget(
+                text: "Ten tai khoan",
+                color: AppThemeColors.text,
+                textStyle: AppTextStyle.medium16,
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}

@@ -1,5 +1,5 @@
 import 'package:bookara/core/config/const/app_dimens.dart';
-import 'package:bookara/core/config/const/enum.dart';
+import 'package:bookara/core/config/const/app_enum.dart';
 import 'package:bookara/core/config/theme/app_colors.dart';
 import 'package:bookara/core/ui/styles/app_text_styles.dart';
 import 'package:flutter/material.dart';

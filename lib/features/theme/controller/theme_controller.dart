@@ -1,3 +1,4 @@
+import 'package:bookara/core/config/const/app_logger.dart';
 import 'package:bookara/core/config/theme/app_color_scheme.dart';
 import 'package:bookara/core/config/theme/app_theme.dart';
 import 'package:bookara/core/data/local/app_get_storage.dart';
@@ -66,5 +67,7 @@ class ThemeController extends GetxController {
 
     Get.changeTheme(theme);
     Get.changeThemeMode(themeMode.value);
+    update(["THEME_SITTING_ID"]);
+    AppLogger.i(">>> UI UPDATE");
   }
 }

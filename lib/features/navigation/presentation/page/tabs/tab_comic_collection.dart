@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class TabComicCollection extends PageStatelessWidget {
   const TabComicCollection({super.key});
 
-  // @override
+  @override
   String get title => "Truyện tranh";
 
   @override
