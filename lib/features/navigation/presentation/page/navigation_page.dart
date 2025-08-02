@@ -7,7 +7,7 @@ import 'package:bookara/features/navigation/presentation/widgets/bottom_navigati
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class NavigationPage extends PageStatelessWidget {
+class NavigationPage extends CustomStatePage {
   const NavigationPage({super.key});
 
   ///---> [Build-bottom-navigation]

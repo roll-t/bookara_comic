@@ -6,8 +6,8 @@ import 'package:recase/recase.dart';
 
 /// ✅ Base class cho các màn hình Stateless sử dụng GetX
 /// Giúp tái sử dụng scaffold + appBar + cấu hình route dễ dàng
-abstract class PageStatelessWidget extends StatelessWidget {
-  const PageStatelessWidget({super.key});
+abstract class CustomStatePage extends StatelessWidget {
+  const CustomStatePage({super.key});
 
   /// ✅ Tên route mặc định dạng kebab-case, ví dụ: /user-detail
   String get routeName => '/${ReCase(runtimeType.toString()).paramCase}';
@@ -56,7 +56,7 @@ abstract class PageStatelessWidget extends StatelessWidget {
   /// ```dart
   /// GetPage(name: HomePage().routeName, page: () => HomePage())
   /// ```
-  static GetPage toRoute<T extends PageStatelessWidget>(T page) {
+  static GetPage toRoute<T extends CustomStatePage>(T page) {
     return GetPage(
       name: page.routeName,
       page: () => page,

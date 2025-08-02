@@ -2,7 +2,7 @@ import 'package:bookara/core/utils/custom_framework.dart';
 import 'package:flutter/material.dart';
 
 // NAV Home
-class TabBookcase extends PageStatelessWidget {
+class TabBookcase extends CustomStatePage {
   const TabBookcase({super.key});
 
   @override
