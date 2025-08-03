@@ -1,6 +1,6 @@
 import 'package:bookara/core/config/const/app_icons.dart';
 import 'package:bookara/core/config/theme/app_colors.dart';
-import 'package:bookara/core/model/item_model.dart';
+import 'package:bookara/core/model/ui/item_model.dart';
 import 'package:bookara/core/extension/empty_extension.dart';
 import 'package:bookara/core/extension/rx_extension.dart';
 import 'package:bookara/core/ui/styles/app_text_styles.dart';

@@ -23,3 +23,9 @@ enum TextTransformType {
   capitalize,
   capitalizeWords,
 }
+
+enum Results {
+  success,
+  error,
+  wraning,
+}

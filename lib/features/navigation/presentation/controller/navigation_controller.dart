@@ -1,5 +1,5 @@
 import 'package:bookara/features/comic/di/comic_binding.dart';
-import 'package:bookara/features/navigation/di/profile_binding%20.dart';
+import 'package:bookara/features/navigation/di/tab_profile_binding%20.dart';
 import 'package:bookara/features/navigation/presentation/page/tabs/tab_bookcase.dart';
 import 'package:bookara/features/navigation/presentation/page/tabs/tab_comic_collection.dart';
 import 'package:bookara/features/navigation/presentation/page/tabs/tab_profile.dart';
@@ -36,7 +36,7 @@ class NavigationController extends GetxController {
         return GetPageRoute(
           settings: settings,
           page: () => const TabProfile(),
-          binding: ProfileBinding(),
+          binding: TabProfileBinding(),
           transition: Transition.fadeIn,
         );
     }

@@ -1,11 +1,14 @@
-import 'package:bookara/core/services/API/comic_api.dart';
+import 'package:bookara/features/comic/data_layer/data/model/category_comic_model.dart';
+import 'package:bookara/features/comic/data_layer/domain/usecase/get_category_comic_usecase.dart';
 import 'package:get/get.dart';
 
 class ComicController extends GetxController {
+  ComicController(this._getCategoryComicUsecase);
+  final GetCategoryComicUsecase _getCategoryComicUsecase;
   @override
-  void onInit() {
+  onInit() async {
     super.onInit();
-    final ComicApi _api = ComicApi();
-    print(">>> API result ${_api.getCategories()}");
+    final List<CategoryComicModel>? data = await _getCategoryComicUsecase();
+    print(data);
   }
 }

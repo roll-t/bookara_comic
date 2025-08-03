@@ -1,4 +1,4 @@
-import 'package:bookara/core/model/item_model.dart';
+import 'package:bookara/core/model/ui/item_model.dart';
 import 'package:bookara/core/ui/widgets/bottom_sheet/select_bottom_sheet_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
