@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:bookara/core/services/network/api_enpoint.dart';
 import 'package:bookara/core/services/network/api_intercepter.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -11,31 +10,13 @@ import 'package:get/get.dart';
 class ApiClient extends GetxService {
   late final Dio _dio;
   final Connectivity _connectivity = Connectivity();
-  late final RxBool isConnected = true.obs;
+  final RxBool isConnected = true.obs;
 
   @override
   void onInit() {
     super.onInit();
-
-    // Lắng nghe sự thay đổi mạng
-    _connectivity.onConnectivityChanged.listen((
-      List<ConnectivityResult> results,
-    ) {
-      if (results.isNotEmpty) {
-        _handleConnectivityChange(results.first);
-      }
-    });
-
-    // Kiểm tra mạng lần đầu
-    Future.microtask(() async {
-      final hasNetwork = await _checkNetwork();
-      isConnected.value = hasNetwork;
-      if (!hasNetwork) {
-        _showNoInternetSnackbar();
-      }
-
-      _initDio(); // luôn khởi tạo Dio để không bị null
-    });
+    _initDio();
+    _listenNetworkChange();
   }
 
   Dio get client => _dio;
@@ -56,56 +37,74 @@ class ApiClient extends GetxService {
     log('[ApiClient] ✅ Dio initialized');
   }
 
-  /// Kiểm tra trạng thái kết nối thực tế (chắc chắn hơn)
+  void _listenNetworkChange() {
+    _connectivity.onConnectivityChanged
+        .listen((List<ConnectivityResult> results) async {
+      if (results.isNotEmpty) {
+        final online = await _checkNetwork();
+        if (isConnected.value != online) {
+          isConnected.value = online;
+          if (!online) {
+            _showSnackbar('Không có kết nối',
+                'Vui lòng kiểm tra lại kết nối mạng.', Colors.redAccent);
+          } else {
+            _showSnackbar('Đã kết nối mạng',
+                'Kết nối internet đã được khôi phục.', Colors.green);
+          }
+        }
+      }
+    });
+
+    // Kiểm tra ngay khi khởi tạo
+    Future.microtask(() async {
+      isConnected.value = await _checkNetwork();
+    });
+  }
+
   Future<bool> _checkNetwork() async {
-    log('[ApiClient] 🔍 Checking Internet...');
     try {
       final result = await InternetAddress.lookup('google.com');
-      final isOnline = result.isNotEmpty && result.first.rawAddress.isNotEmpty;
-      log('[ApiClient] 🌐 Network available: $isOnline');
-      return isOnline;
-    } on SocketException catch (_) {
-      log('[ApiClient] ❌ No Internet');
+      return result.isNotEmpty && result.first.rawAddress.isNotEmpty;
+    } on SocketException {
       return false;
     }
   }
 
-  /// Xử lý khi trạng thái mạng thay đổi
-  void _handleConnectivityChange(ConnectivityResult result) async {
-    final realConnection = await _checkNetwork();
-    if (realConnection != isConnected.value) {
-      isConnected.value = realConnection;
-      if (!realConnection) {
-        _showNoInternetSnackbar();
-      } else {
-        _showInternetRestoredSnackbar();
-      }
-    }
-  }
-
-  void _showNoInternetSnackbar() {
+  void _showSnackbar(String title, String message, Color color) {
     if (!Get.isSnackbarOpen) {
       Get.snackbar(
-        'Không có kết nối',
-        'Vui lòng kiểm tra lại kết nối mạng.',
+        title,
+        message,
         snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.redAccent,
+        backgroundColor: color,
         colorText: Colors.white,
         duration: const Duration(seconds: 3),
       );
     }
   }
 
-  void _showInternetRestoredSnackbar() {
-    if (!Get.isSnackbarOpen) {
-      Get.snackbar(
-        'Đã kết nối mạng',
-        'Kết nối internet đã được khôi phục.',
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
-        duration: const Duration(seconds: 3),
-      );
+  /// Wrapper GET request
+  Future<dynamic> get(String path, {Map<String, dynamic>? query}) async {
+    if (!isConnected.value) {
+      throw 'Không có kết nối internet';
+    }
+    try {
+      final response = await _dio.get(path, queryParameters: query);
+      return response.data;
+    } on DioException catch (e) {
+      throw _handleError(e);
+    }
+  }
+
+  String _handleError(DioException e) {
+    if (e.type == DioExceptionType.connectionTimeout) {
+      return 'Kết nối server quá thời gian cho phép';
+    } else if (e.type == DioExceptionType.receiveTimeout) {
+      return 'Server phản hồi quá chậm';
+    } else if (e.type == DioExceptionType.badResponse) {
+      return 'Lỗi server: ${e.response?.statusCode}';
+    } else {
+      return 'Có lỗi xảy ra: ${e.message}';
     }
   }
 }

@@ -1,7 +1,7 @@
 import 'package:bookara/core/config/const/app_logger.dart';
 import 'package:bookara/core/config/theme/app_color_scheme.dart';
 import 'package:bookara/core/config/theme/app_theme.dart';
-import 'package:bookara/core/data/local/app_get_storage.dart';
+import 'package:bookara/core/local_storage/app_get_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -39,12 +39,12 @@ class _BodyBuilder extends StatelessWidget {
       child: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         children: [
-          const SizedBox(height: 50),
+          const SizedBox(height: 80),
 
           ///[Not set const to update the status]
           // ignore: prefer_const_constructors
           InfoProfileWidget(),
-          const SizedBox(height: 20),
+          const SizedBox(height: 40),
 
           ///[Not set const to update the status]
           // ignore: prefer_const_constructors

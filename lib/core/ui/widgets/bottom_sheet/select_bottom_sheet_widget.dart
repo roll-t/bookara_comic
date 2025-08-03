@@ -1,4 +1,4 @@
-import 'package:bookara/core/data/model/item_model.dart';
+import 'package:bookara/core/model/item_model.dart';
 import 'package:bookara/core/extension/empty_extension.dart';
 import 'package:bookara/core/ui/styles/app_text_styles.dart';
 import 'package:bookara/core/ui/widgets/inputs/search_widget.dart';

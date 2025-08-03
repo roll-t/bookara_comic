@@ -1,8 +1,22 @@
-class ApiEndpoint {
-  static const String baseUrl = 'https://your.api.url/api';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-  static const String login = '$baseUrl/auth/login';
-  static const String getBooks = '$baseUrl/books';
-  static const String getChapters = '$baseUrl/chapters';
-  // ... thêm tùy theo API
+class ApiEndpoint {
+  ///---> [Root-service]
+  static final String baseUrl = dotenv.env["API_COMICS_KEY"] ?? "/";
+
+  // Home
+  static const String home = '/home';
+
+  // List
+  static String list(String type) => '/danh-sach/$type';
+
+  // Categories
+  static const String categories = '/the-loai';
+  static String categoryDetail(String slug) => '/the-loai/$slug';
+
+  // Comic detail
+  static String comicDetail(String slug) => '/truyen-tranh/$slug';
+
+  // Search
+  static const String search = '/tim-kiem';
 }

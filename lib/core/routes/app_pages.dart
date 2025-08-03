@@ -1,8 +1,6 @@
 import 'package:bookara/core/routes/app_routes.dart';
 import 'package:bookara/features/auth/presentation/page/login/login_page.dart';
 import 'package:bookara/features/auth/presentation/page/register/register_page.dart';
-import 'package:bookara/features/comic/dashboard_binding.dart';
-import 'package:bookara/features/comic/dashboard_page.dart';
 import 'package:bookara/features/navigation/di/navigation_binding.dart';
 import 'package:bookara/features/navigation/presentation/page/navigation_page.dart';
 import 'package:bookara/features/notFound/page/not_found_page.dart';
@@ -31,11 +29,6 @@ final appPage = [
   GetPage(
     name: NotFoundPage.routeName,
     page: () => const NotFoundPage(),
-  ),
-  GetPage(
-    name: AppRoutes.dashboard,
-    page: () => const DashboardPage(),
-    binding: DashboardBinding(),
   ),
   GetPage(
     name: AppRoutes.signin,

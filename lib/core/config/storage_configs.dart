@@ -1,4 +1,4 @@
-import 'package:bookara/core/data/local/app_get_storage.dart';
+import 'package:bookara/core/local_storage/app_get_storage.dart';
 
 Future<void> storageConfigs() async {
   await AppGetStorage.init();

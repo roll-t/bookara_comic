@@ -1,3 +1,4 @@
+import 'package:bookara/features/comic/di/comic_binding.dart';
 import 'package:bookara/features/navigation/di/profile_binding%20.dart';
 import 'package:bookara/features/navigation/presentation/page/tabs/tab_bookcase.dart';
 import 'package:bookara/features/navigation/presentation/page/tabs/tab_comic_collection.dart';
@@ -22,6 +23,7 @@ class NavigationController extends GetxController {
         return GetPageRoute(
           settings: settings,
           page: () => const TabComicCollection(),
+          binding: ComicBinding(),
           transition: Transition.fadeIn,
         );
       case '/tab-bookcase':

@@ -1,6 +1,6 @@
 import 'package:bookara/core/config/theme/app_colors.dart';
 import 'package:bookara/core/config/theme/app_theme_colors.dart';
-import 'package:bookara/core/data/model/popup_dropdown_model.dart';
+import 'package:bookara/core/model/popup_dropdown_model.dart';
 import 'package:bookara/core/ui/styles/app_text_styles.dart';
 import 'package:bookara/core/ui/widgets/filter/popup_dropdown/popup_dropdown_controller.dart';
 import 'package:bookara/core/ui/widgets/texts/text_widget.dart';
