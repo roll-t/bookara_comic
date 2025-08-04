@@ -3,7 +3,7 @@ import 'package:bookara/core/config/const/app_enum.dart';
 import 'package:bookara/core/config/theme/app_color_scheme.dart';
 import 'package:bookara/core/config/theme/app_theme_colors.dart';
 import 'package:bookara/core/ui/widgets/texts/text_widget.dart';
-import 'package:bookara/features/theme/controller/theme_controller.dart';
+import 'package:bookara/core/config/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

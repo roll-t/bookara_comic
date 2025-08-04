@@ -5,7 +5,7 @@ import 'package:bookara/core/lang/translation_service.dart';
 import 'package:bookara/core/routes/app_pages.dart';
 import 'package:bookara/core/routes/app_routes.dart';
 import 'package:bookara/features/splash/presentation/page/splash_page.dart';
-import 'package:bookara/features/theme/controller/theme_controller.dart';
+import 'package:bookara/core/config/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';

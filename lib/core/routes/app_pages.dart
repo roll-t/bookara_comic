@@ -3,7 +3,7 @@ import 'package:bookara/features/auth/presentation/page/login/login_page.dart';
 import 'package:bookara/features/auth/presentation/page/register/register_page.dart';
 import 'package:bookara/features/navigation/di/navigation_binding.dart';
 import 'package:bookara/features/navigation/presentation/page/navigation_page.dart';
-import 'package:bookara/features/notFound/page/not_found_page.dart';
+import 'package:bookara/core/ui/widgets/notFound/not_found_page.dart';
 import 'package:bookara/features/splash/di/splash_binding.dart';
 import 'package:bookara/features/splash/presentation/page/splash_page.dart';
 import 'package:get/get.dart';
