@@ -87,47 +87,45 @@ class ApiClient extends GetxService {
   }
 
   /// Wrapper GET request
-Future<Result<dynamic>> get(
-  String path, {
-  Map<String, dynamic>? query,
-}) async {
-  if (!isConnected.value) {
-    return Result(
-      status: Results.error,
-      message: 'Không có kết nối internet',
-    );
-  }
-  try {
-    final response = await _dio.get(path, queryParameters: query);
+  Future<Result<dynamic>> get(
+    String path, {
+    Map<String, dynamic>? query,
+  }) async {
+    if (!isConnected.value) {
+      return Result(
+        status: Results.error,
+        message: 'Không có kết nối internet',
+      );
+    }
+    try {
+      final response = await _dio.get(path, queryParameters: query);
 
-    if (response.statusCode == 200) {
-      final res = ApiRespon.fromJson(response.data);
-
-      if (res.isSuccess) {
-        return Result(
-          status: Results.success,
-          data: res.data, // raw data
-        );
+      if (response.statusCode == 200) {
+        final res = ApiRespon.fromJson(response.data);
+        if (res.isSuccess) {
+          return Result(
+            status: Results.success,
+            data: res.data,
+          );
+        } else {
+          return Result(
+            status: Results.error,
+            message: res.message ?? 'Lỗi không xác định từ API',
+          );
+        }
       } else {
         return Result(
           status: Results.error,
-          message: res.message ?? 'Lỗi không xác định từ API',
+          message: 'HTTP ${response.statusCode}',
         );
       }
-    } else {
+    } on DioException catch (e) {
       return Result(
         status: Results.error,
-        message: 'HTTP ${response.statusCode}',
+        message: _handleError(e),
       );
     }
-  } on DioException catch (e) {
-    return Result(
-      status: Results.error,
-      message: _handleError(e),
-    );
   }
-}
-
 
   String _handleError(DioException e) {
     if (e.type == DioExceptionType.connectionTimeout) {

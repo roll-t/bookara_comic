@@ -6,10 +6,9 @@ import 'package:get/get.dart';
 class ComicApi {
   final ApiClient _api = Get.find<ApiClient>();
 
-  // Future<Result<dynamic>> getHome() => _api.get<dynamic>(
-  //       ApiEndpoint.home,
-  //       parseData: (json) => HomeModel.fromJson(json),
-  //     );
+  Future<Result> getHome() => _api.get(
+        ApiEndpoint.home,
+      );
 
   Future<Result> getList(String type, {int page = 1}) => _api.get(
         ApiEndpoint.list(type),
@@ -22,21 +21,17 @@ class ComicApi {
     );
   }
 
-  // Future<Result<ComicListModel>> getCategoryDetail(String slug, {int page = 1}) =>
-  //     _api.get<ComicListModel>(
-  //       ApiEndpoint.categoryDetail(slug),
-  //       query: {'page': page},
-  //       parseData: (json) => ComicListModel.fromJson(json),
-  //     );
+  Future<Result> getCategoryDetail(String slug, {int page = 1}) => _api.get(
+        ApiEndpoint.categoryDetail(slug),
+        query: {'page': page},
+      );
 
-  // Future<Result<ComicDetailModel>> getComicDetail(String slug) => _api.get<ComicDetailModel>(
-  //       ApiEndpoint.comicDetail(slug),
-  //       parseData: (json) => ComicDetailModel.fromJson(json),
-  //     );
+  Future<Result> getComicDetail(String slug) => _api.get(
+        ApiEndpoint.comicDetail(slug),
+      );
 
-  // Future<Result<SearchResultModel>> search(String keyword) => _api.get<SearchResultModel>(
-  //       ApiEndpoint.search,
-  //       query: {'keyword': keyword},
-  //       parseData: (json) => SearchResultModel.fromJson(json),
-  //     );
+  Future<Result> search(String keyword) => _api.get(
+        ApiEndpoint.search,
+        query: {'keyword': keyword},
+      );
 }
