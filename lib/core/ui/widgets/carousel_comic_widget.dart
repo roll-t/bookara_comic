@@ -3,7 +3,6 @@ import 'package:bookara/features/comic/data_layer/data/model/comic_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 class CarouselComicWidget {
   static Widget buildCarouselSlider({
@@ -19,18 +18,15 @@ class CarouselComicWidget {
           return Obx(() {
             final currentIndex = indexValue.value;
             final isCurrent = index == currentIndex;
-            final double scale = isCurrent ? 1 : 0.9;
-
-            // Thêm hiệu ứng opacity mượt mà
-            final double opacity = isCurrent ? 1 : 0.7;
+            final double scale = isCurrent ? 1 : .9;
 
             return AnimatedScale(
               scale: scale,
-              duration: timeStep,
+              duration: const Duration(milliseconds: 400),
               curve: Curves.easeInOut,
               child: AnimatedOpacity(
-                opacity: opacity,
-                duration: timeStep,
+                opacity: isCurrent ? 1 : 0.6,
+                duration: const Duration(milliseconds: 400),
                 curve: Curves.easeInOut,
                 child: Container(
                   decoration: BoxDecoration(
@@ -39,8 +35,8 @@ class CarouselComicWidget {
                   child: InkWell(
                     onTap: () {},
                     child: ThumbnailWidget(
-                        imageUrl:
-                            "https://img.otruyenapi.com/uploads/comics/${listComic[index].thumbUrl}"),
+                      imageUrl: listComic[index].thumbUrl,
+                    ),
                   ),
                 ),
               ),
@@ -48,11 +44,11 @@ class CarouselComicWidget {
           });
         },
         options: CarouselOptions(
-          height: 40.h,
+          height: 350.0,
           viewportFraction: 0.6,
           autoPlay: true,
-          autoPlayInterval: const Duration(seconds: 3),
-          autoPlayAnimationDuration: const Duration(milliseconds: 800),
+          autoPlayInterval: timeStep,
+          autoPlayAnimationDuration: const Duration(milliseconds: 1000),
           onPageChanged: (index, reason) {
             indexValue.value = index;
           },

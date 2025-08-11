@@ -8,10 +8,9 @@ import 'package:get/get.dart';
 class ComicBinding extends Bindings {
   @override
   void dependencies() {
-    
     //REPOSITORY
     Get.lazyPut(() => ComicRepository());
-    
+
     // USECASE
     Get.lazyPut(() => GetCategoryComicUsecase());
     Get.lazyPut(() => GetListTypeComicUsecase());
@@ -24,6 +23,7 @@ class ComicBinding extends Bindings {
         Get.find(),
         Get.find(),
       ),
+      permanent: true,
     );
   }
 }

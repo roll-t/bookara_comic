@@ -3,10 +3,13 @@ import 'package:bookara/core/config/theme/app_theme_colors.dart';
 import 'package:bookara/core/ui/styles/app_text_styles.dart';
 import 'package:bookara/core/ui/widgets/carousel_comic_widget.dart';
 import 'package:bookara/core/ui/widgets/custom_sliver_layout.dart';
+import 'package:bookara/core/ui/widgets/images/thumbnail_widget.dart';
 import 'package:bookara/core/ui/widgets/shimmer/shimmer_widget.dart';
 import 'package:bookara/core/ui/widgets/texts/text_widget.dart';
 import 'package:bookara/core/utils/utils.dart';
+import 'package:bookara/features/comic/data_layer/data/model/comic_model.dart';
 import 'package:bookara/features/comic/presentation/controller/comic_controller.dart';
+import 'package:bookara/features/comic/presentation/widget/horizontal_comic_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -55,7 +58,7 @@ class _BuildAppBarComic extends StatelessWidget {
               const SizedBox(height: 8),
               TextWidget(
                 text: "Phạm Phước Trường",
-                textStyle: AppTextStyle.semiBold16,
+                textStyle: AppTextStyle.bold18,
                 color: AppThemeColors.text,
                 maxLines: 1,
               )
@@ -78,9 +81,34 @@ class _BuildBodyComicCollection extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Column(
       children: [
-        SizedBox(height: 20),
         _BuilderCarousel(),
+        SizedBox(height: 20),
+        _BuildCommingSoonComics(),
+        SizedBox(height: 40),
+        _BuildCommingSoonComics(),
+        SizedBox(height: 40),
+        _BuildCommingSoonComics(),
       ],
+    );
+  }
+}
+
+class _BuildCommingSoonComics extends StatelessWidget {
+  const _BuildCommingSoonComics();
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<ComicController>(
+      id: "LIST_COMMING_SOON_ID",
+      builder: (controller) {
+        return ComicHorizontalList(
+          title: "Sắp ra mắt",
+          onSeeMore: () {
+            print("Nhấn xem thêm");
+          },
+          listComic: controller.listComingSoon,
+        );
+      },
     );
   }
 }
@@ -110,7 +138,7 @@ class _BuilderCarousel extends StatelessWidget {
               SizedBox(width: 10),
               Expanded(
                 child: ShimmerWidget(
-                  height: 360,
+                  height: 350,
                 ),
               ),
             ],
@@ -128,7 +156,7 @@ class _BuilderCarousel extends StatelessWidget {
             indexValue: 0.obs,
             listComic: controller.listHomeComic,
             timeStep: const Duration(
-              microseconds: 1000, //1s
+              seconds: 6, //2s
             ),
           ),
         );

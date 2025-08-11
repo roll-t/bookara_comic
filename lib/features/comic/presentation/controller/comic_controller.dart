@@ -19,10 +19,15 @@ class ComicController extends GetxController {
   final GetHomeComicUsecase _getHomeComicUsecase;
 
   ///---> [VARIABLE]
-  RxList<ComicModel> listHomeComic = <ComicModel>[].obs;
+  RxList<ComicModel> listHomeComic = <ComicModel>[].obs; //home
+  RxList<ComicModel> listNewRelease = <ComicModel>[].obs; // truyen-moi
+  RxList<ComicModel> listComingSoon = <ComicModel>[].obs; // sap-ra-mat
+  RxList<ComicModel> listOngoing = <ComicModel>[].obs; // dang-phat-hanh
+  RxList<ComicModel> listCompleted = <ComicModel>[].obs; // hoan-thanh
 
   ///---> [LOADING]
   RxBool isLoadingCarousel = false.obs;
+  RxBool isLoadingListComic = false.obs;
 
   ///---> [INIT]
   @override
@@ -43,6 +48,26 @@ class ComicController extends GetxController {
       targetList: listHomeComic,
       fetchData: _getHomeComicUsecase.call,
       updateId: "CAROUSEL_ID",
+    );
+    await fetchAndSetList<ComicModel>(
+      isLoading: isLoadingListComic,
+      targetList: listNewRelease,
+      fetchData: () => _getListTypeComicUsecase("truyen-moi", page: 1),
+    );
+    await fetchAndSetList<ComicModel>(
+      isLoading: isLoadingListComic,
+      targetList: listComingSoon,
+      fetchData: () => _getListTypeComicUsecase("sap-ra-mat", page: 1),
+    );
+    await fetchAndSetList<ComicModel>(
+      isLoading: isLoadingListComic,
+      targetList: listCompleted,
+      fetchData: () => _getListTypeComicUsecase("hoan-thanh", page: 1),
+    );
+    await fetchAndSetList<ComicModel>(
+      isLoading: isLoadingListComic,
+      targetList: listOngoing,
+      fetchData: () => _getListTypeComicUsecase("dang-phat-hanh", page: 1),
     );
   }
 

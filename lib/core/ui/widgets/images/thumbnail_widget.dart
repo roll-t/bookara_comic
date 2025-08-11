@@ -1,4 +1,5 @@
 import 'package:bookara/core/config/theme/app_colors.dart';
+import 'package:bookara/core/ui/widgets/shimmer/shimmer_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -30,11 +31,11 @@ class ThumbnailWidget extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(borderRadius),
         child: CachedNetworkImage(
-          imageUrl: imageUrl,
+          imageUrl: "https://img.otruyenapi.com/uploads/comics/$imageUrl",
           fit: BoxFit.cover,
           width: double.infinity,
           placeholder: (context, url) => const Center(
-            child: CircularProgressIndicator(),
+            child: ShimmerWidget(height: 350,),
           ),
           errorWidget: (context, url, error) => const Center(
             child: Icon(Icons.error, color: Colors.red),

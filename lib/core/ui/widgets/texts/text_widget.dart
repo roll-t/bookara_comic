@@ -1,6 +1,6 @@
 import 'package:bookara/core/config/const/app_dimens.dart';
 import 'package:bookara/core/config/const/app_enum.dart';
-import 'package:bookara/core/config/theme/app_colors.dart';
+import 'package:bookara/core/config/theme/app_theme_colors.dart';
 import 'package:bookara/core/ui/styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 class TextWidget extends StatelessWidget {
   final String text;
   final double? size;
-  final Color color;
+  final Color? color;
   final int? maxLines;
   final TextAlign? textAlign;
   final FontWeight? fontWeight;
@@ -18,6 +18,7 @@ class TextWidget extends StatelessWidget {
   final String? fontFamily;
   final TextTransformType transform;
   final AppTextStyleModel? textStyle;
+  final EdgeInsets padding;
 
   const TextWidget({
     super.key,
@@ -25,7 +26,7 @@ class TextWidget extends StatelessWidget {
     this.listShadow,
     this.maxLines = 1000,
     required this.text,
-    this.color = AppColors.text700,
+    this.color,
     this.size = AppDimens.fontSizeMedium,
     this.fontWeight = FontWeight.normal,
     this.fontStyle = FontStyle.normal,
@@ -33,6 +34,7 @@ class TextWidget extends StatelessWidget {
     this.fontFamily,
     this.transform = TextTransformType.normal,
     this.textStyle,
+    this.padding = EdgeInsets.zero,
   });
 
   String _applyTransform(String value) {
@@ -60,20 +62,24 @@ class TextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Color textColor = color ?? AppThemeColors.text;
     final transformedText = _applyTransform(text.tr);
-    return Text(
-      transformedText,
-      maxLines: maxLines,
-      textAlign: textAlign,
-      style: TextStyle(
-        fontFamily: fontFamily ?? "Roboto",
-        color: color,
-        fontSize: textStyle?.fontSize ?? size,
-        fontStyle: fontStyle,
-        shadows: listShadow,
-        fontWeight: textStyle?.fontWeight?? fontWeight,
-        decoration: textDecoration,
-        overflow: TextOverflow.ellipsis,
+    return Padding(
+      padding: padding,
+      child: Text(
+        transformedText,
+        maxLines: maxLines,
+        textAlign: textAlign,
+        style: TextStyle(
+          fontFamily: fontFamily ?? "Roboto",
+          color: textColor,
+          fontSize: textStyle?.fontSize ?? size,
+          fontStyle: fontStyle,
+          shadows: listShadow,
+          fontWeight: textStyle?.fontWeight ?? fontWeight,
+          decoration: textDecoration,
+          overflow: TextOverflow.ellipsis,
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:bookara/core/config/theme/app_colors.dart';
+import 'package:bookara/core/config/theme/app_theme_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomSliverLayout extends StatelessWidget {
@@ -15,15 +16,18 @@ class CustomSliverLayout extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         SliverAppBar(
+          bottom: const PreferredSize(
+            preferredSize: Size.fromHeight(10),
+            child: SizedBox(),
+          ),
           title: appBar,
           floating: true,
           snap: true,
-          pinned: false,
           elevation: 0,
           backgroundColor: AppColors.transparent,
           surfaceTintColor: AppColors.transparent,
           flexibleSpace: Container(
-            color: AppColors.transparent,
+            color: AppThemeColors.background300,
           ),
         ),
         SliverToBoxAdapter(
