@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class Utils {
   static SvgPicture iconSvg({
@@ -11,9 +12,9 @@ class Utils {
       svgUrl,
       width: size,
       height: size,
-      
       colorFilter:
           color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
     );
   }
+
 }

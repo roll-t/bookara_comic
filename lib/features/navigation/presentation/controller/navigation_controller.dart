@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 
 class NavigationController extends GetxController {
   final RxInt currentPage = 0.obs;
-  final RxString currentTitle = "Báo cáo".obs;
 
   List<String> routeNames = [
     const TabComicCollection().routeName,

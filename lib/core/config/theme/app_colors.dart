@@ -12,7 +12,7 @@ class AppColors {
   static const Color dark700 = Color(0xFF181818);
   static const Color dark500 = Color(0xff1f1f1f);
   static const Color dark300 = Color(0xff2c2c2c);
-  
+
   static const light300 = Color(0xFFBDBDBD);
   static const light200 = Color(0xFFE0E0E0);
   static const light100 = Color(0xFFF5F5F5);
@@ -87,4 +87,7 @@ class AppColors {
   static const palette3 = Color(0xFFEEEFF4);
   static const palette4 = Color(0xFFFCFCFF);
   static const palette5 = Color(0xFFF1EEFF);
+
+  static const Color shimmerBase = Color(0xFFE0E0E0);
+  static const Color shimmerHighlight = Color(0xFFF5F5F5);
 }

@@ -51,4 +51,7 @@ Map<String, String> en = {
   "Quản lý xe ở Auto": 'Car management in Auto',
   "Quản lý xe bán": 'Vehicle management',
   "Chi tiết": 'Detail',
+  "Tủ sách": 'Bookcase',
+  "Truyện tranh": 'Comic',
+  "Xin chào": 'Hello',
 };

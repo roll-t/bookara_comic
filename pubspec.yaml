@@ -40,6 +40,8 @@ dependencies:
   
   flutter_localizations:
     sdk: flutter
+  carousel_slider: ^5.1.1
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

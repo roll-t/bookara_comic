@@ -3,7 +3,7 @@ import 'package:bookara/features/comic/data_layer/data/model/params_model.dart';
 import 'package:bookara/features/comic/data_layer/data/model/seo_on_page_model.dart';
 import 'package:bookara/features/comic/data_layer/data/model/comic_model.dart';
 
-class ComicResponseModel {
+class ComicResponse {
   final SeoOnPageModel? seoOnPage;
   final List<BreadCrumbModel>? breadCrumb;
   final String? titlePage;
@@ -13,7 +13,7 @@ class ComicResponseModel {
   final String? appDomainFrontend;
   final String? appDomainCdnImage;
 
-  ComicResponseModel({
+  ComicResponse({
     this.seoOnPage,
     this.breadCrumb,
     this.titlePage,
@@ -24,8 +24,8 @@ class ComicResponseModel {
     this.appDomainCdnImage,
   });
 
-  factory ComicResponseModel.fromJson(Map<String, dynamic> json) {
-    return ComicResponseModel(
+  factory ComicResponse.fromJson(Map<String, dynamic> json) {
+    return ComicResponse(
       seoOnPage: json['seoOnPage'] != null
           ? SeoOnPageModel.fromJson(json['seoOnPage'])
           : null,
