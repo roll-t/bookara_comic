@@ -4,13 +4,13 @@ import 'package:bookara/core/ui/widgets/texts/text_widget.dart';
 import 'package:bookara/features/comic/data_layer/data/model/comic_model.dart';
 import 'package:flutter/material.dart';
 
-class ComicHorizontalList extends StatelessWidget {
+class ComicGridList extends StatelessWidget {
   final List<ComicModel> listComic;
   final String title;
   final String seeMoreText;
   final VoidCallback? onSeeMore;
 
-  const ComicHorizontalList({
+  const ComicGridList({
     super.key,
     required this.title,
     required this.listComic,
@@ -20,9 +20,11 @@ class ComicHorizontalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final int count = listComic.length > 9 ? 9 : listComic.length;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        /// Title & "See more"
         Row(
           children: [
             Expanded(
@@ -43,21 +45,26 @@ class ComicHorizontalList extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 14),
-        SizedBox(
-          height: 250,
-          child: ListView.builder(
-            padding: const EdgeInsets.only(left: 16),
-            scrollDirection: Axis.horizontal,
-            itemCount: listComic.length,
-            itemBuilder: (context, index) {
-              final comic = listComic[index];
-              return Container(
-                width: 120,
-                margin: const EdgeInsets.only(right: 12),
-                child: ComicCard(comic: comic),
-              );
-            },
+
+        /// Grid 3x4
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          itemCount: count,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 16,
+            childAspectRatio: 0.55,
           ),
+          itemBuilder: (context, index) {
+            final comic = listComic[index];
+            return ComicCard(
+              comic: comic,
+              isShowCategory: false,
+            );
+          },
         ),
       ],
     );

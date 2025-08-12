@@ -28,6 +28,10 @@ class ComicController extends GetxController {
   ///---> [LOADING]
   RxBool isLoadingCarousel = false.obs;
   RxBool isLoadingListComic = false.obs;
+  RxBool isLoadingNewRelease = false.obs;
+  RxBool isLoadingComingSoon = false.obs;
+  RxBool isLoadingOngoing = false.obs;
+  RxBool isLoadingComplete = false.obs;
 
   ///---> [INIT]
   @override
@@ -42,32 +46,41 @@ class ComicController extends GetxController {
 
   ///---> [DATA INITIALIZED]
   Future<void> initializeData() async {
-    ///---> [Home-data using in carousel]
-    await fetchAndSetList<ComicModel>(
-      isLoading: isLoadingCarousel,
-      targetList: listHomeComic,
-      fetchData: _getHomeComicUsecase.call,
-      updateId: "CAROUSEL_ID",
-    );
-    await fetchAndSetList<ComicModel>(
-      isLoading: isLoadingListComic,
-      targetList: listNewRelease,
-      fetchData: () => _getListTypeComicUsecase("truyen-moi", page: 1),
-    );
-    await fetchAndSetList<ComicModel>(
-      isLoading: isLoadingListComic,
-      targetList: listComingSoon,
-      fetchData: () => _getListTypeComicUsecase("sap-ra-mat", page: 1),
-    );
-    await fetchAndSetList<ComicModel>(
-      isLoading: isLoadingListComic,
-      targetList: listCompleted,
-      fetchData: () => _getListTypeComicUsecase("hoan-thanh", page: 1),
-    );
-    await fetchAndSetList<ComicModel>(
-      isLoading: isLoadingListComic,
-      targetList: listOngoing,
-      fetchData: () => _getListTypeComicUsecase("dang-phat-hanh", page: 1),
+    Future.wait(
+      [
+        ///---> [Home-data using in carousel]
+        fetchAndSetList<ComicModel>(
+          isLoading: isLoadingCarousel,
+          targetList: listHomeComic,
+          fetchData: _getHomeComicUsecase.call,
+          updateId: "CAROUSEL_ID",
+        ),
+        fetchAndSetList<ComicModel>(
+          isLoading: isLoadingNewRelease,
+          targetList: listNewRelease,
+          fetchData: () => _getListTypeComicUsecase("truyen-moi", page: 3),
+          updateId: "NEW_RELEASE_COMICS_ID",
+        ),
+
+        fetchAndSetList<ComicModel>(
+          isLoading: isLoadingComingSoon,
+          targetList: listComingSoon,
+          fetchData: () => _getListTypeComicUsecase("sap-ra-mat", page: 3),
+          updateId: "COMING_SOON_ID",
+        ),
+        fetchAndSetList<ComicModel>(
+          isLoading: isLoadingOngoing,
+          targetList: listOngoing,
+          fetchData: () => _getListTypeComicUsecase("dang-phat-hanh", page: 4),
+          updateId: "ON_GOING_COMICS_ID",
+        ),
+        fetchAndSetList<ComicModel>(
+          isLoading: isLoadingComplete,
+          targetList: listCompleted,
+          fetchData: () => _getListTypeComicUsecase("hoan-thanh", page: 1),
+          updateId: "COMPLETED_COMICS_ID",
+        ),
+      ],
     );
   }
 

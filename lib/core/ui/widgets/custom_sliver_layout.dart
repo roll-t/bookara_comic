@@ -32,6 +32,9 @@ class CustomSliverLayout extends StatelessWidget {
         ),
         SliverToBoxAdapter(
           child: bodyBuilder,
+        ),
+        const SliverToBoxAdapter(
+          child: SizedBox(height: 50),
         )
       ],
     );

@@ -14,6 +14,9 @@ class AppColorScheme {
   final Color appBar;
 
   final Color text;
+  final Color text100;
+  final Color text200;
+  final Color text300;
   final Color textDark;
   final Color textLight;
 
@@ -44,6 +47,9 @@ class AppColorScheme {
     required this.card,
     required this.appBar,
     required this.text,
+    required this.text100,
+    required this.text200,
+    required this.text300,
     required this.textDark,
     required this.textLight,
     required this.textSecondary,
@@ -79,6 +85,9 @@ class AppColorThemeScheme {
           card: AppColors.neutralColor5,
           appBar: AppColors.primary2_500,
           text: AppColors.text700,
+          text100: AppColors.text600,
+          text200: AppColors.text500,
+          text300: AppColors.text400,
           textDark: AppColors.text700,
           textLight: AppColors.text200,
           textSecondary: AppColors.text500,
@@ -108,6 +117,9 @@ class AppColorThemeScheme {
           surface: AppColors.neutralColor2,
           card: AppColors.neutralColor3,
           text: AppColors.text700,
+          text100: AppColors.text600,
+          text200: AppColors.text500,
+          text300: AppColors.text400,
           textDark: AppColors.text700,
           textLight: AppColors.text200,
           textSecondary: AppColors.neutralColor5,
@@ -141,6 +153,9 @@ class AppColorThemeScheme {
           card: AppColors.neutralColor5,
           appBar: AppColors.primary2_500,
           text: AppColors.light100,
+          text100: AppColors.light200,
+          text200: AppColors.light300,
+          text300: AppColors.light300,
           textDark: AppColors.light100,
           textLight: AppColors.text100,
           textSecondary: AppColors.light200,
@@ -170,6 +185,9 @@ class AppColorThemeScheme {
           surface: AppColors.neutralColor6,
           card: AppColors.neutralColor5,
           text: AppColors.light100,
+          text100: AppColors.light200,
+          text200: AppColors.light300,
+          text300: AppColors.light300,
           textDark: AppColors.light300,
           textLight: AppColors.text100,
           textSecondary: AppColors.light200,

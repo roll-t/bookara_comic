@@ -21,7 +21,7 @@ class AppColors {
   static const Color black = Color(0xFF000000);
   static const Color white = Color(0xFFffffff);
 
-  static const Color primary2 = Color(0xFFFF0000);
+  static const Color primary2 = Color.fromARGB(255, 187, 21, 21);
   static const Color primary3 = Color(0xFF34C759);
 
   // Secondary Colors

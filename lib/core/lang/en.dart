@@ -54,4 +54,9 @@ Map<String, String> en = {
   "Tủ sách": 'Bookcase',
   "Truyện tranh": 'Comic',
   "Xin chào": 'Hello',
+  "Xem thêm": 'See more',
+  "Mới nhất": 'New releases',
+  "Sắp ra mắt": 'Upcoming',
+  "Đang phát hành": 'Ongoing',
+  "Hoàn thành": 'Complete',
 };

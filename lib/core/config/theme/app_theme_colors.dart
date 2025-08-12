@@ -6,7 +6,8 @@ import 'package:get/get.dart';
 class AppThemeColors {
   static final ThemeController _themeController = Get.find<ThemeController>();
 
-  static AppColorScheme get primaryTheme => _themeController.appColorScheme.value;
+  static AppColorScheme get primaryTheme =>
+      _themeController.appColorScheme.value;
 
   ///---> [PRIMARY]
   static Color get primary => primaryTheme.primary;
@@ -34,6 +35,9 @@ class AppThemeColors {
 
   ///---> [TEXT]
   static Color get text => primaryTheme.text;
+  static Color get text100 => primaryTheme.text100;
+  static Color get text200 => primaryTheme.text200;
+  static Color get text300 => primaryTheme.text300;
   static Color get textDark => primaryTheme.textDark;
   static Color get textLight => primaryTheme.textLight;
   static Color get textSecondary => primaryTheme.textSecondary;
