@@ -1,6 +1,10 @@
 import 'package:bookara/core/routes/app_routes.dart';
 import 'package:bookara/features/auth/presentation/page/login/login_page.dart';
 import 'package:bookara/features/auth/presentation/page/register/register_page.dart';
+import 'package:bookara/features/comic/di/comic_category_binding.dart';
+import 'package:bookara/features/comic/di/comic_explore_binding.dart';
+import 'package:bookara/features/comic/presentation/page/comic_category_page.dart';
+import 'package:bookara/features/comic/presentation/page/comic_explore_page.dart';
 import 'package:bookara/features/navigation/di/navigation_binding.dart';
 import 'package:bookara/features/navigation/presentation/page/navigation_page.dart';
 import 'package:bookara/core/ui/widgets/notFound/not_found_page.dart';
@@ -37,5 +41,15 @@ final appPage = [
   GetPage(
     name: AppRoutes.signup,
     page: () => const RegisterPage(),
+  ),
+  GetPage(
+    name: const ComicCategoryPage().routeName,
+    page: () => const ComicCategoryPage(),
+    binding: ComicCategoryBinding(),
+  ),
+  GetPage(
+    name: const ComicExplorePage().routeName,
+    page: () => const ComicExplorePage(),
+    binding: ComicExploreBinding(),
   ),
 ];

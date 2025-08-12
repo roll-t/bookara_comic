@@ -1,3 +1,4 @@
+import 'package:bookara/features/comic/data_layer/data/model/category_comic_model.dart';
 import 'package:bookara/features/comic/data_layer/data/model/comic_model.dart';
 import 'package:bookara/features/comic/data_layer/usecase/get_category_comic_usecase.dart';
 import 'package:bookara/features/comic/data_layer/usecase/get_home_comic_usecase.dart';
@@ -19,6 +20,8 @@ class ComicController extends GetxController {
   final GetHomeComicUsecase _getHomeComicUsecase;
 
   ///---> [VARIABLE]
+  RxList<CategoryComicModel> listCategory =
+      <CategoryComicModel>[].obs; //category comic
   RxList<ComicModel> listHomeComic = <ComicModel>[].obs; //home
   RxList<ComicModel> listNewRelease = <ComicModel>[].obs; // truyen-moi
   RxList<ComicModel> listComingSoon = <ComicModel>[].obs; // sap-ra-mat
@@ -55,6 +58,8 @@ class ComicController extends GetxController {
           fetchData: _getHomeComicUsecase.call,
           updateId: "CAROUSEL_ID",
         ),
+
+        ///---> [New comic-comic]
         fetchAndSetList<ComicModel>(
           isLoading: isLoadingNewRelease,
           targetList: listNewRelease,
@@ -62,23 +67,36 @@ class ComicController extends GetxController {
           updateId: "NEW_RELEASE_COMICS_ID",
         ),
 
+        ///---> [Comic is about to debut-comic]
         fetchAndSetList<ComicModel>(
           isLoading: isLoadingComingSoon,
           targetList: listComingSoon,
           fetchData: () => _getListTypeComicUsecase("sap-ra-mat", page: 3),
           updateId: "COMING_SOON_ID",
         ),
+
+        ///---> [Ongoing comic data]
         fetchAndSetList<ComicModel>(
           isLoading: isLoadingOngoing,
           targetList: listOngoing,
           fetchData: () => _getListTypeComicUsecase("dang-phat-hanh", page: 4),
           updateId: "ON_GOING_COMICS_ID",
         ),
+
+        ///---> [Completed data]
         fetchAndSetList<ComicModel>(
           isLoading: isLoadingComplete,
           targetList: listCompleted,
           fetchData: () => _getListTypeComicUsecase("hoan-thanh", page: 1),
           updateId: "COMPLETED_COMICS_ID",
+        ),
+
+        ///---> [Category-comic]
+        fetchAndSetList<CategoryComicModel>(
+          isLoading: isLoadingComplete,
+          targetList: listCategory,
+          fetchData: () => _categoryComicUsecase.call(),
+          updateId: "CATEGORY_COMICS_ID",
         ),
       ],
     );
