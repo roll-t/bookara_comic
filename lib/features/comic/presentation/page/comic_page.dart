@@ -9,6 +9,7 @@ import 'package:bookara/core/ui/widgets/shimmer/shimmer_horizontal_comic_list.da
 import 'package:bookara/core/ui/widgets/shimmer/shimmer_widget.dart';
 import 'package:bookara/core/ui/widgets/texts/text_widget.dart';
 import 'package:bookara/core/utils/utils.dart';
+import 'package:bookara/features/comic/presentation/argument/category_argument.dart';
 import 'package:bookara/features/comic/presentation/controller/comic_controller.dart';
 import 'package:bookara/features/comic/presentation/page/comic_category_page.dart';
 import 'package:bookara/features/comic/presentation/page/comic_explore_page.dart';
@@ -30,8 +31,9 @@ class _BodyBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const CustomSliverLayout(
+      isLeadingAppBar: false,
       appBar: _BuildAppBarComic(),
-      bodyBuilder: _BuildBodyComicCollection(), 
+      bodyBuilder: _BuildBodyComicCollection(),
     );
   }
 }
@@ -177,6 +179,7 @@ class _BuildCategory extends StatelessWidget {
                 final category = listCategory[index];
                 if (index == maxLength - 1) {
                   return CategoryTag(
+                    slug: category.slug,
                     tagName: "+ Xem thêm",
                     onTap: () {
                       Get.bottomSheet(
@@ -188,6 +191,7 @@ class _BuildCategory extends StatelessWidget {
                 }
                 return CategoryTag(
                   tagName: category.name,
+                  slug: category.slug,
                 );
               }).toList(),
             ),
@@ -256,7 +260,13 @@ class _CategoryBottomSheet extends StatelessWidget {
                     final category = controller.listCategory[index];
                     return GestureDetector(
                       onTap: () {
-                        Get.toNamed(const ComicCategoryPage().routeName);
+                        Get.toNamed(
+                          const ComicCategoryPage().routeName,
+                          arguments: CategoryArgument(
+                            slug: category.slug,
+                            name: category.name,
+                          ),
+                        );
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -305,7 +315,15 @@ class _BuildNewReleaseComics extends StatelessWidget {
         ///---> [RENDER-CASE]
         return ComicHorizontalList(
           title: "Mới nhất",
-          onSeeMore: () => Get.toNamed(const ComicCategoryPage().routeName),
+          onSeeMore: () {
+            Get.toNamed(
+              const ComicCategoryPage().routeName,
+              arguments: CategoryArgument(
+                slug: "truyen-moi",
+                name: "Truyện mới nhất",
+              ),
+            );
+          },
           listComic: controller.listNewRelease,
         );
       },
@@ -334,7 +352,15 @@ class _BuildOngoingComics extends StatelessWidget {
         ///---> [RENDER-CASE]
         return ComicHorizontalList(
           title: "Đang phát hành",
-          onSeeMore: () => Get.toNamed(const ComicCategoryPage().routeName),
+          onSeeMore: () {
+            Get.toNamed(
+              const ComicCategoryPage().routeName,
+              arguments: CategoryArgument(
+                slug: "dang-phat-hanh",
+                name: "Đang phát hành",
+              ),
+            );
+          },
           listComic: controller.listOngoing,
         );
       },
@@ -363,7 +389,15 @@ class _BuildCompletedComics extends StatelessWidget {
         ///---> [RENDER-CASE]
         return ComicGridList(
           title: "Hoàn thành",
-          onSeeMore: () => Get.toNamed(const ComicCategoryPage().routeName),
+          onSeeMore: () {
+            Get.toNamed(
+              const ComicCategoryPage().routeName,
+              arguments: CategoryArgument(
+                slug: "hoan-thanh",
+                name: "Hoàn thành",
+              ),
+            );
+          },
           listComic: controller.listCompleted,
         );
       },
@@ -391,7 +425,15 @@ class _BuildComingSoonComics extends StatelessWidget {
         ///---> [RENDER-CASE]
         return ComicGridList(
           title: 'Sắp ra mắt',
-          onSeeMore: () => Get.toNamed(const ComicCategoryPage().routeName),
+          onSeeMore: () {
+            Get.toNamed(
+              const ComicCategoryPage().routeName,
+              arguments: CategoryArgument(
+                slug: "sap-ra-mat",
+                name: "Sắp ra mắt",
+              ),
+            );
+          },
           listComic: controller.listComingSoon,
         );
       },

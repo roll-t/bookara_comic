@@ -3,23 +3,23 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 mixin ArgumentHandlerMixinController<T> on GetxController {
-  T? _argsData;
+  T? argsData;
 
   /// Getter an toàn (nullable)
-  T? get argumentOrNull => _argsData;
+  T? get argumentOrNull => argsData;
 
   /// Getter bắt buộc có args, nếu không sẽ throw
   T get requireArgument {
-    if (_argsData == null) {
+    if (argsData == null) {
       throw StateError('Argument has not been set or failed to parse.');
     }
-    return _argsData!;
+    return argsData!;
   }
 
   /// Gán argument thủ công
   bool handleArgument(Object? args) {
     if (args is T) {
-      _argsData = args;
+      argsData = args;
       return true;
     }
     return false;
@@ -38,7 +38,7 @@ mixin ArgumentHandlerMixinController<T> on GetxController {
   /// Dọn dẹp argument
   @mustCallSuper
   void disposeArgumentHandler() {
-    _argsData = null;
+    argsData = null;
     log("🧹 [ArgumentHandlerMixin] Disposed");
   }
 }

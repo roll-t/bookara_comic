@@ -5,8 +5,12 @@ import 'package:bookara/features/comic/data_layer/data/repositories/comic_reposi
 
 class GetCategoryDetailUsecase extends UsecaseAbs<ComicRepository> {
   ///---> [Get comic list by category slug]
-  Future<List<ComicModel>?> call(String slug, {int page = 1}) async {
+  Future<List<ComicModel>?> call(String? slug, {int page = 1}) async {
     AppLogger.i(">>> LOAD CATEGORY DETAIL: $slug");
+    if (slug == null || slug.isEmpty) {
+      AppLogger.e(">>> ERROR: Slug is null or empty");
+      return null;
+    }
     final result = await repository.getCategoryDetail(slug, page: page);
     if (result.isSuccess && result.data != null) {
       return result.data;
