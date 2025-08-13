@@ -11,7 +11,7 @@ class CategoryComicModel {
 
   factory CategoryComicModel.fromJson(Map<String, dynamic> json) {
     return CategoryComicModel(
-      id: json['_id'] ?? '',
+      id: json['_id'] ?? json['id'],
       slug: json['slug'] ?? '',
       name: json['name'] ?? '',
     );

@@ -1,3 +1,4 @@
+import 'package:bookara/core/extension/empty_extension.dart';
 import 'package:bookara/core/ui/widgets/images/thumbnail_widget.dart';
 import 'package:bookara/features/comic/data_layer/data/model/comic_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -35,7 +36,7 @@ class CarouselComicWidget {
                   child: InkWell(
                     onTap: () {},
                     child: ThumbnailWidget(
-                      imageUrl: listComic[index].thumbUrl,
+                      imageUrl: (listComic[index].thumbUrl).orEmpty(),
                     ),
                   ),
                 ),

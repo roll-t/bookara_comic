@@ -1,15 +1,28 @@
+import 'package:bookara/core/extension/empty_extension.dart';
 import 'package:bookara/core/utils/mixin_controller/argument_handle_mixin_controller.dart';
 import 'package:bookara/features/comic/data_layer/data/model/comic_model.dart';
 import 'package:bookara/features/comic/data_layer/usecase/get_category_detail_usecase.dart';
+import 'package:bookara/features/comic/data_layer/usecase/get_list_type_comic_usecase.dart';
 import 'package:bookara/features/comic/presentation/argument/category_argument.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ComicCategoryController extends GetxController
     with ArgumentHandlerMixinController<CategoryArgument> {
-  ComicCategoryController(this._getCategoryDetailUsecase);
+  ComicCategoryController(
+    this._getCategoryDetailUsecase,
+    this._getListTypeComicUsecase,
+  );
 
+  ///---> [ARGUMENT]
+  final List<String> listType = [
+    "truyen-moi",
+    "sap-ra-mat",
+    "dang-phat-hanh",
+    "hoan-thanh",
+  ];
   final GetCategoryDetailUsecase _getCategoryDetailUsecase;
+  final GetListTypeComicUsecase _getListTypeComicUsecase;
 
   final RxList<ComicModel> listComicByCategory = <ComicModel>[].obs;
   final RxString titlePage = ''.obs;
@@ -24,7 +37,6 @@ class ComicCategoryController extends GetxController
   void onInit() {
     super.onInit();
 
-    // Lắng nghe sự kiện cuộn để load more
     scrollController.addListener(() {
       if (scrollController.position.pixels >=
               scrollController.position.maxScrollExtent - 100 &&
@@ -44,7 +56,7 @@ class ComicCategoryController extends GetxController
   Future<void> _initializedData() async {
     bool hasData = handleArgumentFromGet();
     if (hasData) {
-      titlePage.value = argsData?.name ?? "Category";
+      titlePage.value = (argsData?.name).orNA();
       _currentPage = 1;
       _isLastPage = false;
       await _fetchPage(_currentPage, clearBeforeFetch: true);
@@ -53,10 +65,19 @@ class ComicCategoryController extends GetxController
 
   Future<void> _fetchPage(int page, {bool clearBeforeFetch = false}) async {
     await fetchAndSetList<ComicModel>(
-      fetchData: () => _getCategoryDetailUsecase.call(
-        argsData?.slug ?? "",
-        page: page,
-      ),
+      fetchData: () {
+        if (!listType.contains(argsData?.slug)) {
+          return _getCategoryDetailUsecase.call(
+            argsData?.slug ?? "",
+            page: page,
+          );
+        } else {
+          return _getListTypeComicUsecase.call(
+            argsData?.slug ?? "",
+            page: page,
+          );
+        }
+      },
       isLoading: isLoadingMore,
       targetList: listComicByCategory,
       clearBeforeFetch: clearBeforeFetch,

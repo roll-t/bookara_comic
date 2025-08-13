@@ -7,10 +7,12 @@ class ShimmerLoadingList extends StatelessWidget {
   final double heightItem;
   final int countItems;
   final EdgeInsets? padding;
+  final double? runSpacing;
   const ShimmerLoadingList({
     super.key,
     this.heightItem = 80,
     this.padding,
+    this.runSpacing,
     required this.countItems,
   });
 
@@ -23,7 +25,7 @@ class ShimmerLoadingList extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) => Container(
-          margin: const EdgeInsets.only(bottom: 10),
+          margin: EdgeInsets.only(bottom: runSpacing ?? 0),
           child: Shimmer.fromColors(
             baseColor: AppColors.shimmerBase,
             highlightColor: AppColors.shimmerHighlight,

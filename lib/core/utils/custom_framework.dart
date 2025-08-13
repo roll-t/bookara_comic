@@ -1,5 +1,8 @@
 import 'package:bookara/core/config/theme/app_theme_colors.dart';
+import 'package:bookara/core/ui/styles/app_text_styles.dart';
 import 'package:bookara/core/ui/widgets/app_bar/custom_appbar.dart';
+import 'package:bookara/core/ui/widgets/custom_sliver_layout.dart';
+import 'package:bookara/core/ui/widgets/texts/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recase/recase.dart';
@@ -19,7 +22,7 @@ abstract class CustomStatePage extends StatelessWidget {
   bool get showBack => true;
 
   /// ✅ Custom AppBar nếu muốn, nếu null thì dùng mặc định
-  PreferredSizeWidget? get appBar => null;
+  Widget? get appBar => null;
 
   /// ✅ Màu nền của Scaffold
   Color? get backgroundColor => AppThemeColors.background300;
@@ -29,6 +32,8 @@ abstract class CustomStatePage extends StatelessWidget {
 
   /// ✅ BottomNavigationBar nếu có
   Widget? get bottomNavigationBar => null;
+
+  bool get isShowBack => true;
 
   /// ✅ Hiệu ứng chuyển trang khi dùng Get.to()
   Transition get transition => Transition.fadeIn;
@@ -70,7 +75,30 @@ abstract class CustomStatePage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: backgroundColor,
-      appBar: appBar ?? (title != null ? buildDefaultAppBar(context) : null),
+      appBar: (title == null && appBar != null)
+          ? AppBar(
+              centerTitle: true,
+              backgroundColor: AppThemeColors.background200,
+              leading: isShowBack && Navigator.of(context).canPop()
+                  ? const Center(child: IconCircle())
+                  : null,
+              title: appBar,
+              elevation: 0,
+            )
+          : (title != null && appBar == null)
+              ? AppBar(
+                  centerTitle: true,
+                  backgroundColor: AppThemeColors.background200,
+                  leading: isShowBack && Navigator.of(context).canPop()
+                      ? const Center(child: IconCircle())
+                      : null,
+                  title: TextWidget(
+                    text: title ?? "",
+                    textStyle: AppTextStyle.bold18,
+                  ),
+                  elevation: 0,
+                )
+              : null,
       body: size.width > 800 ? buildTabletBody(context) : buildBody(context),
       floatingActionButton: floatingActionButton,
       bottomNavigationBar: bottomNavigationBar,

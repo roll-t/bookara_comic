@@ -71,7 +71,7 @@ class IconCircle extends StatelessWidget {
         width: 36,
         height: 36,
         decoration: BoxDecoration(
-          color: AppColors.white.withValues(alpha: .1),
+          color: AppColors.white.withValues(alpha: .05),
           borderRadius: BorderRadius.circular(1000),
         ),
         child: child ??

@@ -9,7 +9,6 @@ abstract class BaseRepository {
   }) async {
     try {
       final res = await request();
-
       if (res.isSuccess && res.data != null) {
         final parsedData = parse(res.data);
         return Result(
@@ -23,6 +22,7 @@ abstract class BaseRepository {
         );
       }
     } catch (e) {
+      print(">>> error: $e");
       return Result(
         status: Results.error,
         message: defaultErrorMessage ?? 'Lỗi hệ thống: ${e.toString()}',

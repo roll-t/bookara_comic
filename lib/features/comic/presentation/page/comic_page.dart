@@ -73,9 +73,14 @@ class _BuildAppBarComic extends StatelessWidget {
             ],
           ),
         ),
-        Utils.iconSvg(
-          svgUrl: AppIcons.icSearch,
-          color: AppThemeColors.text,
+        GestureDetector(
+          onTap: () {
+            Get.toNamed(const ComicExplorePage().routeName);
+          },
+          child: Utils.iconSvg(
+            svgUrl: AppIcons.icSearch,
+            color: AppThemeColors.text,
+          ),
         )
       ],
     );

@@ -3,6 +3,7 @@ import 'package:bookara/core/services/abstract/base_repo.dart';
 import 'package:bookara/core/services/network/api_client.dart';
 import 'package:bookara/core/services/network/api_enpoint.dart';
 import 'package:bookara/features/comic/data_layer/data/model/category_response.dart';
+import 'package:bookara/features/comic/data_layer/data/model/comic_detail_response.dart';
 import 'package:bookara/features/comic/data_layer/data/model/comic_response.dart';
 import 'package:bookara/features/comic/data_layer/data/model/category_comic_model.dart';
 import 'package:bookara/features/comic/data_layer/data/model/comic_model.dart';
@@ -44,7 +45,7 @@ class ComicRepository extends BaseRepository {
   Future<Result<ComicModel>> getComicDetail(String slug) {
     return handleRequest<ComicModel>(
       request: () => _api.get(ApiEndpoint.comicDetail(slug)),
-      parse: (data) => ComicModel.fromJson(data),
+      parse: (data) => ComicDetailResponse.fromJson(data).item ?? ComicModel(),
       defaultErrorMessage: 'Không thể tải chi tiết truyện',
     );
   }
