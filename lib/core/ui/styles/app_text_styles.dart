@@ -66,6 +66,8 @@ class AppTextStyle {
       AppTextStyleModel(fontSize: 30, fontWeight: FontWeight.w700);
   static const bold24 =
       AppTextStyleModel(fontSize: 24, fontWeight: FontWeight.w700);
+  static const bold22 =
+      AppTextStyleModel(fontSize: 22, fontWeight: FontWeight.w700);
   static const bold20 =
       AppTextStyleModel(fontSize: 20, fontWeight: FontWeight.w700);
   static const bold18 =

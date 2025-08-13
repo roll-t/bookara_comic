@@ -7,15 +7,11 @@ import 'package:get/get.dart';
 
 class ComicDetailController extends GetxController
     with ArgumentHandlerMixinController<ComicArgument> {
-  //---> [CONSTRUCTOR]
-  ComicDetailController(
-    this._getComicDetailUsecase,
-  );
+  ComicDetailController(this._getComicDetailUsecase);
 
-  ///---> [USECASE]
   final GetComicDetailUsecase _getComicDetailUsecase;
-
   final Rx<ComicModel?> comicDetail = Rx<ComicModel?>(null);
+  final RxBool isCollapsed = false.obs;
 
   @override
   void onReady() {
@@ -23,14 +19,12 @@ class ComicDetailController extends GetxController
   }
 
   Future<void> initializedData() async {
-    handleArgumentFromGet();
-
-    bool hasData = handleArgumentFromGet();
-    if (hasData) {
-      // Load comic details using the slug from the argument
-      comicDetail.value = await _getComicDetailUsecase(argsData!.slug.orEmpty());
+    if (handleArgumentFromGet()) {
+      comicDetail.value =
+          await _getComicDetailUsecase(argsData!.slug.orEmpty());
     } else {
       print("No valid argument provided for ComicDetailController.");
     }
+    update(['COMIC_DETAIL_ID']);
   }
 }
