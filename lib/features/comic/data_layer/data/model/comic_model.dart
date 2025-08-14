@@ -1,5 +1,5 @@
-import 'package:bookara/features/comic/data_layer/data/model/chapter_model.dart';
-
+import 'package:bookara/features/comic/data_layer/data/model/chapter_latest_model.dart';
+import 'package:bookara/features/comic/data_layer/data/model/chapter_server_model.dart';
 import 'category_comic_model.dart';
 
 class ComicModel {
@@ -13,7 +13,8 @@ class ComicModel {
   final bool? subDocquyen;
   final List<String>? author;
   final List<CategoryComicModel>? category;
-  final List<ChapterModel>? chapters;
+  final List<ChapterServerModel>? chapters; // ⬅ sửa kiểu dữ liệu
+  final List<ChapterLatestModel>? chaptersLatest;
   final String? updatedAt;
 
   ComicModel({
@@ -28,6 +29,7 @@ class ComicModel {
     this.author,
     this.category,
     this.chapters,
+    this.chaptersLatest,
     this.updatedAt,
   });
 
@@ -47,12 +49,16 @@ class ComicModel {
           .map((e) => e.toString())
           .toList(),
       category: (json['category'] as List<dynamic>? ?? [])
-          .where((e) => e is Map<String, dynamic>)
-          .map((e) => CategoryComicModel.fromJson(e as Map<String, dynamic>))
+          .whereType<Map<String, dynamic>>()
+          .map((e) => CategoryComicModel.fromJson(e))
           .toList(),
       chapters: (json['chapters'] as List<dynamic>? ?? [])
-          .where((e) => e is Map<String, dynamic>)
-          .map((e) => ChapterModel.fromJson(e as Map<String, dynamic>))
+          .whereType<Map<String, dynamic>>()
+          .map((e) => ChapterServerModel.fromJson(e))
+          .toList(),
+      chaptersLatest: (json['chaptersLatest'] as List<dynamic>? ?? [])
+          .whereType<Map<String, dynamic>>()
+          .map((e) => ChapterLatestModel.fromJson(e))
           .toList(),
       updatedAt: json['updatedAt'] ?? '',
     );
@@ -70,7 +76,8 @@ class ComicModel {
       'sub_docquyen': subDocquyen,
       'author': author,
       'category': category?.map((e) => e.toJson()).toList() ?? [],
-      'chapters': chapters,
+      'chapters': chapters?.map((e) => e.toJson()).toList() ?? [],
+      'chaptersLatest': chaptersLatest?.map((e) => e.toJson()).toList() ?? [],
       'updatedAt': updatedAt,
     };
   }

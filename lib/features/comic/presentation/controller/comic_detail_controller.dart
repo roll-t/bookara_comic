@@ -10,7 +10,7 @@ class ComicDetailController extends GetxController
   ComicDetailController(this._getComicDetailUsecase);
 
   final GetComicDetailUsecase _getComicDetailUsecase;
-  final Rx<ComicModel?> comicDetail = Rx<ComicModel?>(null);
+  ComicModel? comicDetail;
   final RxBool isCollapsed = false.obs;
 
   @override
@@ -20,8 +20,7 @@ class ComicDetailController extends GetxController
 
   Future<void> initializedData() async {
     if (handleArgumentFromGet()) {
-      comicDetail.value =
-          await _getComicDetailUsecase(argsData!.slug.orEmpty());
+      comicDetail = await _getComicDetailUsecase(argsData!.slug.orEmpty());
     } else {
       print("No valid argument provided for ComicDetailController.");
     }
