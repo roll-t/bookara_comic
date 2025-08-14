@@ -74,6 +74,7 @@ abstract class CustomStatePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: backgroundColor,
       appBar: (title == null && appBar != null)
           ? AppBar(

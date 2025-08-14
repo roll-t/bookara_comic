@@ -2,8 +2,10 @@ import 'package:bookara/core/config/const/app_icons.dart';
 import 'package:bookara/core/config/const/app_images.dart';
 import 'package:bookara/core/config/theme/app_colors.dart';
 import 'package:bookara/core/config/theme/app_theme_colors.dart';
+import 'package:bookara/core/extension/datetime.dart';
 import 'package:bookara/core/extension/empty_extension.dart';
 import 'package:bookara/core/ui/styles/app_text_styles.dart';
+import 'package:bookara/core/ui/widgets/images/asset_image_widget.dart';
 import 'package:bookara/core/ui/widgets/images/cache_image_widget.dart';
 import 'package:bookara/core/ui/widgets/inputs/custom_text_field.dart';
 import 'package:bookara/core/ui/widgets/texts/expandable_text.dart';
@@ -15,8 +17,10 @@ import 'package:bookara/features/comic/data_layer/data/model/category_comic_mode
 import 'package:bookara/features/comic/data_layer/data/model/chapter_model.dart';
 import 'package:bookara/features/comic/data_layer/data/model/comic_model.dart';
 import 'package:bookara/features/comic/presentation/argument/category_argument.dart';
+import 'package:bookara/features/comic/presentation/argument/chapter_detail_argument.dart';
 import 'package:bookara/features/comic/presentation/controller/comic_detail_controller.dart';
 import 'package:bookara/features/comic/presentation/page/comic_category_page.dart';
+import 'package:bookara/features/comic/presentation/page/comic_read_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -105,7 +109,6 @@ class _BodyBuilder extends GetView<ComicDetailController> {
                   builder: (context, constraints) {
                     final collapsed = constraints.biggest.height <=
                         kToolbarHeight + MediaQuery.of(context).padding.top;
-
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       if (controller.isCollapsed.value != collapsed) {
                         controller.isCollapsed.value = collapsed;
@@ -314,7 +317,7 @@ class _BuildCategoryTag extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(
+        Get.offAndToNamed(
           const ComicCategoryPage().routeName,
           arguments: CategoryArgument(
             name: category?.name,
@@ -345,110 +348,162 @@ class _BuildTabChapters extends GetView<ComicDetailController> {
 
   @override
   Widget build(BuildContext context) {
-    final rootChapters = controller.comicDetail?.chapters;
-    final listChapter = (rootChapters != null && rootChapters.isNotEmpty)
-        ? rootChapters.first.serverData ?? []
+    final comic = controller.comicDetail;
+    final listChapter = (comic?.chapters?.isNotEmpty ?? false)
+        ? comic!.chapters!.first.serverData ?? []
         : <ChapterModel>[];
-    final chapterServer = (rootChapters != null && rootChapters.isNotEmpty)
-        ? rootChapters.first.serverName ?? ""
-        : "";
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
           const SizedBox(height: 20),
-          CustomTextField(
-            hintText: "Tìm kiếm",
-            hintColor: AppColors.text400,
-            focusedBorderColor: AppThemeColors.background100,
-            borderColor: AppThemeColors.background100,
-            textSize: 16,
-            borderWidth: 0,
-            backgroundColor: AppThemeColors.background100,
-            borderRadius: 2000,
-            leading: Padding(
-              padding: const EdgeInsets.only(left: 12.0),
-              child: Utils.iconSvg(
-                svgUrl: AppIcons.icSearch,
-                color: AppColors.text400,
-              ),
-            ),
-          ),
-          (listChapter.isEmpty)
-              ? const SizedBox.shrink()
-              : Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+          _buildSearchBar(),
+          if (listChapter.length >= 4) _buildRecentChapters(comic, listChapter),
+          listChapter.isNotEmpty
+              ? const Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    TextWidget(
+                      text: "Danh sách",
+                      textStyle: AppTextStyle.semiBold18,
+                    ),
+                  ],
+                )
+              : Expanded(
+                  child: Center(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const TextWidget(
-                        text: "Gần nhất",
-                        textStyle: AppTextStyle.medium18,
+                      AssetImageWidget(
+                        width: 25.w,
+                        assetPath: AppImages.iEmpty,
                       ),
-                      const SizedBox(height: 18),
-                      SizedBox(
-                        width: double.infinity,
-                        child: Wrap(
-                          children: [
-                            GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 8),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(
-                                      width: 1, color: AppColors.text300),
-                                  color: AppThemeColors.background200,
-                                ),
-                                child: TextWidget(
-                                  text:
-                                      "Chương ${listChapter[listChapter.length - 1].chapterName}",
-                                  textStyle: AppTextStyle.regular16,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                      const SizedBox(height: 20),
+                      const TextWidget(
+                        text: "Chưa có chương nào",
+                        size: 16,
                       ),
                     ],
                   ),
+                )),
+          const SizedBox(height: 8),
+          Expanded(
+            child: Obx(
+              () => ListView.builder(
+                padding: const EdgeInsets.only(bottom: 50),
+                itemCount: controller.filteredChapters.length,
+                itemBuilder: (_, index) => _buildChapterItem(
+                  controller.filteredChapters[index],
                 ),
-          const Row(
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  _buildSearchBar() {
+    return CustomTextField(
+      keyboardType: TextInputType.number,
+      onChanged: (value) => controller.searchChapter(value),
+      hintText: "Tìm kiếm chương",
+      hintColor: AppColors.text400,
+      focusedBorderColor: AppThemeColors.background100,
+      borderColor: AppThemeColors.background100,
+      textSize: 16,
+      borderWidth: 0,
+      backgroundColor: AppThemeColors.background100,
+      borderRadius: 2000,
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 12.0),
+        child: Utils.iconSvg(
+          svgUrl: AppIcons.icSearch,
+          color: AppColors.text400,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRecentChapters(ComicModel? comic, List<ChapterModel> chapters) {
+    final recentChapters =
+        chapters.sublist(chapters.length - 4).reversed.toList();
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              const TextWidget(
+                text: "Gần nhất",
+                textStyle: AppTextStyle.medium18,
+              ),
               TextWidget(
-                text: "Danh sách",
-                textStyle: AppTextStyle.semiBold18,
+                text: "Cập nhật ngày: ${comic?.updatedAt?.toVietnamTime()}",
+                textStyle: AppTextStyle.regular14,
               ),
             ],
           ),
-          const SizedBox(height: 8),
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.only(top: 0, bottom: 50),
-              itemCount: listChapter.length,
-              itemBuilder: (context, index) {
-                final ChapterModel chapter = listChapter[index];
-                return Container(
-                  padding: const EdgeInsets.all(8),
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  decoration: BoxDecoration(
-                    color: AppThemeColors.background200,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Row(
-                    children: [
-                      TextWidget(
-                        text: (chapter.chapterName).orNA(),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
+          const SizedBox(height: 18),
+          Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            children: recentChapters
+                .map((chapter) => GestureDetector(
+                      onTap: () {},
+                      child: _buildChapterTag(chapter.chapterName),
+                    ))
+                .toList(),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildChapterTag(String? name) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(width: 1, color: AppColors.text300),
+        color: AppThemeColors.background200,
+      ),
+      child: TextWidget(
+        text: "Chương $name",
+        textStyle: AppTextStyle.regular16,
+      ),
+    );
+  }
+
+  Widget _buildChapterItem(ChapterModel chapter) {
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(
+          const ComicReadPage().routeName,
+          arguments: ChapterDetailArgument(
+            chapterApiData: chapter.chapterApiData,
+          ),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+        margin: const EdgeInsets.symmetric(vertical: 8),
+        decoration: BoxDecoration(
+          color: AppThemeColors.background200,
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Row(
+          children: [
+            TextWidget(
+              text: "Chương ${(chapter.chapterName).orNA()}",
+              textStyle: AppTextStyle.regular16,
+            ),
+          ],
+        ),
       ),
     );
   }

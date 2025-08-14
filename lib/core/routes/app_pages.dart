@@ -4,9 +4,11 @@ import 'package:bookara/features/auth/presentation/page/register/register_page.d
 import 'package:bookara/features/comic/di/comic_category_binding.dart';
 import 'package:bookara/features/comic/di/comic_detail_binding.dart';
 import 'package:bookara/features/comic/di/comic_explore_binding.dart';
+import 'package:bookara/features/comic/di/comic_read_binding.dart';
 import 'package:bookara/features/comic/presentation/page/comic_category_page.dart';
 import 'package:bookara/features/comic/presentation/page/comic_detail_page.dart';
 import 'package:bookara/features/comic/presentation/page/comic_explore_page.dart';
+import 'package:bookara/features/comic/presentation/page/comic_read_page.dart';
 import 'package:bookara/features/navigation/di/navigation_binding.dart';
 import 'package:bookara/features/navigation/presentation/page/navigation_page.dart';
 import 'package:bookara/core/ui/widgets/notFound/not_found_page.dart';
@@ -58,5 +60,10 @@ final appPage = [
     name: const ComicDetailPage().routeName,
     page: () => const ComicDetailPage(),
     binding: ComicDetailBinding(),
+  ),
+  GetPage(
+    name: const ComicReadPage().routeName,
+    page: () => const ComicReadPage(),
+    binding: ComicReadBinding(),
   ),
 ];

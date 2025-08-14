@@ -123,13 +123,13 @@ class _BuildExplore extends StatelessWidget {
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-        width: MediaQuery.of(context).size.width * .6,
         decoration: BoxDecoration(
           color: AppThemeColors.secondary,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Utils.iconSvg(
               svgUrl: AppIcons.icBook,
