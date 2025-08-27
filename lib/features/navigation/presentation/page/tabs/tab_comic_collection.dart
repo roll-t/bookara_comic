@@ -1,5 +1,5 @@
 import 'package:bookara/core/utils/custom_framework.dart';
-import 'package:bookara/features/comic/presentation/page/comic_page.dart';
+import 'package:bookara/features/comic/presentation/module/collections/page/comic_page.dart';
 import 'package:flutter/material.dart';
 
 // NAV Home

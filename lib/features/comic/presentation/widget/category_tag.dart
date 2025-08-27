@@ -2,7 +2,7 @@ import 'package:bookara/core/config/theme/app_theme_colors.dart';
 import 'package:bookara/core/ui/styles/app_text_styles.dart';
 import 'package:bookara/core/ui/widgets/texts/text_widget.dart';
 import 'package:bookara/features/comic/presentation/argument/category_argument.dart';
-import 'package:bookara/features/comic/presentation/page/comic_category_page.dart';
+import 'package:bookara/features/comic/presentation/module/category/page/comic_category_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

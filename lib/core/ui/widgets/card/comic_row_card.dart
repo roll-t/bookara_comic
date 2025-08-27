@@ -5,8 +5,8 @@ import 'package:bookara/core/ui/widgets/images/thumbnail_widget.dart';
 import 'package:bookara/core/ui/widgets/texts/text_widget.dart';
 import 'package:bookara/features/comic/data_layer/data/model/comic_model.dart';
 import 'package:bookara/features/comic/presentation/argument/comic_argument.dart';
-import 'package:bookara/features/comic/presentation/page/comic_detail_page.dart';
 import 'package:bookara/features/comic/presentation/widget/category_tag.dart';
+import 'package:bookara/features/comic/presentation/module/detail/page/comic_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
