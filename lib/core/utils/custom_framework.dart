@@ -24,6 +24,8 @@ abstract class CustomStatePage extends StatelessWidget {
   /// ✅ Custom AppBar nếu muốn, nếu null thì dùng mặc định
   Widget? get appBar => null;
 
+  Widget? get drawer => null;
+
   /// ✅ Màu nền của Scaffold
   Color? get backgroundColor => AppThemeColors.background300;
 
@@ -74,6 +76,7 @@ abstract class CustomStatePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      drawer: drawer,
       resizeToAvoidBottomInset: true,
       backgroundColor: backgroundColor,
       appBar: (title == null && appBar != null)

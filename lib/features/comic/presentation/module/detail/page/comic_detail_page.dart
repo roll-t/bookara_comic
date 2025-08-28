@@ -395,6 +395,7 @@ class _BuildTabChapters extends GetView<ComicDetailController> {
                 itemCount: controller.filteredChapters.length,
                 itemBuilder: (_, index) => _buildChapterItem(
                   controller.filteredChapters[index],
+                  controller.chapters,
                 ),
               ),
             ),
@@ -455,7 +456,10 @@ class _BuildTabChapters extends GetView<ComicDetailController> {
             children: recentChapters
                 .map((chapter) => GestureDetector(
                       onTap: () {},
-                      child: _buildChapterTag(chapter),
+                      child: _buildChapterTag(
+                        chapter,
+                        chapters,
+                      ),
                     ))
                 .toList(),
           ),
@@ -464,13 +468,17 @@ class _BuildTabChapters extends GetView<ComicDetailController> {
     );
   }
 
-  Widget _buildChapterTag(ChapterModel chapter) {
+  Widget _buildChapterTag(
+    ChapterModel chapter,
+    List<ChapterModel> chapters,
+  ) {
     return GestureDetector(
       onTap: () {
         Get.toNamed(
           const ComicReadPage().routeName,
           arguments: ChapterDetailArgument(
             chapterApiData: chapter.chapterApiData,
+            listChapter: chapters,
           ),
         );
       },
@@ -489,13 +497,17 @@ class _BuildTabChapters extends GetView<ComicDetailController> {
     );
   }
 
-  Widget _buildChapterItem(ChapterModel chapter) {
+  Widget _buildChapterItem(
+    ChapterModel chapter,
+    List<ChapterModel> listChapter,
+  ) {
     return GestureDetector(
       onTap: () {
         Get.toNamed(
           const ComicReadPage().routeName,
           arguments: ChapterDetailArgument(
             chapterApiData: chapter.chapterApiData,
+            listChapter: listChapter,
           ),
         );
       },

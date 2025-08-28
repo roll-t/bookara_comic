@@ -13,16 +13,22 @@ class ComicReadController extends GetxController
 
   Rx<ChapterDetailModel> chapterDetailModel = ChapterDetailModel().obs;
 
-  /// --- thêm mới ---
+  /// --- thêm mới ---s
   final ScrollController scrollController = ScrollController();
   final RxInt visibleCount = 5.obs;
   List<String> chapterImageList = [];
+
+  var showControls = false.obs;
 
   @override
   void onReady() {
     super.onReady();
     initializedData();
     scrollController.addListener(_onScroll);
+  }
+
+  void toggleControls() {
+    showControls.value = !showControls.value;
   }
 
   Future<void> initializedData() async {
@@ -58,6 +64,9 @@ class ComicReadController extends GetxController
 
   /// --- thêm mới: scroll bằng tap ---
   void scrollUp() {
+    if (showControls.value) {
+      toggleControls();
+    }
     final current = scrollController.position.pixels;
     final target = (current - 300)
         .clamp(0, scrollController.position.maxScrollExtent)
@@ -70,6 +79,9 @@ class ComicReadController extends GetxController
   }
 
   void scrollDown() {
+    if (showControls.value) {
+      toggleControls();
+    }
     final current = scrollController.position.pixels;
     final target = (current + 300)
         .clamp(0, scrollController.position.maxScrollExtent)
@@ -79,6 +91,60 @@ class ComicReadController extends GetxController
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeOut,
     );
+  }
+
+  /// Đổi chapter theo index
+  Future<void> changeChapter(int index) async {
+    final list = argsData?.listChapter;
+    if (list == null || index < 0 || index >= list.length) return;
+
+    // reset trước khi load
+    visibleCount.value = 5;
+    chapterImageList.clear();
+    chapterDetailModel.value = ChapterDetailModel();
+    scrollController.jumpTo(0);
+
+    final chapterApiData = list[index].chapterApiData.orEmpty();
+    chapterDetailModel.value =
+        await _chapterDetailUsecase(chapterApiData) ?? ChapterDetailModel();
+
+    // gán lại danh sách ảnh
+    final chapter = chapterDetailModel.value;
+    final images = chapter.item?.chapterImages ?? [];
+    chapterImageList = images
+        .map((e) =>
+            "${chapter.domainCdn}/${chapter.item?.chapterPath}/${e.imageFile}")
+        .toList();
+
+    update(["CHAPTER_SELECTED"]);
+  }
+
+  /// Chuyển sang chapter trước
+  Future<void> prevChapter() async {
+    final list = argsData?.listChapter;
+    if (list == null) return;
+
+    final currentIndex = list.indexWhere((c) =>
+        c.chapterName == chapterDetailModel.value.item?.chapterName &&
+        c.chapterTitle == chapterDetailModel.value.item?.chapterTitle);
+
+    if (currentIndex > 0) {
+      await changeChapter(currentIndex - 1);
+    }
+  }
+
+  /// Chuyển sang chapter sau
+  Future<void> nextChapter() async {
+    final list = argsData?.listChapter;
+    if (list == null) return;
+
+    final currentIndex = list.indexWhere((c) =>
+        c.chapterName == chapterDetailModel.value.item?.chapterName &&
+        c.chapterTitle == chapterDetailModel.value.item?.chapterTitle);
+
+    if (currentIndex >= 0 && currentIndex < list.length - 1) {
+      await changeChapter(currentIndex + 1);
+    }
   }
 
   @override

@@ -14,6 +14,7 @@ class ComicDetailController extends GetxController
   ComicModel? comicDetail;
 
   final RxBool isCollapsed = false.obs;
+  final RxList<ChapterModel> chapters = <ChapterModel>[].obs;
   final RxList<ChapterModel> filteredChapters = <ChapterModel>[].obs;
 
   @override
@@ -37,6 +38,7 @@ class ComicDetailController extends GetxController
         ? comicDetail!.chapters!.first.serverData ?? []
         : <ChapterModel>[];
     filteredChapters.assignAll(listChapter);
+    chapters.assignAll(listChapter);
   }
 
   /// Hàm tìm kiếm local theo số chương
