@@ -1,15 +1,20 @@
-import 'package:bookara/features/navigation/presentation/page/navigation_page.dart';
+import 'package:auto_find/core/config/const/app_logger.dart';
+import 'package:auto_find/core/local_storage/app_get_storage.dart';
+import 'package:auto_find/features/navigation/presentation/page/navigation_page.dart';
+import 'package:auto_find/features/user/auth/login/presentation/page/login_page.dart';
 import 'package:get/get.dart';
 
 class SplashController extends GetxController {
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
-    Future.delayed(
-      const Duration(seconds: 3),
-      () {
-        Get.offAllNamed(const NavigationPage().routeName);
-      },
-    );
+    await Future.delayed(const Duration(seconds: 3));
+    if (AppGetStorage.isLoggedIn()) {
+      Get.offAllNamed(const NavigationPage().routeName);
+      AppLogger.i("Đã đăng nhập");
+    } else {
+      Get.offAllNamed(const LoginPage().routeName);
+      AppLogger.i("Chưa đăng nhập");
+    }
   }
 }

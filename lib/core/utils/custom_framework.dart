@@ -1,16 +1,16 @@
-import 'package:bookara/core/config/theme/app_theme_colors.dart';
-import 'package:bookara/core/ui/styles/app_text_styles.dart';
-import 'package:bookara/core/ui/widgets/app_bar/custom_appbar.dart';
-import 'package:bookara/core/ui/widgets/custom_sliver_layout.dart';
-import 'package:bookara/core/ui/widgets/texts/text_widget.dart';
+import 'package:auto_find/core/config/theme/app_theme_colors.dart';
+import 'package:auto_find/core/ui/styles/app_text_styles.dart';
+import 'package:auto_find/core/ui/widgets/app_bar/custom_appbar.dart';
+import 'package:auto_find/core/ui/widgets/custom_sliver_layout.dart';
+import 'package:auto_find/core/ui/widgets/texts/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recase/recase.dart';
 
 /// ✅ Base class cho các màn hình Stateless sử dụng GetX
 /// Giúp tái sử dụng scaffold + appBar + cấu hình route dễ dàng
-abstract class CustomStatePage extends StatelessWidget {
-  const CustomStatePage({super.key});
+abstract class CustomState extends StatelessWidget {
+  const CustomState({super.key});
 
   /// ✅ Tên route mặc định dạng kebab-case, ví dụ: /user-detail
   String get routeName => '/${ReCase(runtimeType.toString()).paramCase}';
@@ -63,7 +63,7 @@ abstract class CustomStatePage extends StatelessWidget {
   /// ```dart
   /// GetPage(name: HomePage().routeName, page: () => HomePage())
   /// ```
-  static GetPage toRoute<T extends CustomStatePage>(T page) {
+  static GetPage toRoute<T extends CustomState>(T page) {
     return GetPage(
       name: page.routeName,
       page: () => page,

@@ -1,13 +1,13 @@
-import 'package:bookara/core/config/theme/app_theme_colors.dart';
-import 'package:bookara/core/extension/rx_extension.dart';
-import 'package:bookara/core/utils/custom_framework.dart';
-import 'package:bookara/features/navigation/presentation/controller/navigation_controller.dart';
-import 'package:bookara/features/navigation/presentation/page/tabs/tab_comic_collection.dart';
-import 'package:bookara/features/navigation/presentation/widgets/bottom_navigation_bar_widget.dart';
+import 'package:auto_find/core/config/theme/app_theme_colors.dart';
+import 'package:auto_find/core/extension/rx_extension.dart';
+import 'package:auto_find/core/utils/custom_framework.dart';
+import 'package:auto_find/features/navigation/presentation/controller/navigation_controller.dart';
+import 'package:auto_find/features/navigation/presentation/page/tabs/tab_manage.dart';
+import 'package:auto_find/features/navigation/presentation/widgets/bottom_navigation_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class NavigationPage extends CustomStatePage {
+class NavigationPage extends CustomState {
   const NavigationPage({super.key});
 
   ///---> [Build-bottom-navigation]
@@ -45,7 +45,7 @@ class BodyBuilder extends GetView<NavigationController> {
   Widget build(BuildContext context) {
     return Navigator(
       key: Get.nestedKey(10),
-      initialRoute: const TabComicCollection().routeName,
+      initialRoute: const TabManage().routeName,
       onGenerateRoute: (settings) => controller.onGenerateRoute(settings),
     );
   }

@@ -1,10 +1,10 @@
-import 'package:bookara/core/config/theme/app_colors.dart';
-import 'package:bookara/core/config/theme/app_theme_colors.dart';
-import 'package:bookara/core/extension/empty_extension.dart';
-import 'package:bookara/core/extension/rx_extension.dart';
-import 'package:bookara/core/ui/styles/app_text_styles.dart';
-import 'package:bookara/core/ui/widgets/tab_bar/custom_tab_bar_controller.dart';
-import 'package:bookara/core/ui/widgets/texts/text_widget.dart';
+import 'package:auto_find/core/config/theme/app_colors.dart';
+import 'package:auto_find/core/config/theme/app_theme_colors.dart';
+import 'package:auto_find/core/extension/empty_extension.dart';
+import 'package:auto_find/core/extension/rx_extension.dart';
+import 'package:auto_find/core/ui/styles/app_text_styles.dart';
+import 'package:auto_find/core/ui/widgets/tab_bar/custom_tab_bar_controller.dart';
+import 'package:auto_find/core/ui/widgets/texts/text_widget.dart';
 import 'package:flutter/material.dart';
 
 class CustomTabBarWidget extends StatelessWidget {

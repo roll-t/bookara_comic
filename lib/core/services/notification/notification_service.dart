@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:ui';
 
-import 'package:bookara/core/config/const/app_logger.dart';
-import 'package:bookara/core/local_storage/app_get_storage.dart';
+import 'package:auto_find/core/config/const/app_logger.dart';
+import 'package:auto_find/core/local_storage/app_get_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';

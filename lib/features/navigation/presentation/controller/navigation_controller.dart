@@ -1,8 +1,7 @@
-import 'package:bookara/features/comic/di/comic_binding.dart';
-import 'package:bookara/features/navigation/di/tab_profile_binding%20.dart';
-import 'package:bookara/features/navigation/presentation/page/tabs/tab_bookcase.dart';
-import 'package:bookara/features/navigation/presentation/page/tabs/tab_comic_collection.dart';
-import 'package:bookara/features/navigation/presentation/page/tabs/tab_profile.dart';
+import 'package:auto_find/features/navigation/di/tab_profile_binding%20.dart';
+import 'package:auto_find/features/navigation/presentation/page/tabs/tab_dashboard.dart';
+import 'package:auto_find/features/navigation/presentation/page/tabs/tab_manage.dart';
+import 'package:auto_find/features/navigation/presentation/page/tabs/tab_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -11,24 +10,23 @@ class NavigationController extends GetxController {
   final RxInt currentPage = 0.obs;
 
   List<String> routeNames = [
-    const TabComicCollection().routeName,
-    const TabBookcase().routeName,
+    const TabDashboard().routeName,
+    const TabManage().routeName,
     const TabProfile().routeName,
   ];
 
   Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case "/tab-comic-collection":
+      case '/tab-dashboard':
         return GetPageRoute(
           settings: settings,
-          page: () => const TabComicCollection(),
-          binding: ComicBinding(),
+          page: () => const TabDashboard(),
           transition: Transition.fadeIn,
         );
-      case '/tab-bookcase':
+      case '/tab-manage':
         return GetPageRoute(
           settings: settings,
-          page: () => const TabBookcase(),
+          page: () => const TabManage(),
           transition: Transition.fadeIn,
         );
       case '/tab-profile':

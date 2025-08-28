@@ -1,4 +1,4 @@
-import 'package:bookara/core/local_storage/app_get_storage.dart';
+import 'package:auto_find/core/local_storage/app_get_storage.dart';
 import 'package:get/get.dart';
 
 mixin LanguageMixinController {

@@ -1,10 +1,10 @@
-import 'package:bookara/core/config/const/app_content.dart';
-import 'package:bookara/core/config/feature_configs.dart';
-import 'package:bookara/features/setting/presentation/controller/setting_controller.dart';
-import 'package:bookara/features/setting/presentation/widget/select_language_widget.dart';
-import 'package:bookara/features/setting/presentation/widget/select_primary_theme_widget.dart';
-import 'package:bookara/features/setting/presentation/widget/setting_item_widget.dart';
-import 'package:bookara/core/config/theme/theme_controller.dart';
+import 'package:auto_find/core/config/const/app_content.dart';
+import 'package:auto_find/core/config/feature_configs.dart';
+import 'package:auto_find/features/setting/presentation/controller/setting_controller.dart';
+import 'package:auto_find/features/setting/presentation/widget/select_language_widget.dart';
+import 'package:auto_find/features/setting/presentation/widget/select_primary_theme_widget.dart';
+import 'package:auto_find/features/setting/presentation/widget/setting_item_widget.dart';
+import 'package:auto_find/core/config/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';

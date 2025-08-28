@@ -1,7 +1,7 @@
-import 'package:bookara/core/config/theme/app_colors.dart';
-import 'package:bookara/core/config/theme/app_theme_colors.dart';
-import 'package:bookara/core/ui/styles/app_text_styles.dart';
-import 'package:bookara/core/ui/widgets/texts/text_widget.dart';
+import 'package:auto_find/core/config/theme/app_colors.dart';
+import 'package:auto_find/core/config/theme/app_theme_colors.dart';
+import 'package:auto_find/core/ui/styles/app_text_styles.dart';
+import 'package:auto_find/core/ui/widgets/texts/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

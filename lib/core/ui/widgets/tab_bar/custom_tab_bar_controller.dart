@@ -1,4 +1,4 @@
-import 'package:bookara/core/model/ui/item_model.dart';
+import 'package:auto_find/core/model/ui/item_model.dart';
 import 'package:get/get.dart';
 
 class TabBarController {

@@ -1,5 +1,5 @@
-import 'package:bookara/core/config/const/app_enum.dart';
-import 'package:bookara/core/config/result.dart';
+import 'package:auto_find/core/config/const/app_enum.dart';
+import 'package:auto_find/core/config/result.dart';
 
 abstract class BaseRepository {
   Future<Result<T>> handleRequest<T>({

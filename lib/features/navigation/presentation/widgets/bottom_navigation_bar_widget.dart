@@ -1,6 +1,6 @@
-import 'package:bookara/core/config/const/app_icons.dart';
-import 'package:bookara/core/config/theme/app_theme_colors.dart';
-import 'package:bookara/features/navigation/presentation/widgets/item_navigation_bar_widget.dart';
+import 'package:auto_find/core/config/const/app_icons.dart';
+import 'package:auto_find/core/config/theme/app_theme_colors.dart';
+import 'package:auto_find/features/navigation/presentation/widgets/item_navigation_bar_widget.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
@@ -25,8 +25,8 @@ class BottomNavigationBarWidget extends StatelessWidget {
       selectedItemColor: selectedItemColor,
       showUnselectedLabels: true,
       items: [
-        buildNavItem(label: 'Truyện tranh', iconPath: AppIcons.icBook),
-        buildNavItem(label: 'Tủ sách', iconPath: AppIcons.icBookcase),
+        buildNavItem(label: 'Dashboard', iconPath: AppIcons.icDashboard),
+        buildNavItem(label: 'Quản lý ', iconPath: AppIcons.icManage),
         buildNavItem(label: 'Cá nhân', iconPath: AppIcons.icPerson),
       ],
     );

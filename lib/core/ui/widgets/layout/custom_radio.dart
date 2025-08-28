@@ -1,4 +1,4 @@
-import 'package:bookara/core/config/const/app_dimens.dart';
+import 'package:auto_find/core/config/const/app_dimens.dart';
 import 'package:flutter/material.dart';
 
 class CustomRadio<T> extends StatelessWidget {

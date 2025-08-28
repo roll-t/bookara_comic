@@ -1,7 +1,7 @@
 // app_theme.dart
-import 'package:bookara/core/config/theme/app_color_scheme.dart';
-import 'package:bookara/core/config/theme/app_colors.dart';
-import 'package:bookara/core/config/theme/app_theme_colors.dart';
+import 'package:auto_find/core/config/theme/app_color_scheme.dart';
+import 'package:auto_find/core/config/theme/app_colors.dart';
+import 'package:auto_find/core/config/theme/app_theme_colors.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {

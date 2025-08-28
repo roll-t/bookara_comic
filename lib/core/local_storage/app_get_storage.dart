@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:bookara/core/config/theme/app_color_scheme.dart';
-import 'package:bookara/core/lang/translation_service.dart';
+import 'package:auto_find/core/config/theme/app_color_scheme.dart';
+import 'package:auto_find/core/lang/translation_service.dart';
 import 'package:get_storage/get_storage.dart';
 
 class AppGetStorage {

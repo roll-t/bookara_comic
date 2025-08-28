@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:ui';
 
-import 'package:bookara/core/config/const/app_notification_constants.dart';
+import 'package:auto_find/core/config/const/app_notification_constants.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 

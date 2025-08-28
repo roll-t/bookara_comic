@@ -1,6 +1,6 @@
-import 'package:bookara/core/config/theme/app_colors.dart';
-import 'package:bookara/core/ui/widgets/inputs/custom_text_field.dart';
-import 'package:bookara/core/utils/keyboard_utils.dart';
+import 'package:auto_find/core/config/theme/app_colors.dart';
+import 'package:auto_find/core/ui/widgets/inputs/custom_text_field.dart';
+import 'package:auto_find/core/utils/keyboard_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

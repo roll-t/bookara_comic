@@ -1,4 +1,4 @@
-import 'package:bookara/core/config/const/app_content.dart';
+import 'package:auto_find/core/config/const/app_content.dart';
 
 Map<String, String> en = {
   AppContent.appName: 'Comic Reader',

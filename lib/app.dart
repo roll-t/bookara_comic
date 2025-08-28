@@ -1,11 +1,10 @@
-import 'package:bookara/app_binding.dart';
-import 'package:bookara/core/config/theme/app_color_scheme.dart';
-import 'package:bookara/core/config/theme/app_theme.dart';
-import 'package:bookara/core/lang/translation_service.dart';
-import 'package:bookara/core/routes/app_pages.dart';
-import 'package:bookara/core/routes/app_routes.dart';
-import 'package:bookara/features/splash/presentation/page/splash_page.dart';
-import 'package:bookara/core/config/theme/theme_controller.dart';
+import 'package:auto_find/app_binding.dart';
+import 'package:auto_find/core/config/theme/app_color_scheme.dart';
+import 'package:auto_find/core/config/theme/app_theme.dart';
+import 'package:auto_find/core/lang/translation_service.dart';
+import 'package:auto_find/core/routing/app_pages.dart';
+import 'package:auto_find/features/splash/presentation/page/splash_page.dart';
+import 'package:auto_find/core/config/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -34,7 +33,7 @@ class App extends StatelessWidget {
 
               ///---> [Page config]
               getPages: appPage,
-              initialRoute: AppRoutes.initial,
+              initialRoute: "/splash",
               initialBinding: AppBinding(),
               home: const SplashPage(),
               unknownRoute: notFoundPage,

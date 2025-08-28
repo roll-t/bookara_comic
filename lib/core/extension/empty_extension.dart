@@ -1,4 +1,4 @@
-import 'package:bookara/core/config/const/app_icons.dart';
+import 'package:auto_find/core/config/const/app_icons.dart';
 import 'package:flutter/material.dart';
 
 extension NullCheckExtension on Object? {

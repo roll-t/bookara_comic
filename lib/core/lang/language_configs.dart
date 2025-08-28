@@ -1,5 +1,5 @@
-import 'package:bookara/core/local_storage/app_get_storage.dart';
-import 'package:bookara/core/lang/translation_service.dart';
+import 'package:auto_find/core/local_storage/app_get_storage.dart';
+import 'package:auto_find/core/lang/translation_service.dart';
 
 Future<void> languageConfigs() async {
   // Lấy ngôn ngữ mặc định, mặc định là tiếng Anh

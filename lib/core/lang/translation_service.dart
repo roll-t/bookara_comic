@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:bookara/core/lang/vi.dart';
+import 'package:auto_find/core/lang/vi.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

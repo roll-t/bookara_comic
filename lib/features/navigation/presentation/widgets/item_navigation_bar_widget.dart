@@ -1,5 +1,5 @@
-import 'package:bookara/core/config/theme/app_theme_colors.dart';
-import 'package:bookara/core/utils/utils.dart';
+import 'package:auto_find/core/config/theme/app_theme_colors.dart';
+import 'package:auto_find/core/utils/utils.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 

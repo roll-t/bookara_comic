@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:bookara/core/config/theme/app_colors.dart';
+import 'package:auto_find/core/config/theme/app_colors.dart';
 
 class AppColorScheme {
   final Color primary;

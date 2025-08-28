@@ -1,17 +1,17 @@
-class ApiRespon {
+class ApiResponse {
   String? status;
   String? message;
   dynamic data;
 
-  ApiRespon({
+  ApiResponse({
     this.status,
     this.message,
     this.data,
   });
 
   /// Parse from JSON
-  factory ApiRespon.fromJson(Map<String, dynamic> json) {
-    return ApiRespon(
+  factory ApiResponse.fromJson(Map<String, dynamic> json) {
+    return ApiResponse(
       status: json['status'],
       message: json['message'],
       data: json['data'],

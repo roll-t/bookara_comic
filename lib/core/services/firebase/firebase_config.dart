@@ -1,4 +1,4 @@
-import 'package:bookara/core/services/firebase/firebase_options.dart';
+import 'package:auto_find/core/services/firebase/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future<void> firebaseConfigs() async {

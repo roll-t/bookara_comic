@@ -1,4 +1,4 @@
-import 'package:bookara/core/config/const/app_enum.dart';
+import 'package:auto_find/core/config/const/app_enum.dart';
 
 class Result<T> {
   final Results status;

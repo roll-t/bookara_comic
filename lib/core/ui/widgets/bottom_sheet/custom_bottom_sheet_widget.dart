@@ -1,12 +1,12 @@
-import 'package:bookara/core/config/const/app_icons.dart';
-import 'package:bookara/core/config/theme/app_colors.dart';
-import 'package:bookara/core/model/ui/item_model.dart';
-import 'package:bookara/core/extension/empty_extension.dart';
-import 'package:bookara/core/extension/rx_extension.dart';
-import 'package:bookara/core/ui/styles/app_text_styles.dart';
-import 'package:bookara/core/ui/widgets/bottom_sheet/bottom_sheet_controller.dart';
-import 'package:bookara/core/ui/widgets/texts/text_widget.dart';
-import 'package:bookara/core/utils/utils.dart';
+import 'package:auto_find/core/config/const/app_icons.dart';
+import 'package:auto_find/core/config/theme/app_colors.dart';
+import 'package:auto_find/core/model/ui/item_model.dart';
+import 'package:auto_find/core/extension/empty_extension.dart';
+import 'package:auto_find/core/extension/rx_extension.dart';
+import 'package:auto_find/core/ui/styles/app_text_styles.dart';
+import 'package:auto_find/core/ui/widgets/bottom_sheet/bottom_sheet_controller.dart';
+import 'package:auto_find/core/ui/widgets/texts/text_widget.dart';
+import 'package:auto_find/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class CustomBottomSheetWidget extends StatelessWidget {

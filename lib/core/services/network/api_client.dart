@@ -1,10 +1,10 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:bookara/core/config/const/app_enum.dart';
-import 'package:bookara/core/config/result.dart';
-import 'package:bookara/core/services/dto/api_respon.dart';
-import 'package:bookara/core/services/network/api_enpoint.dart';
-import 'package:bookara/core/services/network/api_intercepter.dart';
+import 'package:auto_find/core/config/const/app_enum.dart';
+import 'package:auto_find/core/config/result.dart';
+import 'package:auto_find/core/services/dto/api_respon.dart';
+import 'package:auto_find/core/services/network/api_enpoint.dart';
+import 'package:auto_find/core/services/network/api_intercepter.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -101,7 +101,7 @@ class ApiClient extends GetxService {
       final response = await _dio.get(path, queryParameters: query);
 
       if (response.statusCode == 200) {
-        final res = ApiRespon.fromJson(response.data);
+        final res = ApiResponse.fromJson(response.data);
         if (res.isSuccess) {
           return Result(
             status: Results.success,

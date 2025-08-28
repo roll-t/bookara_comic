@@ -1,7 +1,7 @@
-import 'package:bookara/core/config/const/app_logger.dart';
-import 'package:bookara/core/config/feature_configs.dart';
-import 'package:bookara/core/services/firebase/realtime_service.dart';
-import 'package:bookara/core/services/notification/notification_service.dart';
+import 'package:auto_find/core/config/const/app_logger.dart';
+import 'package:auto_find/core/config/feature_configs.dart';
+import 'package:auto_find/core/services/firebase/realtime_service.dart';
+import 'package:auto_find/core/services/notification/notification_service.dart';
 import 'package:get/get.dart';
 
 Future<void> notificationConfigs() async {

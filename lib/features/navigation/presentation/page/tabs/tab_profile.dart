@@ -1,13 +1,13 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
-import 'package:bookara/core/config/theme/app_theme_colors.dart';
-import 'package:bookara/core/utils/custom_framework.dart';
-import 'package:bookara/features/auth/presentation/page/user/widgets/info_profile_widget.dart';
-import 'package:bookara/features/setting/presentation/page/setting_page.dart';
-import 'package:bookara/core/config/theme/theme_controller.dart';
+import 'package:auto_find/core/config/theme/app_theme_colors.dart';
+import 'package:auto_find/core/utils/custom_framework.dart';
+import 'package:auto_find/features/setting/presentation/page/setting_page.dart';
+import 'package:auto_find/core/config/theme/theme_controller.dart';
+import 'package:auto_find/features/user/profile/presentation/widgets/info_profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TabProfile extends CustomStatePage {
+class TabProfile extends CustomState {
   const TabProfile({super.key});
 
   @override
