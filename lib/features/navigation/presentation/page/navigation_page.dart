@@ -1,5 +1,6 @@
 import 'package:auto_find/core/config/theme/app_theme_colors.dart';
 import 'package:auto_find/core/extension/rx_extension.dart';
+import 'package:auto_find/core/ui/widgets/dialogs/dialog_utils.dart';
 import 'package:auto_find/core/utils/custom_framework.dart';
 import 'package:auto_find/features/navigation/presentation/controller/navigation_controller.dart';
 import 'package:auto_find/features/navigation/presentation/page/tabs/tab_manage.dart';
@@ -17,7 +18,20 @@ class NavigationPage extends CustomState {
   ///---> [Build-body]
   @override
   Widget buildBody(BuildContext context) {
-    return const BodyBuilder();
+    return WillPopScope(
+      onWillPop: () async {
+        final nestedNavigator = Get.nestedKey(10)?.currentState;
+        if (nestedNavigator != null && nestedNavigator.canPop()) {
+          nestedNavigator.pop();
+          return false;
+        }
+
+        // Nếu không còn route nào => show confirm exit
+        final bool shouldExit = await DialogUtils.showCustomExitConfirm();
+        return shouldExit;
+      },
+      child: const BodyBuilder(),
+    );
   }
 
   ///---> [Bottom-navigation-bar]

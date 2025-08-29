@@ -1,5 +1,4 @@
 import 'package:auto_find/core/services/network/api_client.dart';
-import 'package:auto_find/core/services/notification/notification_service.dart';
 import 'package:auto_find/features/splash/presentation/controller/splash_controller.dart';
 import 'package:auto_find/core/config/theme/theme_controller.dart';
 import 'package:get/get.dart';
@@ -9,7 +8,7 @@ class AppBinding extends Bindings {
   void dependencies() {
     Get.put(ApiClient());
     Get.lazyPut(() => ThemeController(), fenix: true);
-    Get.lazyPut(() => NotificationService(), fenix: true);
+    // Get.lazyPut(() => NotificationService(), fenix: true);
     Get.put(SplashController());
   }
 }

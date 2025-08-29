@@ -24,8 +24,8 @@ final appPage = [
     name: const NavigationPage().routeName,
     page: () => const NavigationPage(),
     binding: NavigationBinding(),
-    transition: Transition.fade,
-    transitionDuration: const Duration(milliseconds: 800),
+    transition: Transition.circularReveal,
+    transitionDuration: const Duration(milliseconds: 1200),
   ),
   GetPage(
     name: const LoginPage().routeName,

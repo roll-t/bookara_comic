@@ -1,6 +1,9 @@
 import 'package:auto_find/core/config/const/app_images.dart';
 import 'package:auto_find/core/config/const/app_enum.dart';
 import 'package:auto_find/core/config/theme/app_colors.dart';
+import 'package:auto_find/core/config/theme/app_theme_colors.dart';
+import 'package:auto_find/core/ui/styles/app_text_styles.dart';
+import 'package:auto_find/core/ui/widgets/buttons/primary_button.dart';
 import 'package:auto_find/core/ui/widgets/texts/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -90,6 +93,70 @@ class DialogUtils {
     VoidCallback? onConfirm,
     VoidCallback? onCancel,
     String confirmText = 'Đồng ý',
+  }) {
+    final config = _getAlertConfig(alertType);
+
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        insetPadding: const EdgeInsets.symmetric(horizontal: 40, vertical: 24),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircleAvatar(
+                backgroundColor: config.bgColor.withValues(alpha: .2),
+                radius: 24,
+                child: Icon(
+                  config.icon,
+                  color: config.color,
+                  size: 28,
+                ),
+              ),
+              const SizedBox(height: 8),
+              TextWidget(
+                text: title ?? 'Thông báo',
+                color: AppThemeColors.text,
+                textStyle: AppTextStyle.semiBold16,
+              ),
+              const SizedBox(height: 12),
+              TextWidget(
+                text: content ?? '',
+                textAlign: TextAlign.center,
+                size: 14,
+              ),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                    child: PrimaryButton(
+                      text: confirmText,
+                      isMaxParent: true,
+                      onPressed: onConfirm ??
+                          () {
+                            Get.back();
+                          },
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  static void showConfirm({
+    required AlertType alertType,
+    String? title,
+    String? content,
+    VoidCallback? onConfirm,
+    VoidCallback? onCancel,
+    String confirmText = 'Đồng ý',
     String cancelText = 'Hủy',
   }) {
     final config = _getAlertConfig(alertType);
@@ -117,9 +184,8 @@ class DialogUtils {
               const SizedBox(height: 8),
               TextWidget(
                 text: title ?? 'Thông báo',
-                fontWeight: FontWeight.bold,
-                color: AppColors.neutralColor2,
-                size: 16,
+                color: AppThemeColors.text,
+                textStyle: AppTextStyle.semiBold16,
               ),
               const SizedBox(height: 12),
               TextWidget(
@@ -130,39 +196,21 @@ class DialogUtils {
               const SizedBox(height: 24),
               Row(
                 children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.back();
-                        onCancel?.call();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.grey,
-                        foregroundColor: AppColors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                        padding: const EdgeInsets.symmetric(vertical: 12),
+                  if (onCancel != null)
+                    Expanded(
+                      child: PrimaryButton(
+                        backgroundColor: AppColors.text400,
+                        text: cancelText,
+                        isMaxParent: true,
+                        onPressed: onCancel,
                       ),
-                      child: Text(cancelText),
                     ),
-                  ),
                   const SizedBox(width: 16),
                   Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.back();
-                        onConfirm?.call();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: config.color,
-                        foregroundColor: AppColors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                      ),
-                      child: Text(confirmText),
+                    child: PrimaryButton(
+                      text: confirmText,
+                      isMaxParent: true,
+                      onPressed: onConfirm ?? () {},
                     ),
                   ),
                 ],
@@ -175,87 +223,78 @@ class DialogUtils {
   }
 
   /// Hiển thị dialog xác nhận thoát App
-  static void showCustomExitConfirm() {
-    Get.dialog(
-      Dialog(
+  static Future<bool> showCustomExitConfirm() async {
+    final result = await Get.dialog<bool>(
+      AlertDialog(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
         ),
-        insetPadding: const EdgeInsets.symmetric(horizontal: 40, vertical: 24),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CircleAvatar(
-                backgroundColor: Colors.transparent,
-                radius: 30,
-                child: Image.asset(
-                  AppImages.iLogo,
-                  height: 40,
-                  width: 40,
-                ),
+        title: Column(
+          children: [
+            CircleAvatar(
+              backgroundColor: Colors.transparent,
+              radius: 30,
+              child: Image.asset(
+                AppImages.iLogo,
+                height: 40,
+                width: 40,
               ),
-              const SizedBox(height: 12),
-
-              /// Tiêu đề
-              const TextWidget(
-                text: 'AutoFin',
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              "AutoFin",
+              style: TextStyle(
                 fontWeight: FontWeight.bold,
-                size: 18,
+                fontSize: 18,
                 color: Colors.black,
               ),
-              const SizedBox(height: 8),
-
-              /// Nội dung
-              const TextWidget(
-                text: 'Bạn có muốn thoát ứng dụng không ?',
-                textAlign: TextAlign.center,
-                size: 14,
-                color: Colors.black87,
-              ),
-              const SizedBox(height: 24),
-
-              /// Nút bấm
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  /// NO
-                  TextButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    child: const Text(
-                      'Ở lại',
-                      style: const TextStyle(
-                        color: Colors.cyan,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-
-                  /// YES
-                  TextButton(
-                    onPressed: () {
-                      SystemNavigator.pop();
-                    },
-                    child: const Text(
-                      'Thoát',
-                      style: const TextStyle(
-                        color: Colors.cyan,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            ],
+            ),
+          ],
+        ),
+        content: const Text(
+          "Bạn có muốn thoát ứng dụng không?",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.black87,
           ),
         ),
+        actionsAlignment: MainAxisAlignment.spaceEvenly,
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(result: false), // không thoát
+            child: const Text(
+              "Ở lại",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.cyan,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            onPressed: () => Get.back(result: true), // thoát app
+            child: const Text(
+              "Thoát",
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
       ),
+      barrierDismissible: false,
     );
+
+    return result ?? false;
   }
 
   static _AlertConfig _getAlertConfig(AlertType type) {

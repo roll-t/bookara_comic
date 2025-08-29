@@ -3,6 +3,7 @@ import 'package:auto_find/core/ui/styles/app_text_styles.dart';
 import 'package:auto_find/core/ui/widgets/app_bar/custom_appbar.dart';
 import 'package:auto_find/core/ui/widgets/custom_sliver_layout.dart';
 import 'package:auto_find/core/ui/widgets/texts/text_widget.dart';
+import 'package:auto_find/core/utils/keyboard_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recase/recase.dart';
@@ -20,6 +21,8 @@ abstract class CustomState extends StatelessWidget {
 
   /// ✅ Có hiển thị nút back không? (dùng cho AppBar mặc định)
   bool get showBack => true;
+
+  bool get dismissKeyboard => false;
 
   /// ✅ Custom AppBar nếu muốn, nếu null thì dùng mặc định
   Widget? get appBar => null;
@@ -75,37 +78,44 @@ abstract class CustomState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      drawer: drawer,
-      resizeToAvoidBottomInset: true,
-      backgroundColor: backgroundColor,
-      appBar: (title == null && appBar != null)
-          ? AppBar(
-              centerTitle: true,
-              backgroundColor: AppThemeColors.background200,
-              leading: isShowBack && Navigator.of(context).canPop()
-                  ? const Center(child: IconCircle())
-                  : null,
-              title: appBar,
-              elevation: 0,
-            )
-          : (title != null && appBar == null)
-              ? AppBar(
-                  centerTitle: true,
-                  backgroundColor: AppThemeColors.background200,
-                  leading: isShowBack && Navigator.of(context).canPop()
-                      ? const Center(child: IconCircle())
-                      : null,
-                  title: TextWidget(
-                    text: title ?? "",
-                    textStyle: AppTextStyle.bold18,
-                  ),
-                  elevation: 0,
-                )
-              : null,
-      body: size.width > 800 ? buildTabletBody(context) : buildBody(context),
-      floatingActionButton: floatingActionButton,
-      bottomNavigationBar: bottomNavigationBar,
+    return GestureDetector(
+      onTap: dismissKeyboard
+          ? () {
+              KeyboardUtils.hiddenKeyboard();
+            }
+          : null,
+      child: Scaffold(
+        drawer: drawer,
+        resizeToAvoidBottomInset: true,
+        backgroundColor: backgroundColor,
+        appBar: (title == null && appBar != null)
+            ? AppBar(
+                centerTitle: true,
+                backgroundColor: AppThemeColors.background200,
+                leading: isShowBack && Navigator.of(context).canPop()
+                    ? const Center(child: IconCircle())
+                    : null,
+                title: appBar,
+                elevation: 0,
+              )
+            : (title != null && appBar == null)
+                ? AppBar(
+                    centerTitle: true,
+                    backgroundColor: AppThemeColors.background200,
+                    leading: isShowBack && Navigator.of(context).canPop()
+                        ? const Center(child: IconCircle())
+                        : null,
+                    title: TextWidget(
+                      text: title ?? "",
+                      textStyle: AppTextStyle.bold18,
+                    ),
+                    elevation: 0,
+                  )
+                : null,
+        body: size.width > 800 ? buildTabletBody(context) : buildBody(context),
+        floatingActionButton: floatingActionButton,
+        bottomNavigationBar: bottomNavigationBar,
+      ),
     );
   }
 }
