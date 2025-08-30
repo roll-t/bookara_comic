@@ -27,6 +27,7 @@ class CustomTextField extends StatelessWidget {
   final Color? hintColor;
   final Color? labelColor;
   final BottomSheetController? bottomSheetController;
+  final Function(String)? onSubmit;
 
   final double borderRadius;
   final Color borderColor;
@@ -63,6 +64,7 @@ class CustomTextField extends StatelessWidget {
     this.textSize,
     this.controller,
     this.scrollPadding,
+    this.onSubmit,
     this.bottomSheetController,
     this.obscureText = false,
     this.keyboardType,
@@ -205,7 +207,7 @@ class CustomTextField extends StatelessWidget {
           );
 
     return TextField(
-      scrollPadding:scrollPadding?? EdgeInsets.zero,
+      scrollPadding: scrollPadding ?? EdgeInsets.zero,
       controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,
@@ -213,6 +215,7 @@ class CustomTextField extends StatelessWidget {
       minLines: minLines,
       enabled: enabled,
       onChanged: onChanged,
+      onSubmitted: onSubmit,
       style: TextStyle(
         color: textColor ?? AppColors.text700,
         fontSize: textSize ?? 14,

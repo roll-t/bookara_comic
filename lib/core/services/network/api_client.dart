@@ -127,6 +127,74 @@ class ApiClient extends GetxService {
     }
   }
 
+  Future<Result<dynamic>> post(
+    String path, {
+    Map<String, dynamic>? data,
+  }) async {
+    if (!isConnected.value) {
+      return Result(
+          status: Results.error, message: 'Không có kết nối internet');
+    }
+    try {
+      final response = await _dio.post(path, data: data);
+      return _handleResponse(response);
+    } on DioException catch (e) {
+      return Result(status: Results.error, message: _handleError(e));
+    }
+  }
+
+  Future<Result<dynamic>> patch(
+    String path, {
+    Map<String, dynamic>? data,
+  }) async {
+    try {
+      final response = await _dio.patch(path, data: data);
+      return _handleResponse(response);
+    } on DioException catch (e) {
+      return Result(status: Results.error, message: _handleError(e));
+    }
+  }
+
+  Future<Result<dynamic>> put(
+    String path, {
+    Map<String, dynamic>? data,
+  }) async {
+    try {
+      final response = await _dio.put(path, data: data);
+      return _handleResponse(response);
+    } on DioException catch (e) {
+      return Result(status: Results.error, message: _handleError(e));
+    }
+  }
+
+  Future<Result<dynamic>> delete(
+    String path, {
+    Map<String, dynamic>? data,
+  }) async {
+    try {
+      final response = await _dio.delete(path, data: data);
+      return _handleResponse(response);
+    } on DioException catch (e) {
+      return Result(status: Results.error, message: _handleError(e));
+    }
+  }
+
+  Result _handleResponse(dynamic response) {
+    if (response.statusCode == 200) {
+      final res = ApiResponse.fromJson(response.data);
+      if (res.isSuccess) {
+        return Result(status: Results.success, data: res.data);
+      } else {
+        return Result(
+            status: Results.error,
+            message: res.message ?? 'Lỗi không xác định từ API');
+      }
+    } else {
+      return Result(
+          status: Results.error, message: 'HTTP ${response.statusCode}');
+    }
+  }
+
   String _handleError(DioException e) {
     if (e.type == DioExceptionType.connectionTimeout) {
       return 'Kết nối server quá thời gian cho phép';

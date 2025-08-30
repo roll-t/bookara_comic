@@ -9,7 +9,7 @@ Future<void> configs() async {
   WidgetsFlutterBinding.ensureInitialized();
   await loadEnv();
   AppLogger.init();
-  AppBinding().dependencies();
+  AppBinding().dependencies(); 
   await storageConfigs();
   // await firebaseConfigs();
   // await notificationConfigs();

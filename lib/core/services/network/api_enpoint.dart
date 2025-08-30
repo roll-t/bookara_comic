@@ -1,22 +1,23 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ApiEndpoint {
-  ///---> [Root-service]
-  static final String baseUrl = dotenv.env["API_COMICS_KEY"] ?? "/";
+  /// Base URL từ .env
+  static final String baseUrl = dotenv.env["API_URL"] ?? "/";
 
-  // Home
-  static const String home = '/home';
+  // ---------------------- Users ---------------------- //
+  static const String users = '/users';
+  static const String allUsers = '/users/all';
+  
+  /// Auth
+  static const String login = '/users/login';
+  static const String register = '/users/register'; // 👈 Thêm đăng ký
 
-  // List
-  static String list(String type) => '/danh-sach/$type';
+  /// CRUD User
+  static String userDetail(String userId) => '/users/$userId';
+  static String updateUser(String userId) => '/users/$userId';
+  static String deleteUser(String userId) => '/users/$userId';
 
-  // Categories
-  static const String categories = '/the-loai';
-  static String categoryDetail(String slug) => '/the-loai/$slug';
-
-  // Comic detail
-  static String comicDetail(String slug) => '/truyen-tranh/$slug';
-
-  // Search
-  static const String search = '/tim-kiem';
+  /// Password
+  static String updatePassword(String userId) => '/users/$userId/password';
+  static String resetPassword(String userId) => '/users/$userId/reset-password';
 }

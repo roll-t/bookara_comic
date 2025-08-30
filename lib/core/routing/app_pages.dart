@@ -1,12 +1,12 @@
-import 'package:auto_find/features/navigation/di/navigation_binding.dart';
-import 'package:auto_find/features/navigation/presentation/page/navigation_page.dart';
+import 'package:auto_find/main/navigation/di/navigation_binding.dart';
+import 'package:auto_find/main/navigation/presentation/page/navigation_page.dart';
 import 'package:auto_find/core/ui/widgets/notFound/not_found_page.dart';
-import 'package:auto_find/features/splash/di/splash_binding.dart';
-import 'package:auto_find/features/splash/presentation/page/splash_page.dart';
-import 'package:auto_find/features/user/auth/login/di/login_binding.dart';
-import 'package:auto_find/features/user/auth/login/presentation/page/login_page.dart';
-import 'package:auto_find/features/user/auth/signin/di/signin_binding.dart';
-import 'package:auto_find/features/user/auth/signin/presentation/page/signin_page.dart';
+import 'package:auto_find/main/splash/di/splash_binding.dart';
+import 'package:auto_find/main/splash/presentation/page/splash_page.dart';
+import 'package:auto_find/main/user/features/auth/login/di/login_binding.dart';
+import 'package:auto_find/main/user/features/auth/login/presentation/page/login_page.dart';
+import 'package:auto_find/main/user/features/auth/signin/di/signin_binding.dart';
+import 'package:auto_find/main/user/features/auth/signin/presentation/page/signin_page.dart';
 import 'package:get/get.dart';
 
 final notFoundPage = GetPage(
@@ -24,8 +24,8 @@ final appPage = [
     name: const NavigationPage().routeName,
     page: () => const NavigationPage(),
     binding: NavigationBinding(),
-    transition: Transition.circularReveal,
-    transitionDuration: const Duration(milliseconds: 1200),
+    transition: Transition.rightToLeft,
+    transitionDuration: const Duration(milliseconds: 400),
   ),
   GetPage(
     name: const LoginPage().routeName,

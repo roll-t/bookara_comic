@@ -1,5 +1,5 @@
 import 'package:auto_find/core/services/network/api_client.dart';
-import 'package:auto_find/features/splash/presentation/controller/splash_controller.dart';
+import 'package:auto_find/main/splash/presentation/controller/splash_controller.dart';
 import 'package:auto_find/core/config/theme/theme_controller.dart';
 import 'package:get/get.dart';
 
