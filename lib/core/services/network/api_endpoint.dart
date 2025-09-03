@@ -1,13 +1,8 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 class ApiEndpoint {
-  /// Base URL từ .env
-  static final String baseUrl = dotenv.env["API_URL"] ?? "/";
-
   // ---------------------- Users ---------------------- //
   static const String users = '/users';
   static const String allUsers = '/users/all';
-  
+
   /// Auth
   static const String login = '/users/login';
   static const String register = '/users/register'; // 👈 Thêm đăng ký

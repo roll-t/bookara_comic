@@ -2,18 +2,18 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:auto_find/core/config/const/app_enum.dart';
 import 'package:auto_find/core/config/result.dart';
-import 'package:auto_find/core/services/dto/api_respon.dart';
-import 'package:auto_find/core/services/network/api_enpoint.dart';
 import 'package:auto_find/core/services/network/api_intercepter.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 
 class ApiClient extends GetxService {
   late final Dio _dio;
   final Connectivity _connectivity = Connectivity();
   final RxBool isConnected = true.obs;
+  final String baseUrl = dotenv.env["API_URL"] ?? "https://";
 
   @override
   void onInit() {
@@ -27,7 +27,7 @@ class ApiClient extends GetxService {
   void _initDio() {
     _dio = Dio(
       BaseOptions(
-        baseUrl: ApiEndpoint.baseUrl,
+        baseUrl: baseUrl,
         connectTimeout: const Duration(seconds: 10),
         receiveTimeout: const Duration(seconds: 15),
         headers: {
@@ -101,18 +101,10 @@ class ApiClient extends GetxService {
       final response = await _dio.get(path, queryParameters: query);
 
       if (response.statusCode == 200) {
-        final res = ApiResponse.fromJson(response.data);
-        if (res.isSuccess) {
-          return Result(
-            status: Results.success,
-            data: res.data,
-          );
-        } else {
-          return Result(
-            status: Results.error,
-            message: res.message ?? 'Lỗi không xác định từ API',
-          );
-        }
+        return Result(
+          status: Results.success,
+          data: response.data,
+        );
       } else {
         return Result(
           status: Results.error,
@@ -133,10 +125,15 @@ class ApiClient extends GetxService {
   }) async {
     if (!isConnected.value) {
       return Result(
-          status: Results.error, message: 'Không có kết nối internet');
+        status: Results.error,
+        message: 'Không có kết nối internet',
+      );
     }
     try {
-      final response = await _dio.post(path, data: data);
+      final response = await _dio.post(
+        path,
+        data: data,
+      );
       return _handleResponse(response);
     } on DioException catch (e) {
       return Result(status: Results.error, message: _handleError(e));
@@ -173,6 +170,7 @@ class ApiClient extends GetxService {
   }) async {
     try {
       final response = await _dio.delete(path, data: data);
+      print(">>> check $response");
       return _handleResponse(response);
     } on DioException catch (e) {
       return Result(status: Results.error, message: _handleError(e));
@@ -181,17 +179,17 @@ class ApiClient extends GetxService {
 
   Result _handleResponse(dynamic response) {
     if (response.statusCode == 200) {
-      final res = ApiResponse.fromJson(response.data);
-      if (res.isSuccess) {
-        return Result(status: Results.success, data: res.data);
-      } else {
-        return Result(
-            status: Results.error,
-            message: res.message ?? 'Lỗi không xác định từ API');
-      }
-    } else {
+      final res = response;
       return Result(
-          status: Results.error, message: 'HTTP ${response.statusCode}');
+        status: Results.success,
+        data: res.data,
+      );
+    } else {
+      print(">>> Check $response");
+      return Result(
+        status: Results.error,
+        message: 'HTTP ${response.statusCode}',
+      );
     }
   }
 

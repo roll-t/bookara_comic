@@ -23,9 +23,9 @@ class ApiInterceptor extends Interceptor {
     super.onResponse(response, handler);
   }
 
-  @override
-  void onError(DioException err, ErrorInterceptorHandler handler) {
-    debugPrint("❌ [ERROR] ${err.message}");
-    super.onError(err, handler);
-  }
+  // @override
+  // void onError(DioException err, ErrorInterceptorHandler handler) {
+  //   debugPrint("❌ [ERROR] ${err.message}");
+  //   super.onError(err, handler);
+  // }
 }

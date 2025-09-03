@@ -1,13 +1,15 @@
 import 'package:auto_find/core/config/result.dart';
-import 'package:auto_find/core/services/network/api_enpoint.dart';
+import 'package:auto_find/core/services/network/api_endpoint.dart';
 import 'package:auto_find/core/services/network/api_client.dart';
 import 'package:auto_find/main/user/data/model/user_model.dart';
 import 'package:get/get.dart';
 
 class UserApi {
   final ApiClient _client = Get.find<ApiClient>();
-
-  Future<Result> getUsers({int pageSize = 20, String? startAfter}) {
+  Future<Result> getUsers({
+    int pageSize = 20,
+    String? startAfter,
+  }) {
     final query = {
       'pageSize': pageSize,
       if (startAfter != null) 'startAfter': startAfter,
@@ -38,10 +40,9 @@ class UserApi {
     );
   }
 
-  /// Cập nhật thông tin user (dùng model)
   Future<Result> updateUser(UserModel user) {
     return _client.patch(
-      ApiEndpoint.updateUser(user.uid),
+      ApiEndpoint.updateUser(user.uid ?? ""),
       data: user.toReq(),
     );
   }
@@ -54,7 +55,10 @@ class UserApi {
   }
 
   /// Đổi mật khẩu user
-  Future<Result> updatePassword(String userId, String newPassword) {
+  Future<Result> updatePassword(
+    String userId,
+    String newPassword,
+  ) {
     return _client.put(
       ApiEndpoint.updatePassword(userId),
       data: {

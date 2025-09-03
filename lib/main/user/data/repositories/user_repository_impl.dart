@@ -27,12 +27,12 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<UserModel> login(UserModel user) async {
+  Future<UserModel?> login(UserModel user) async {
     final result = await _api.login(user);
     if (result.isSuccess) {
       return UserModel.fromJson(result.data);
     }
-    throw result.status;
+    return null;
   }
 
   @override

@@ -10,8 +10,10 @@ class LoginController extends GetxController {
 
   LoginController(this._useCase);
 
-  final TextEditingController userNameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController userNameController =
+      TextEditingController(text: "linh123");
+  final TextEditingController passwordController =
+      TextEditingController(text: "123456");
 
   final RxBool isLoading = false.obs;
   final RxString errorMessage = ''.obs;
@@ -19,10 +21,15 @@ class LoginController extends GetxController {
   /// Validate input
   bool _validation() {
     final fields = [
-      {"value": userNameController.text, "label": "Tên đăng nhập"},
-      {"value": passwordController.text, "label": "Mật khẩu"},
+      {
+        "value": userNameController.text,
+        "label": "Tên đăng nhập",
+      },
+      {
+        "value": passwordController.text,
+        "label": "Mật khẩu",
+      },
     ];
-
     for (final field in fields) {
       final isValid = ValidationUtils.validateRequiredField(
         field["value"]!,
@@ -30,6 +37,7 @@ class LoginController extends GetxController {
       );
       if (!isValid) return false;
     }
+    
     return true;
   }
 
@@ -37,31 +45,18 @@ class LoginController extends GetxController {
   Future<void> onLogin() async {
     KeyboardUtils.hiddenKeyboard();
     if (!_validation()) return;
-
-    try {
-      isLoading.value = true;
-      errorMessage.value = '';
-
-      final user = await _useCase.login(
-        userNameController.text.trim(),
-        passwordController.text.trim(),
+    isLoading.value = true;
+    errorMessage.value = '';
+    final bool isLoginSuccess = await _useCase.login(
+      userNameController.text.trim(),
+      passwordController.text.trim(),
+    );
+    if (isLoginSuccess) {
+      Get.offAllNamed(
+        const NavigationPage().routeName,
       );
-
-      // Nếu login thành công, điều hướng sang NavigationPage
-      Get.offAllNamed(const NavigationPage().routeName,
-          arguments: {"user": user});
-    } catch (e) {
-      errorMessage.value = e.toString();
-      Get.snackbar(
-        "Đăng nhập thất bại",
-        errorMessage.value,
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.redAccent,
-        colorText: Colors.white,
-      );
-    } finally {
-      isLoading.value = false;
     }
+    isLoading.value = false;
   }
 
   @override
