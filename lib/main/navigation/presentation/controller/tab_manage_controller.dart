@@ -1,5 +1,6 @@
 import 'package:auto_find/core/config/const/app_icons.dart';
 import 'package:auto_find/main/navigation/model/item_menu_feature_model.dart';
+import 'package:auto_find/main/showroom/features/add_car/presentation/page/add_car_page.dart';
 import 'package:auto_find/main/showroom/features/profit_manage/presentation/page/profit_manage_page.dart';
 import 'package:get/get.dart';
 
@@ -13,6 +14,7 @@ class TabManageController extends GetxController {
     ItemMenuFeatureModel(
       title: "Thêm xe mới",
       iconUrl: AppIcons.icAddCar,
+      routeNameUrl: const AddCarPage().routeName,
     ),
     ItemMenuFeatureModel(
       title: "Quản lý xe",
