@@ -1,22 +1,21 @@
 import 'dart:convert';
-
+import 'package:auto_find/main/user/data/model/user_model.dart'; // import model
 import 'package:auto_find/core/config/theme/app_color_scheme.dart';
 import 'package:auto_find/core/lang/translation_service.dart';
 import 'package:get_storage/get_storage.dart';
 
 class AppGetStorage {
-  // Tên các box có thể dùng nếu bạn muốn mở rộng
-  static final GetStorage _box = GetStorage(); // default box
+  static final GetStorage _box = GetStorage();
 
   // ========== Init ========== //
   static Future<void> init() async {
-    await GetStorage.init(); // default init
-    // Nếu có box phụ: await GetStorage.init('settings');
+    await GetStorage.init();
   }
 
   // ========== Keys ========== //
   static const String _themeKey = 'isDarkMode';
   static const String _tokenKey = 'accessToken';
+  static const String _userKey = 'userData'; // ✅ thêm key user
   static const String _isLoggedIn = 'isLoggedIn';
   static const String _selectedLanguageKey = 'selected_language';
   static const String _primaryThemeKey = 'primary_theme';
@@ -26,11 +25,9 @@ class AppGetStorage {
   static void saveTheme(bool isDark) => _box.write(_themeKey, isDark);
   static bool getTheme() => _box.read(_themeKey) ?? false;
 
-  // Save primary theme as string (using the enum name)
   static void savePrimaryTheme(AppColorTheme theme) =>
       _box.write(_primaryThemeKey, theme.toString());
 
-  // Get primary theme (returning the enum)
   static AppColorTheme getPrimaryTheme(AppColorTheme fallback) {
     final themeString = _box.read<String>(_primaryThemeKey);
     if (themeString != null) {
@@ -42,7 +39,6 @@ class AppGetStorage {
     return fallback;
   }
 
-  // Lưu trạng thái bật/tắt thông báo
   static void setNotificationEnabled(bool value) =>
       _box.write(_isNotificationEnabled, value);
 
@@ -53,20 +49,40 @@ class AppGetStorage {
   static void saveToken(String token) => _box.write(_tokenKey, token);
   static String? getToken() => _box.read(_tokenKey);
 
+  // ========== User ========== //
+  static void saveUser(UserModel user) {
+    final jsonString = jsonEncode(user.toJson());
+    _box.write(_userKey, jsonString);
+  }
+
+  static UserModel? getUser() {
+    final jsonString = _box.read<String>(_userKey);
+    if (jsonString != null) {
+      final Map<String, dynamic> jsonMap = jsonDecode(jsonString);
+      return UserModel.fromJson(jsonMap);
+    }
+    return null;
+  }
+
   // ========== Login ========== //
   static void setLoggedIn(bool value) => _box.write(_isLoggedIn, value);
-  static bool isLoggedIn() => _box.read(_isLoggedIn) ?? false;
+
+  static bool isLoggedIn() {
+    return _box.read(_tokenKey) != null;
+  }
+
+  static void clearAuth() {
+    _box.remove(_tokenKey);
+    _box.remove(_userKey);
+  }
 
   // ========== Language ========== //
   static void setLanguage(String language) {
-    // Save selected language to GetStorage
     _box.write(_selectedLanguageKey, language);
-    // Update the locale in the app
     LocalizationService.changeLocale(language == 'English' ? 'en' : 'vi');
   }
 
   static String getLanguage() {
-    // Default to English if not set
     return _box.read(_selectedLanguageKey) ?? 'English';
   }
 
@@ -77,39 +93,30 @@ class AppGetStorage {
   static void clear() => _box.erase();
 
   // ========== Control size ========== //
-
-  // Ước tính kích thước của dữ liệu lưu trữ trong GetStorage (theo bytes)
   static int estimateCacheSize() {
-    // Lấy tất cả các keys và dữ liệu trong bộ nhớ
     List<String> keys = _box.getKeys().toList();
     int totalSize = 0;
 
     for (String key in keys) {
       var value = _box.read(key);
-
-      // Tính kích thước của từng giá trị theo loại dữ liệu
       if (value is String) {
         totalSize += utf8.encode(value).length;
       } else if (value is int) {
-        totalSize += 4; // Kích thước của int là 4 bytes
+        totalSize += 4;
       } else if (value is double) {
-        totalSize += 8; // Kích thước của double là 8 bytes
+        totalSize += 8;
       } else if (value is bool) {
-        totalSize += 1; // Kích thước của bool là 1 byte
+        totalSize += 1;
       } else {
-        // Xử lý các kiểu dữ liệu phức tạp (List, Map, Object, v.v)
         totalSize += utf8.encode(value.toString()).length;
       }
     }
-
     return totalSize;
   }
 
-  // Hàm in kích thước bộ nhớ cache (theo MB)
   static void printCacheSize() {
     int cacheSizeInBytes = estimateCacheSize();
-    double cacheSizeInMB =
-        cacheSizeInBytes / (1024 * 1024); // Chuyển từ bytes sang MB
+    double cacheSizeInMB = cacheSizeInBytes / (1024 * 1024);
     print("Kích thước bộ nhớ cache: ${cacheSizeInMB.toStringAsFixed(2)} MB");
   }
 }

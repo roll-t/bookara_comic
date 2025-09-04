@@ -1,4 +1,4 @@
-import 'package:auto_find/core/config/const/app_icons.dart';
+import 'package:auto_find/core/config/const/app_vectors.dart';
 import 'package:auto_find/core/config/theme/app_colors.dart';
 import 'package:auto_find/core/ui/styles/app_text_styles.dart';
 import 'package:auto_find/core/ui/widgets/texts/text_widget.dart';
@@ -21,7 +21,7 @@ class PercentageChangeWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Utils.iconSvg(
-          svgUrl: isPositive ? AppIcons.icIncrease : AppIcons.icDecrease,
+          svgUrl: isPositive ? AppVectors.icIncrease : AppVectors.icDecrease,
           size: 20,
         ),
         TextWidget(

@@ -13,13 +13,14 @@ class AppColors {
   static const Color dark500 = Color(0xff1f1f1f);
   static const Color dark300 = Color(0xff2c2c2c);
 
-  static const light300 = Color(0xFFBDBDBD);
-  static const light200 = Color(0xFFE0E0E0);
+  static const light300 = Color.fromARGB(255, 218, 216, 216);
+  static const light200 = Color.fromARGB(255, 238, 238, 238);
   static const light100 = Color(0xFFF5F5F5);
 
   // Primary Colors
   static const Color black = Color(0xFF000000);
   static const Color white = Color(0xFFffffff);
+  static const Color accent = Color(0xFFeb2f06);
 
   static const Color primary2 = Color.fromARGB(255, 187, 21, 21);
   static const Color primary3 = Color(0xFF34C759);

@@ -1,4 +1,4 @@
-import 'package:auto_find/core/config/const/app_icons.dart';
+import 'package:auto_find/core/config/const/app_vectors.dart';
 import 'package:auto_find/core/config/theme/app_colors.dart';
 import 'package:auto_find/core/config/theme/app_theme_colors.dart';
 import 'package:auto_find/core/ui/widgets/inputs/custom_text_field.dart';
@@ -29,7 +29,7 @@ class SearchWidget extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Utils.iconSvg(
           color: AppColors.grey.withValues(alpha: .5),
-          svgUrl: AppIcons.icSearch,
+          svgUrl: AppVectors.icSearch,
           size: 20,
         ),
       ),

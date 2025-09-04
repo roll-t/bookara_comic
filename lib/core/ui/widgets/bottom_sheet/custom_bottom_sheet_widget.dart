@@ -1,4 +1,4 @@
-import 'package:auto_find/core/config/const/app_icons.dart';
+import 'package:auto_find/core/config/const/app_vectors.dart';
 import 'package:auto_find/core/config/theme/app_colors.dart';
 import 'package:auto_find/core/model/ui/item_model.dart';
 import 'package:auto_find/core/extension/empty_extension.dart';
@@ -97,7 +97,7 @@ class CustomBottomSheetWidget extends StatelessWidget {
                     ),
                     const SizedBox(width: 6),
                     Utils.iconSvg(
-                      svgUrl: AppIcons.icArrowDown,
+                      svgUrl: AppVectors.icArrowDown,
                       size: 18,
                     )
                   ],

@@ -1,5 +1,7 @@
+import 'package:auto_find/core/ui/widgets/dialogs/dialog_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class Utils {
   static SvgPicture iconSvg({
@@ -16,4 +18,14 @@ class Utils {
     );
   }
 
+  static Future<T?> runWithLoading<T>(Future<T> Function() action) async {
+    DialogUtils.showProgressDialog();
+    try {
+      return await action();
+    } finally {
+      if (Get.isDialogOpen ?? false) {
+        Get.back();
+      }
+    }
+  }
 }

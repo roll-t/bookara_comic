@@ -1,5 +1,5 @@
 // ignore: file_names
-import 'package:auto_find/core/config/const/app_icons.dart';
+import 'package:auto_find/core/config/const/app_vectors.dart';
 import 'package:auto_find/core/config/theme/app_colors.dart';
 import 'package:auto_find/core/config/theme/app_theme_colors.dart';
 import 'package:auto_find/core/ui/styles/app_text_styles.dart';
@@ -46,7 +46,7 @@ class SortToggleWidget extends StatelessWidget {
             ),
             const SizedBox(width: 10),
             Utils.iconSvg(
-              svgUrl: AppIcons.icFilter,
+              svgUrl: AppVectors.icFilter,
               color: AppThemeColors.primary,
             )
           ],

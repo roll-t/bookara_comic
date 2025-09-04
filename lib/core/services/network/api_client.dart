@@ -34,6 +34,7 @@ class ApiClient extends GetxService {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
+        validateStatus: (_) => true, // 👈 Cho phép tất cả status code trả về
       ),
     )..interceptors.add(ApiInterceptor());
 
@@ -48,17 +49,22 @@ class ApiClient extends GetxService {
         if (isConnected.value != online) {
           isConnected.value = online;
           if (!online) {
-            _showSnackbar('Không có kết nối',
-                'Vui lòng kiểm tra lại kết nối mạng.', Colors.redAccent);
+            _showSnackbar(
+              'Không có kết nối',
+              'Vui lòng kiểm tra lại kết nối mạng.',
+              Colors.redAccent,
+            );
           } else {
-            _showSnackbar('Đã kết nối mạng',
-                'Kết nối internet đã được khôi phục.', Colors.green);
+            _showSnackbar(
+              'Đã kết nối mạng',
+              'Kết nối internet đã được khôi phục.',
+              Colors.green,
+            );
           }
         }
       }
     });
 
-    // Kiểm tra ngay khi khởi tạo
     Future.microtask(() async {
       isConnected.value = await _checkNetwork();
     });
@@ -73,7 +79,11 @@ class ApiClient extends GetxService {
     }
   }
 
-  void _showSnackbar(String title, String message, Color color) {
+  void _showSnackbar(
+    String title,
+    String message,
+    Color color,
+  ) {
     if (!Get.isSnackbarOpen) {
       Get.snackbar(
         title,
@@ -99,7 +109,6 @@ class ApiClient extends GetxService {
     }
     try {
       final response = await _dio.get(path, queryParameters: query);
-
       if (response.statusCode == 200) {
         return Result(
           status: Results.success,
@@ -129,14 +138,15 @@ class ApiClient extends GetxService {
         message: 'Không có kết nối internet',
       );
     }
+
     try {
-      final response = await _dio.post(
-        path,
-        data: data,
-      );
+      final response = await _dio.post(path, data: data);
       return _handleResponse(response);
     } on DioException catch (e) {
-      return Result(status: Results.error, message: _handleError(e));
+      return Result(
+        status: Results.error,
+        message: e.message ?? 'Lỗi không xác định',
+      );
     }
   }
 
@@ -170,7 +180,6 @@ class ApiClient extends GetxService {
   }) async {
     try {
       final response = await _dio.delete(path, data: data);
-      print(">>> check $response");
       return _handleResponse(response);
     } on DioException catch (e) {
       return Result(status: Results.error, message: _handleError(e));
@@ -178,22 +187,27 @@ class ApiClient extends GetxService {
   }
 
   Result _handleResponse(dynamic response) {
-    if (response.statusCode == 200) {
-      final res = response;
+    if (response.statusCode != null &&
+        response.statusCode! >= 200 &&
+        response.statusCode! < 300) {
       return Result(
         status: Results.success,
-        data: res.data,
+        data: response.data,
       );
     } else {
-      print(">>> Check $response");
+      final message = (response.data is Map && response.data['error'] != null)
+          ? response.data['error']
+          : 'HTTP ${response.statusCode}';
+
       return Result(
         status: Results.error,
-        message: 'HTTP ${response.statusCode}',
+        message: message,
       );
     }
   }
 
   String _handleError(DioException e) {
+    print(">>> RUN $e");
     if (e.type == DioExceptionType.connectionTimeout) {
       return 'Kết nối server quá thời gian cho phép';
     } else if (e.type == DioExceptionType.receiveTimeout) {

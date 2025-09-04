@@ -1,38 +1,29 @@
 class AppIcons {
-  static const String _root = "assets/vectors/";
-  static const String _ext = ".svg";
+  static const String _root = "assets/icons/";
+  static const String _ext = ".png";
 
-  static String icSetting = "${_root}ic_setting$_ext";
-  static String icUser = "${_root}ic_user$_ext";
-  static String icHome = "${_root}ic_home$_ext";
-  static String icCategory = "${_root}ic_category$_ext";
-  static String icNotUrl = "${_root}ic_not_url$_ext";
-  static String icPointer = "${_root}ic_pointer$_ext";
-  static String icCar = "${_root}ic_car$_ext";
-  static String icCredit = "${_root}ic_credit$_ext";
-  static String icMoney = "${_root}ic_money$_ext";
-  static String icDiamond = "${_root}ic_diamon$_ext";
-  static String icPeople = "${_root}ic_people$_ext";
-  static String icDashboard = "${_root}ic_dashboard$_ext";
-  static String icNoImage = "${_root}ic_no_image$_ext";
-  static String icArrowBack = "${_root}ic_arrow_back$_ext";
-  static String icSearch = "${_root}ic_search$_ext";
-  static String icArrowDropDown = "${_root}ic_arrow_drop_down$_ext";
-  static String icFilter = "${_root}ic_filter$_ext";
-  static String icArrowRight = "${_root}ic_arrow_right$_ext";
-  static String icArrowDown = "${_root}ic_arrow_down$_ext";
-  static String icArrowUp = "${_root}ic_arrow_up$_ext";
-  static String icList = "${_root}ic_list$_ext";
-  static String icEditing = "${_root}ic_editing$_ext";
-  static String icDelete = "${_root}ic_delete$_ext";
-  static String icIncrease = "${_root}ic_increase$_ext";
-  static String icDecrease = "${_root}ic_decrease$_ext";
-  static String icChart = "${_root}ic_chart$_ext";
-  static String icManage = "${_root}ic_manage$_ext";
-  static String icCash = "${_root}ic_cash$_ext";
-  static String icDate = "${_root}ic_date$_ext";
-  static String icFinance = "${_root}ic_finance$_ext";
-  static String icPerson = "${_root}ic_person$_ext";
-  static String icBookcase = "${_root}ic_bookcase$_ext";
-  static String icBook = "${_root}ic_book$_ext";
+  static String _icon(String name) => '$_root$name$_ext';
+
+  static final String icProfit = _icon("ic_profig");
+  static final String icAllCar = _icon("ic_all_car");
+  static final String icCarInGaga = _icon("ic_car_in_gaga");
+  static final String icCarBuy = _icon("ic_car_buy");
+  static final String icAddCar = _icon("ic_add_car");
+  static final String icCarCategory = _icon("ic_car_category");
+
+  static final String icRetail = _icon("ic_retail");
+  static final String icGoldInventory = _icon("ic_gold_inventory");
+  static final String icExportGold = _icon("ic_export_gold");
+  static final String icFlowMoney = _icon("ic_flow_money");
+
+  static final String ic20Loan = _icon("ic_20_loan");
+  static final String icMonthlyPrincipalInterest = _icon("ic_monthly_principal_interest");
+  static final String icReportDebt = _icon("ic_report_debt");
+
+  static final String icIncomeExpenseByCategory = _icon("ic_income_expense_by_category");
+  static final String icReportWeeklyMonthly = _icon("ic_report_weekly_monthly");
+
+  static final String icSalary = _icon("ic_salary");
+  static final String icAttendance = _icon("ic_attendance");
+  static final String icRose = _icon("ic_rose");
 }

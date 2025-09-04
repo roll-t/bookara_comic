@@ -1,3 +1,4 @@
+import 'package:auto_find/main/navigation/di/tab_manage_binding.dart';
 import 'package:auto_find/main/navigation/di/tab_profile_binding%20.dart';
 import 'package:auto_find/main/navigation/presentation/page/tabs/tab_dashboard.dart';
 import 'package:auto_find/main/navigation/presentation/page/tabs/tab_manage.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class NavigationController extends GetxController {
-  final RxInt currentPage = 0.obs;
+  final RxInt currentPage = 1.obs;
 
   List<String> routeNames = [
     const TabDashboard().routeName,
@@ -28,6 +29,7 @@ class NavigationController extends GetxController {
           settings: settings,
           page: () => const TabManage(),
           transition: Transition.fadeIn,
+          binding: TabManageBinding(),
         );
       case '/tab-profile':
         return GetPageRoute(

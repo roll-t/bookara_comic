@@ -1,4 +1,4 @@
-import 'package:auto_find/core/config/const/app_icons.dart';
+import 'package:auto_find/core/config/const/app_vectors.dart';
 import 'package:auto_find/core/config/theme/app_theme_colors.dart';
 import 'package:auto_find/main/navigation/presentation/widgets/item_navigation_bar_widget.dart';
 import 'package:flutter/material.dart';
@@ -25,9 +25,9 @@ class BottomNavigationBarWidget extends StatelessWidget {
       selectedItemColor: selectedItemColor,
       showUnselectedLabels: true,
       items: [
-        buildNavItem(label: 'Dashboard', iconPath: AppIcons.icDashboard),
-        buildNavItem(label: 'Quản lý ', iconPath: AppIcons.icManage),
-        buildNavItem(label: 'Cá nhân', iconPath: AppIcons.icPerson),
+        buildNavItem(label: 'Dashboard', iconPath: AppVectors.icDashboard),
+        buildNavItem(label: 'Quản lý', iconPath: AppVectors.icManage),
+        buildNavItem(label: 'Cá nhân', iconPath: AppVectors.icPerson),
       ],
     );
   }

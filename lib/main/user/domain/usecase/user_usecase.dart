@@ -1,5 +1,5 @@
-import 'package:auto_find/core/config/const/app_enum.dart';
-import 'package:auto_find/core/ui/widgets/dialogs/dialog_utils.dart';
+import 'package:auto_find/core/local_storage/app_get_storage.dart';
+import 'package:auto_find/main/user/data/model/auth_response.dart';
 import 'package:auto_find/main/user/data/model/user_model.dart';
 import 'package:auto_find/main/user/domain/repositories/user_repository.dart';
 
@@ -21,14 +21,14 @@ class UserUseCase {
       password: password,
     );
     try {
-      final result = await _repository.login(user);
-      return result is UserModel;
+      final AuthResponse? result = await _repository.login(user);
+      if (result != null) {
+        AppGetStorage.saveToken(result.token);
+        AppGetStorage.saveUser(result.user);
+        return true;
+      }
+      return false;
     } catch (e) {
-      DialogUtils.showAlert(
-        alertType: AlertType.error,
-        title: "Đăng nhập thất bại",
-        content: "$e",
-      );
       return false;
     }
   }

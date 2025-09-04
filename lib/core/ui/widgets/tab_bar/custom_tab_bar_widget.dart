@@ -11,7 +11,7 @@ class CustomTabBarWidget extends StatelessWidget {
   final TabBarController controller;
   final ValueChanged<int>? onSelectedIndex;
   final String? label;
-  final List<Widget>? tabBodies; //<-- thêm dòng này
+  final List<Widget>? tabBodies;
 
   const CustomTabBarWidget({
     super.key,
@@ -49,21 +49,14 @@ class CustomTabBarWidget extends StatelessWidget {
                     width: 1,
                     color: AppThemeColors.secondary,
                   ),
-                  // boxShadow: [
-                  //   BoxShadow(
-                  //     offset: const Offset(1, 1),
-                  //     blurRadius: 4,
-                  //     spreadRadius: 2,
-                  //     color: AppColors.darkest1.withValues(alpha: .1),
-                  //   ),
-                  // ],
                 ),
                 child: Row(
                   children: List.generate(
                     controller.tabs.length,
                     (index) {
-                      final isSelected = controller.selectedIndex.value == index;
-              
+                      final isSelected =
+                          controller.selectedIndex.value == index;
+
                       final TextStyle textStyle = TextStyle(
                         fontSize: 14,
                         color: isSelected
@@ -72,7 +65,7 @@ class CustomTabBarWidget extends StatelessWidget {
                         fontWeight:
                             isSelected ? FontWeight.bold : FontWeight.normal,
                       );
-              
+
                       final BoxDecoration decorationActive = BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
                         color: isSelected
@@ -85,7 +78,7 @@ class CustomTabBarWidget extends StatelessWidget {
                           width: .5,
                         ),
                       );
-              
+
                       return Expanded(
                         child: GestureDetector(
                           onTap: () {
@@ -108,7 +101,7 @@ class CustomTabBarWidget extends StatelessWidget {
                 ),
               ),
             ),
-            
+
             // Phần tabBodies đặt ngoài Container tab bar
             if ((tabBodies?.isNotEmpty ?? false)) ...[
               const SizedBox(height: 16),

@@ -1,4 +1,4 @@
-import 'package:auto_find/core/config/const/app_icons.dart';
+import 'package:auto_find/core/config/const/app_vectors.dart';
 import 'package:auto_find/core/config/theme/app_colors.dart';
 import 'package:auto_find/core/config/theme/app_theme_colors.dart';
 import 'package:auto_find/core/ui/widgets/expand/expand_controller.dart';
@@ -39,7 +39,7 @@ class ExpandSectionWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Utils.iconSvg(
-                  svgUrl: AppIcons.icList,
+                  svgUrl: AppVectors.icList,
                   size: 20,
                 ),
                 const SizedBox(width: 5),
@@ -53,8 +53,8 @@ class ExpandSectionWidget extends StatelessWidget {
                 ),
                 Obx(() => Utils.iconSvg(
                       svgUrl: controller.isExpanded.value
-                          ? AppIcons.icArrowUp
-                          : AppIcons.icArrowDown,
+                          ? AppVectors.icArrowUp
+                          : AppVectors.icArrowDown,
                       size: 24,
                     ))
               ],

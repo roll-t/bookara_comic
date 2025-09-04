@@ -24,10 +24,6 @@ class WrapBodyWidget extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: backgroundColor,
-        border: Border.all(
-          width: .5,
-          color: AppColors.text200,
-        ),
       ),
       child: Column(
         mainAxisSize: isMaxHeight ? MainAxisSize.max : MainAxisSize.min,
@@ -44,10 +40,10 @@ class WrapBodyWidget extends StatelessWidget {
               padding: padding,
               child: header,
             ),
-            Divider(
+            const Divider(
               height: 0.5,
               thickness: 0.5,
-              color: AppColors.text300.withValues(alpha: .7),
+              color: AppColors.text200,
             ),
           ],
           Container(

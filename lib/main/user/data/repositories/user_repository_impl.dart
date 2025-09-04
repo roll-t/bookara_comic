@@ -1,3 +1,6 @@
+import 'package:auto_find/core/config/const/app_enum.dart';
+import 'package:auto_find/core/ui/widgets/dialogs/dialog_utils.dart';
+import 'package:auto_find/main/user/data/model/auth_response.dart';
 import 'package:auto_find/main/user/data/model/user_model.dart';
 import 'package:auto_find/main/user/data/source/user_api.dart';
 import 'package:auto_find/main/user/domain/repositories/user_repository.dart';
@@ -27,10 +30,16 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<UserModel?> login(UserModel user) async {
+  Future<AuthResponse?> login(UserModel user) async {
     final result = await _api.login(user);
     if (result.isSuccess) {
-      return UserModel.fromJson(result.data);
+      return AuthResponse.fromJson(result.data);
+    } else if (result.status == Results.error) {
+      DialogUtils.showAlert(
+        alertType: AlertType.error,
+        title: "Đăng nhập thất bại",
+        content: "${result.message}",
+      );
     }
     return null;
   }

@@ -1,4 +1,3 @@
-import 'package:auto_find/core/config/theme/app_colors.dart';
 import 'package:auto_find/core/config/theme/app_theme_colors.dart';
 import 'package:auto_find/core/ui/widgets/app_bar/custom_appbar.dart';
 import 'package:auto_find/core/utils/keyboard_utils.dart';
@@ -28,11 +27,13 @@ class StandardLayoutWidget extends StatelessWidget {
     return GestureDetector(
       onTap: KeyboardUtils.hiddenKeyboard,
       child: Container(
-        color: AppColors.text100,
+        color: AppThemeColors.background300,
         child: Stack(
           children: [
             Positioned.fill(
-              child: ColoredBox(color: backgroundColor ?? Colors.transparent),
+              child: ColoredBox(
+                color: backgroundColor ?? Colors.transparent,
+              ),
             ),
             Positioned(
               child: Container(

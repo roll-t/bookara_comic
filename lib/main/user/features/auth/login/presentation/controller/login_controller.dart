@@ -1,4 +1,5 @@
 import 'package:auto_find/core/utils/keyboard_utils.dart';
+import 'package:auto_find/core/utils/utils.dart';
 import 'package:auto_find/core/utils/validation_utils.dart';
 import 'package:auto_find/main/navigation/presentation/page/navigation_page.dart';
 import 'package:auto_find/main/user/domain/usecase/user_usecase.dart';
@@ -37,7 +38,7 @@ class LoginController extends GetxController {
       );
       if (!isValid) return false;
     }
-    
+
     return true;
   }
 
@@ -45,18 +46,19 @@ class LoginController extends GetxController {
   Future<void> onLogin() async {
     KeyboardUtils.hiddenKeyboard();
     if (!_validation()) return;
-    isLoading.value = true;
+
     errorMessage.value = '';
-    final bool isLoginSuccess = await _useCase.login(
-      userNameController.text.trim(),
-      passwordController.text.trim(),
-    );
-    if (isLoginSuccess) {
-      Get.offAllNamed(
-        const NavigationPage().routeName,
+
+    final bool? isLoginSuccess = await Utils.runWithLoading<bool>(() async {
+      return _useCase.login(
+        userNameController.text.trim(),
+        passwordController.text.trim(),
       );
+    });
+
+    if (isLoginSuccess == true) {
+      Get.offAllNamed(const NavigationPage().routeName);
     }
-    isLoading.value = false;
   }
 
   @override

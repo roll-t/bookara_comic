@@ -1,4 +1,4 @@
-import 'package:auto_find/core/config/const/app_icons.dart';
+import 'package:auto_find/core/config/const/app_vectors.dart';
 import 'package:flutter/material.dart';
 
 extension NullCheckExtension on Object? {
@@ -7,7 +7,7 @@ extension NullCheckExtension on Object? {
 }
 
 extension StringNullExt on String? {
-  String orNA() => this ?? "N/A";
+  String orNA() => (this == null || this!.isEmpty) ? "N/A" : this!;
 }
 
 extension StringEmptyExt on String? {
@@ -25,11 +25,10 @@ extension WidgetVisibilityExtension on Widget? {
 
 extension SafeIconUrlExtension on String? {
   String orIcNull([String? defaultIcon]) {
-    return this ?? (defaultIcon ?? AppIcons.icNotUrl);
+    return this ?? (defaultIcon ?? AppVectors.icNotUrl);
   }
 }
 
 extension NullableStringExtension on String? {
   bool get isNotNullOrEmpty => this != null && this!.isNotEmpty;
 }
-

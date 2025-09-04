@@ -59,4 +59,6 @@ Map<String, String> en = {
   "Sắp ra mắt": 'Upcoming',
   "Đang phát hành": 'Ongoing',
   "Hoàn thành": 'Complete',
+  "Đăng xuất": 'Log out',
+  "Quản Lý": 'Manage',
 };

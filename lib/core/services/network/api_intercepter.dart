@@ -20,12 +20,31 @@ class ApiInterceptor extends Interceptor {
     if (kDebugMode) {
       debugPrint("📦 Data: ${response.data}");
     }
+
+    if (response.statusCode != null && response.statusCode! >= 400) {
+      final message = (response.data is Map && response.data['error'] != null)
+          ? response.data['error']
+          : 'Lỗi không xác định (${response.statusCode})';
+      handler.reject(
+        DioException(
+          requestOptions: response.requestOptions,
+          response: response,
+          type: DioExceptionType.badResponse,
+          message: message,
+        ),
+      );
+      return;
+    }
+
     super.onResponse(response, handler);
   }
 
-  // @override
-  // void onError(DioException err, ErrorInterceptorHandler handler) {
-  //   debugPrint("❌ [ERROR] ${err.message}");
-  //   super.onError(err, handler);
-  // }
+  @override
+  void onError(DioException err, ErrorInterceptorHandler handler) {
+    debugPrint("❌ [ERROR] ${err.message}");
+    if (err.response != null) {
+      debugPrint("📦 Error data: ${err.response?.data}");
+    }
+    super.onError(err, handler);
+  }
 }

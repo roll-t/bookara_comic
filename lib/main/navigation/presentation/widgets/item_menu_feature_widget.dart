@@ -1,4 +1,4 @@
-import 'package:auto_find/core/config/theme/app_colors.dart';
+import 'package:auto_find/core/config/theme/app_theme_colors.dart';
 import 'package:auto_find/core/ui/styles/app_text_styles.dart';
 import 'package:auto_find/core/ui/widgets/images/asset_image_widget.dart';
 import 'package:auto_find/core/ui/widgets/texts/text_widget.dart';
@@ -34,7 +34,7 @@ class ItemMenuFeatureWidget extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: AppColors.primary2_200.withValues(alpha: .2),
+                  color: AppThemeColors.primary.withValues(alpha: .05),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: AssetImageWidget(

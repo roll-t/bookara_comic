@@ -6,33 +6,32 @@ import 'package:auto_find/core/ui/styles/app_text_styles.dart';
 import 'package:auto_find/core/ui/widgets/buttons/primary_button.dart';
 import 'package:auto_find/core/ui/widgets/texts/text_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class DialogUtils {
-  static void showAlterLoading(BuildContext context,
-      {bool isBarrierDismissible = false}) {
-    showDialog(
-      // The user CANNOT close this dialog  by pressing outsite it
-      barrierDismissible: isBarrierDismissible,
-      context: context,
-      builder: (_) {
-        return Center(
-          child: LoadingAnimationWidget.threeRotatingDots(
-            color: AppColors.primary1_500,
-            size: 40,
-          ),
-        );
-      },
-    );
-  }
+  // static void showAlterLoading(BuildContext context,
+  //     {bool isBarrierDismissible = false}) {
+  //   showDialog(
+  //     // The user CANNOT close this dialog  by pressing outsite it
+  //     barrierDismissible: isBarrierDismissible,
+  //     context: context,
+  //     builder: (_) {
+  //       return Center(
+  //         child: LoadingAnimationWidget.threeRotatingDots(
+  //           color: AppThemeColors.primary,
+  //           size: 40,
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   static void showProgressDialog() {
     Get.dialog(
         Center(
           child: LoadingAnimationWidget.threeRotatingDots(
-            color: AppColors.primary1_500,
+            color: AppThemeColors.primary,
             size: 40,
           ),
         ),
