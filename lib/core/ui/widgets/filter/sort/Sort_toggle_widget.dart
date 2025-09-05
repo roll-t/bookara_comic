@@ -40,7 +40,7 @@ class SortToggleWidget extends StatelessWidget {
             Obx(
               () => TextWidget(
                 text: controller.label,
-                color: AppThemeColors.primary,
+                color: AppThemeColors.text100,
                 textStyle: AppTextStyle.semiBold14,
               ),
             ),

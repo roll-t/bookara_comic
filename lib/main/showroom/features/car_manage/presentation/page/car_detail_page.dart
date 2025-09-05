@@ -8,14 +8,22 @@ import 'package:auto_find/core/ui/widgets/dialogs/dialog_utils.dart';
 import 'package:auto_find/core/ui/widgets/expand/expand_section_widget.dart';
 import 'package:auto_find/core/ui/widgets/inputs/custom_text_field.dart';
 import 'package:auto_find/core/ui/widgets/standard_layout_widget.dart';
+import 'package:auto_find/core/utils/custom_framework.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controller/car_detail_controller.dart';
 
-class CarDetailPage extends GetView<CarDetailController> {
-  static String routeName = "/CarDetailPage";
+class CarDetailPage extends CustomState {
   const CarDetailPage({super.key});
+  
+  @override
+  Widget buildBody(BuildContext context) => const _BodyBuilder();
+}
+
+class _BodyBuilder extends GetView<CarDetailController> {
+  const _BodyBuilder();
+
   @override
   Widget build(BuildContext context) {
     return StandardLayoutWidget(
@@ -46,6 +54,7 @@ class CarDetailPage extends GetView<CarDetailController> {
               );
             },
           ),
+          const SizedBox(width: 16),
         ],
       ),
       bodyBuilder: SingleChildScrollView(

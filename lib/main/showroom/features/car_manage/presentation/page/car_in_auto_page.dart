@@ -57,7 +57,7 @@ class CarInfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(CarDetailPage.routeName);
+        Get.toNamed(const CarDetailPage().routeName);
       },
       child: Container(
         margin: const EdgeInsets.symmetric(

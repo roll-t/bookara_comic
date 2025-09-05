@@ -24,7 +24,10 @@ class CarProfitSection extends GetView<CarProfitSectionController> {
             CustomPopupDropdown(controller: controller.filterCarPopup),
             const SizedBox(width: 50),
             const Expanded(
-              child: SearchWidget(height: 40),
+              child: SearchWidget(
+                height: 40,
+                backgroundColor: AppColors.white,
+              ),
             )
           ]),
         ),

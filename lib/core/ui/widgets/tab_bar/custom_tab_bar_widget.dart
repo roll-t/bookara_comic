@@ -47,7 +47,7 @@ class CustomTabBarWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6.0),
                   border: Border.all(
                     width: 1,
-                    color: AppThemeColors.secondary,
+                    color: AppThemeColors.primary,
                   ),
                 ),
                 child: Row(
@@ -60,7 +60,7 @@ class CustomTabBarWidget extends StatelessWidget {
                       final TextStyle textStyle = TextStyle(
                         fontSize: 14,
                         color: isSelected
-                            ? AppThemeColors.secondary
+                            ? AppThemeColors.primary
                             : AppColors.grey,
                         fontWeight:
                             isSelected ? FontWeight.bold : FontWeight.normal,
@@ -69,11 +69,11 @@ class CustomTabBarWidget extends StatelessWidget {
                       final BoxDecoration decorationActive = BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
                         color: isSelected
-                            ? AppThemeColors.secondary.withValues(alpha: .1)
+                            ? AppThemeColors.primary.withValues(alpha: .1)
                             : AppColors.white,
                         border: Border.all(
                           color: isSelected
-                              ? AppThemeColors.secondary.withValues(alpha: .5)
+                              ? AppThemeColors.primary.withValues(alpha: .5)
                               : AppColors.white,
                           width: .5,
                         ),

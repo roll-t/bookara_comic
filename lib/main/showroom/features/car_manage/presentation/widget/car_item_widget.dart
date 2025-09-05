@@ -1,6 +1,7 @@
 import 'package:auto_find/core/config/const/app_vectors.dart';
 import 'package:auto_find/core/config/theme/app_colors.dart';
 import 'package:auto_find/core/ui/styles/app_container_styles.dart';
+import 'package:auto_find/core/ui/styles/app_padding.dart';
 import 'package:auto_find/core/ui/widgets/texts/text_span_widget.dart';
 import 'package:auto_find/core/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -24,9 +25,9 @@ class CarItemWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 8.0),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8.0),
-        decoration: AppContainerStyles.cardStyle(),
+        margin:AppPadding.v8,
+        padding:AppPadding.v8h12,
+        decoration: AppContainerStyles.card100(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:auto_find/core/config/const/app_enum.dart';
 import 'package:auto_find/core/config/result.dart';
+import 'package:auto_find/core/local_storage/app_get_storage.dart';
 import 'package:auto_find/core/services/network/api_intercepter.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
@@ -34,9 +35,23 @@ class ApiClient extends GetxService {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        validateStatus: (_) => true, // 👈 Cho phép tất cả status code trả về
+        validateStatus: (_) => true,
       ),
-    )..interceptors.add(ApiInterceptor());
+    ) // 🟢 Interceptor để gắn token vào request
+      ..interceptors.add(InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          final token = AppGetStorage.getToken();
+          if (token != null && token.isNotEmpty) {
+            options.headers['Authorization'] = 'Bearer $token';
+            log('[ApiClient] 🟢 Attached token: $token');
+          } else {
+            log('[ApiClient] 🔴 No token found, sending request without auth');
+          }
+          handler.next(options);
+        },
+      ))
+      // 🟢 Interceptor log + handle lỗi
+      ..interceptors.add(ApiInterceptor());
 
     log('[ApiClient] ✅ Dio initialized');
   }

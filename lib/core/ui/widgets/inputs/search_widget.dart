@@ -9,16 +9,18 @@ class SearchWidget extends StatelessWidget {
   final Function(String value)? onSearch;
   final double height;
   final String hint;
-  const SearchWidget({ 
+  final Color? backgroundColor;
+  const SearchWidget({
     super.key,
     this.hint = "Nhập nội dung tìm kiếm....",
     this.onSearch,
     this.height = 45,
+    this.backgroundColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    return CustomTextField(  
+    return CustomTextField(
       onChanged: onSearch,
       enableBorder: true,
       borderColor: AppThemeColors.light100,
@@ -26,14 +28,18 @@ class SearchWidget extends StatelessWidget {
       textSize: 14,
       hintText: hint,
       prefixIcon: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(
+          left: 8.0,
+          top: 8.0,
+          bottom: 8.0,
+        ),
         child: Utils.iconSvg(
           color: AppColors.grey.withValues(alpha: .5),
           svgUrl: AppVectors.icSearch,
           size: 20,
         ),
       ),
-      backgroundColor: AppColors.white,
+      backgroundColor: backgroundColor ?? AppThemeColors.background300,
       boxShadow: const [],
       height: height,
     );
