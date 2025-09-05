@@ -13,7 +13,7 @@ class AllCarController extends GetxController {
   // State
   final cars = <CarModel>[].obs;
   final isLoading = false.obs;
-  final isLoadMore = false.obs; // 👉 chỉ true khi đang load thêm
+  final isLoadMore = false.obs;
   final isRefreshing = false.obs;
   final errorMessage = ''.obs;
   final selectedIndex = 0.obs;
