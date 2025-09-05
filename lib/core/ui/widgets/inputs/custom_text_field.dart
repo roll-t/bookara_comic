@@ -83,7 +83,7 @@ class CustomTextField extends StatelessWidget {
     this.labelColor,
     this.borderRadius = 8,
     this.borderColor = AppColors.text400,
-    this.focusedBorderColor = AppColors.neutralColor6,
+    this.focusedBorderColor = AppColors.text300,
     this.disabledBorderColor = Colors.grey,
     this.errorBorderColor = Colors.red,
     this.borderWidth = .5,
@@ -161,9 +161,6 @@ class CustomTextField extends StatelessWidget {
       decoration: BoxDecoration(
         color: backgroundColor ?? AppColors.white,
         borderRadius: BorderRadius.circular(borderRadius),
-        // boxShadow: type == CustomTextFieldType.datePicker
-        //     ? null
-        //     : boxShadow ?? AppContainerStyles.cardShadow(),
       ),
       child: inputChild,
     );
@@ -226,8 +223,10 @@ class CustomTextField extends StatelessWidget {
             ? backgroundColor ?? AppColors.white
             : AppColors.neutralColor6,
         hintText: hintText,
-        hintStyle:
-            TextStyle(color: hintColor ?? AppColors.palette2, fontSize: 14),
+        hintStyle: TextStyle(
+          color: hintColor ?? AppColors.palette2,
+          fontSize: 14,
+        ),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         errorText: errorText,

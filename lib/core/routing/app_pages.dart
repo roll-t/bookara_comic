@@ -51,7 +51,7 @@ final appPage = [
     binding: ProfitManageBinding(),
   ),
   GetPage(
-    name: AddCarPage.routeName,
+    name: const AddCarPage().routeName,
     page: () => const AddCarPage(),
     binding: AddCarBinding(),
   ),

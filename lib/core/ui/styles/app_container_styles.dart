@@ -24,6 +24,13 @@ class AppContainerStyles {
     );
   }
 
+  static BoxDecoration card200() {
+    return BoxDecoration(
+      color: AppColors.white,
+      borderRadius: BorderRadius.circular(10.0),
+    );
+  }
+
   static List<BoxShadow> cardShadow() {
     return [
       BoxShadow(
