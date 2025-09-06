@@ -5,7 +5,7 @@ import 'package:auto_find/main/showroom/data/source/car_api.dart';
 class CarRepository {
   final CarApi _api = CarApi();
 
- Future<ListModel> getCars({
+  Future<ListModel> getCars({
     int pageSize = 20,
     String? startAfter,
   }) async {
@@ -37,7 +37,7 @@ class CarRepository {
   }
 
   Future<void> updateCar(CarModel car) async {
-    final result = await _api.updateCar(car.id, car);
+    final result = await _api.updateCar(car.id ?? 0, car);
     if (!result.isSuccess) throw Exception(result.message);
   }
 

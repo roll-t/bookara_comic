@@ -1,4 +1,5 @@
 import 'package:auto_find/core/config/theme/app_colors.dart';
+import 'package:auto_find/core/extension/empty_extension.dart';
 import 'package:auto_find/core/ui/styles/app_container_styles.dart';
 import 'package:auto_find/core/ui/styles/app_padding.dart';
 import 'package:auto_find/core/ui/styles/app_text_styles.dart';
@@ -114,8 +115,8 @@ class _ListCarWidget extends GetView<AllCarController> {
               dataNullWidget: const TextWidget(text: "Không có dữ liệu"),
               itemBuilder: (car) {
                 return CarItemWidget(
-                  carName: car.name,
-                  status: car.status,
+                  carName: car.name.orNA(),
+                  status: car.status.orNA(),
                   importDate: car.createdAt.toString(),
                   onTap: () {
                     Get.toNamed(

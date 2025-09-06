@@ -1,88 +1,147 @@
 class CarModel {
-  final int id;
-  final String brand;
-  final String color;
-  final String des;
-  final String name;
-  final String plate;
-  final String product;
-  final String status;
-  final String type;
-  final String releaseYear;
-  final String isDeleted;
-  final String deletedAt;
+  final int? id;
+  final String? brand;
+  final String? color;
+  final String? des;
+  final String? name;
+  final String? plate;
+  final String? product;
+  final String? status;
+  final String? type;
+  final int? releaseYear;
+  final bool? isDeleted;
+  final String? deletedAt;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final DateTime? importDate;
   final DateTime? soldDate;
-  final double importCost;
-  final double importPrice;
-  final double soldCost;
-  final double soldPrice;
-  final double price;
-  final double profit;
-  final String soldDes;
+  final double? importCost;
+  final double? importPrice;
+  final double? soldCost;
+  final double? soldPrice;
+  final double? price;
+  final double? profit;
+  final String? soldDes;
 
-  CarModel({
-    required this.id,
-    required this.brand,
-    required this.color,
-    required this.des,
-    required this.name,
-    required this.plate,
-    required this.product,
-    required this.status,
-    required this.type,
-    required this.releaseYear,
-    required this.isDeleted,
-    required this.deletedAt,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.importDate,
-    required this.soldDate,
-    required this.importCost,
-    required this.importPrice,
-    required this.soldCost,
-    required this.soldPrice,
-    required this.price,
-    required this.profit,
-    required this.soldDes,
+  const CarModel({
+    this.id,
+    this.brand,
+    this.color,
+    this.des,
+    this.name,
+    this.plate,
+    this.product,
+    this.status,
+    this.type,
+    this.releaseYear,
+    this.isDeleted,
+    this.deletedAt,
+    this.createdAt,
+    this.updatedAt,
+    this.importDate,
+    this.soldDate,
+    this.importCost,
+    this.importPrice,
+    this.soldCost,
+    this.soldPrice,
+    this.price,
+    this.profit,
+    this.soldDes,
   });
+
+  CarModel copyWith({
+    int? id,
+    String? brand,
+    String? color,
+    String? des,
+    String? name,
+    String? plate,
+    String? product,
+    String? status,
+    String? type,
+    int? releaseYear,
+    bool? isDeleted,
+    String? deletedAt,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    DateTime? importDate,
+    DateTime? soldDate,
+    double? importCost,
+    double? importPrice,
+    double? soldCost,
+    double? soldPrice,
+    double? price,
+    double? profit,
+    String? soldDes,
+  }) {
+    return CarModel(
+      id: id ?? this.id,
+      brand: brand ?? this.brand,
+      color: color ?? this.color,
+      des: des ?? this.des,
+      name: name ?? this.name,
+      plate: plate ?? this.plate,
+      product: product ?? this.product,
+      status: status ?? this.status,
+      type: type ?? this.type,
+      releaseYear: releaseYear ?? this.releaseYear,
+      isDeleted: isDeleted ?? this.isDeleted,
+      deletedAt: deletedAt ?? this.deletedAt,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      importDate: importDate ?? this.importDate,
+      soldDate: soldDate ?? this.soldDate,
+      importCost: importCost ?? this.importCost,
+      importPrice: importPrice ?? this.importPrice,
+      soldCost: soldCost ?? this.soldCost,
+      soldPrice: soldPrice ?? this.soldPrice,
+      price: price ?? this.price,
+      profit: profit ?? this.profit,
+      soldDes: soldDes ?? this.soldDes,
+    );
+  }
 
   factory CarModel.fromJson(Map<String, dynamic> json) {
     return CarModel(
-      id: json['id'] ?? 0,
-      brand: json['brand'] ?? '',
-      color: json['color'] ?? '',
-      des: json['des'] ?? '',
-      name: json['name'] ?? '',
-      plate: json['plate'] ?? '',
-      product: json['product'] ?? '',
-      status: json['status'] ?? '',
-      type: json['type'] ?? '',
-      releaseYear: json['release_year'] ?? '',
-      isDeleted: json['isDeleted'] ?? '',
-      deletedAt: json['deletedAt'] ?? '',
-      createdAt: json['createdAt'] != null && json['createdAt'] != ''
-          ? DateTime.tryParse(json['createdAt'])
-          : null,
-      updatedAt: json['updatedAt'] != null && json['updatedAt'] != ''
-          ? DateTime.tryParse(json['updatedAt'])
-          : null,
-      importDate: json['import_date'] != null && json['import_date'] != ''
-          ? DateTime.tryParse(json['import_date'])
-          : null,
-      soldDate: json['sold_date'] != null && json['sold_date'] != ''
-          ? DateTime.tryParse(json['sold_date'])
-          : null,
-      importCost: (json['import_cost'] ?? 0).toDouble(),
-      importPrice: (json['import_price'] ?? 0).toDouble(),
-      soldCost: (json['sold_cost'] ?? 0).toDouble(),
-      soldPrice: (json['sold_price'] ?? 0).toDouble(),
-      price: (json['price'] ?? 0).toDouble(),
-      profit: (json['profit'] ?? 0).toDouble(),
-      soldDes: json['sold_des'] ?? '',
+      id: json['id'] is int ? json['id'] : int.tryParse(json['id'].toString()),
+      brand: json['brand']?.toString(),
+      color: json['color']?.toString(),
+      des: json['des']?.toString(),
+      name: json['name']?.toString(),
+      plate: json['plate']?.toString(),
+      product: json['product']?.toString(),
+      status: json['status']?.toString(),
+      type: json['type']?.toString(),
+      releaseYear: json['release_year'] is int
+          ? json['release_year']
+          : int.tryParse(json['release_year']?.toString() ?? ''),
+      isDeleted: json['isDeleted'] is bool
+          ? json['isDeleted']
+          : json['isDeleted']?.toString().toLowerCase() == 'true',
+      deletedAt: json['deletedAt']?.toString(),
+      createdAt: _parseDate(json['createdAt']),
+      updatedAt: _parseDate(json['updatedAt']),
+      importDate: _parseDate(json['import_date']),
+      soldDate: _parseDate(json['sold_date']),
+      importCost: _parseDouble(json['import_cost']),
+      importPrice: _parseDouble(json['import_price']),
+      soldCost: _parseDouble(json['sold_cost']),
+      soldPrice: _parseDouble(json['sold_price']),
+      price: _parseDouble(json['price']),
+      profit: _parseDouble(json['profit']),
+      soldDes: json['sold_des']?.toString(),
     );
+  }
+
+  static DateTime? _parseDate(dynamic value) {
+    if (value == null || value.toString().isEmpty) return null;
+    return DateTime.tryParse(value.toString());
+  }
+
+  static double? _parseDouble(dynamic value) {
+    if (value == null) return 0.0;
+    if (value is num) return value.toDouble();
+    return double.tryParse(value.toString()) ?? 0.0;
   }
 
   Map<String, dynamic> toJson() {
@@ -112,4 +171,23 @@ class CarModel {
       'sold_des': soldDes,
     };
   }
+
+  @override
+  String toString() {
+    return 'CarModel(id: $id, brand: $brand, name: $name, price: $price)';
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CarModel &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          brand == other.brand &&
+          name == other.name &&
+          price == other.price;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^ brand.hashCode ^ name.hashCode ^ price.hashCode;
 }

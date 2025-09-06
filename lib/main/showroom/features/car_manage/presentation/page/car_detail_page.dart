@@ -16,7 +16,7 @@ import '../controller/car_detail_controller.dart';
 
 class CarDetailPage extends CustomState {
   const CarDetailPage({super.key});
-  
+
   @override
   Widget buildBody(BuildContext context) => const _BodyBuilder();
 }
@@ -85,7 +85,7 @@ class _BodyBuilder extends GetView<CarDetailController> {
                           height: 45,
                           textSize: 14,
                           type: CustomTextFieldType.text,
-                          controller: TextEditingController(),
+                          controller: controller.nameController,
                         );
                       },
                     ),
@@ -104,7 +104,7 @@ class _BodyBuilder extends GetView<CarDetailController> {
                                 height: 45,
                                 textSize: 14,
                                 type: CustomTextFieldType.text,
-                                controller: TextEditingController(),
+                                controller: controller.plateController,
                               );
                             },
                           ),
@@ -117,7 +117,7 @@ class _BodyBuilder extends GetView<CarDetailController> {
                               return CustomTextField(
                                 enabled: controller.isEditMode.value,
                                 label: "Năm sản xuất",
-                                controller: TextEditingController(),
+                                controller: controller.releaseYearController,
                                 startYear: 2000,
                                 endYear: DateTime.now().year,
                                 onYearSelected: (year) {
@@ -272,7 +272,7 @@ class _BodyBuilder extends GetView<CarDetailController> {
                               height: 45,
                               textSize: 14,
                               type: CustomTextFieldType.text,
-                              controller: TextEditingController(),
+                              controller: controller.priceController,
                             );
                           }),
                         ),
@@ -284,9 +284,7 @@ class _BodyBuilder extends GetView<CarDetailController> {
                               enabled: controller.isEditMode.value,
                               label: "Lợi nhuận",
                               hintText: "",
-                              controller: TextEditingController(
-                                text: "-125,000,000",
-                              ),
+                              controller: controller.profitController,
                               height: 45,
                               textSize: 14,
                               type: CustomTextFieldType.text,
@@ -298,7 +296,6 @@ class _BodyBuilder extends GetView<CarDetailController> {
                     const SizedBox(height: 10),
 
                     /// Row 3: Ngày bán - Giá bán - Chi phí bán
-
                     Row(
                       children: [
                         Expanded(
@@ -310,7 +307,7 @@ class _BodyBuilder extends GetView<CarDetailController> {
                                   return CustomTextField(
                                     enabled: controller.isEditMode.value,
                                     label: "Ngày mua",
-                                    controller: TextEditingController(),
+                                    controller: controller.importDateController,
                                     type: CustomTextFieldType.datePicker,
                                     firstDate: DateTime(2020),
                                     lastDate: DateTime.now(),
@@ -333,7 +330,7 @@ class _BodyBuilder extends GetView<CarDetailController> {
                                   height: 45,
                                   textSize: 14,
                                   type: CustomTextFieldType.text,
-                                  controller: TextEditingController(),
+                                  controller: controller.importPriceController,
                                 );
                               }),
                               const SizedBox(height: 10),
@@ -346,7 +343,7 @@ class _BodyBuilder extends GetView<CarDetailController> {
                                   height: 45,
                                   textSize: 14,
                                   type: CustomTextFieldType.text,
-                                  controller: TextEditingController(),
+                                  controller: controller.importCostController,
                                 );
                               }),
                             ],
@@ -361,7 +358,7 @@ class _BodyBuilder extends GetView<CarDetailController> {
                                 return CustomTextField(
                                   enabled: controller.isEditMode.value,
                                   label: "Ngày bán",
-                                  controller: TextEditingController(),
+                                  controller: controller.soldDateController,
                                   type: CustomTextFieldType.datePicker,
                                   firstDate: DateTime(2020),
                                   lastDate: DateTime.now(),
@@ -383,7 +380,7 @@ class _BodyBuilder extends GetView<CarDetailController> {
                                   height: 45,
                                   textSize: 14,
                                   type: CustomTextFieldType.text,
-                                  controller: TextEditingController(),
+                                  controller: controller.soldPriceController,
                                 );
                               }),
                               const SizedBox(height: 10),
@@ -396,7 +393,7 @@ class _BodyBuilder extends GetView<CarDetailController> {
                                   height: 45,
                                   textSize: 14,
                                   type: CustomTextFieldType.text,
-                                  controller: TextEditingController(),
+                                  controller: controller.soldCostController,
                                 );
                               }),
                             ],
