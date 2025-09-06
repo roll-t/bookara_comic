@@ -21,9 +21,8 @@ class CarDetailPage extends CustomState {
   Widget buildBody(BuildContext context) => const _BodyBuilder();
 }
 
-class _BodyBuilder extends GetView<CarDetailController> {
+class _BodyBuilder extends StatelessWidget {
   const _BodyBuilder();
-
   @override
   Widget build(BuildContext context) {
     return StandardLayoutWidget(
@@ -35,8 +34,9 @@ class _BodyBuilder extends GetView<CarDetailController> {
       appBar: CustomAppBar(
         title: "Chi tiết xe",
         actions: [
-          Obx(
-            () {
+          GetBuilder<CarDetailController>(
+            id: "EDIT_ICON_ID",
+            builder: (controller) {
               return CircleIconButton(
                 isActive: controller.isEditMode.value,
                 svgUrl: AppVectors.icEditing,
@@ -57,363 +57,334 @@ class _BodyBuilder extends GetView<CarDetailController> {
           const SizedBox(width: 16),
         ],
       ),
-      bodyBuilder: SingleChildScrollView(
-        child: Container(
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(6.0),
-          ),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-            vertical: 16,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ExpandSectionWidget(
-                title: "Thông tin cơ ",
-                controller: controller.expandInformation,
-                child: Column(
-                  children: [
-                    const SizedBox(height: 10),
-                    Obx(
-                      () {
-                        return CustomTextField(
+      bodyBuilder: GetBuilder<CarDetailController>(
+        id: "FORM_ID",
+        builder: (controller) {
+          if (controller.isLoading.value) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return _BuildFormBody(
+            controller: controller,
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _BuildFormBody extends StatelessWidget {
+  final CarDetailController controller;
+
+  const _BuildFormBody({
+    required this.controller,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(6.0),
+        ),
+        margin: const EdgeInsets.only(bottom: 30),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10,
+          vertical: 16,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            /// Thông tin cơ bản
+            ExpandSectionWidget(
+              title: "Thông tin cơ bản",
+              controller: controller.expandInformation,
+              child: Column(
+                children: [
+                  const SizedBox(height: 10),
+                  CustomTextField(
+                    enabled: controller.isEditMode.value,
+                    label: "Tên xe",
+                    hintText: "Nhập tên xe",
+                    height: 45,
+                    textSize: 14,
+                    type: CustomTextFieldType.text,
+                    controller: controller.nameController,
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomTextField(
                           enabled: controller.isEditMode.value,
-                          label: "Tên xe",
-                          hintText: "Nhập tên xe",
+                          label: "Biển số xe",
+                          hintText: "Nhập biển số xe",
+                          backgroundColor: AppColors.white,
                           height: 45,
                           textSize: 14,
                           type: CustomTextFieldType.text,
-                          controller: controller.nameController,
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Obx(
-                            () {
-                              return CustomTextField(
-                                enabled: controller.isEditMode.value,
-                                label: "Biển số xe",
-                                hintText: "Nhập biển số xe",
-                                backgroundColor: AppColors.white,
-                                height: 45,
-                                textSize: 14,
-                                type: CustomTextFieldType.text,
-                                controller: controller.plateController,
-                              );
-                            },
-                          ),
+                          controller: controller.plateController,
                         ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          flex: 1,
-                          child: Obx(
-                            () {
-                              return CustomTextField(
-                                enabled: controller.isEditMode.value,
-                                label: "Năm sản xuất",
-                                controller: controller.releaseYearController,
-                                startYear: 2000,
-                                endYear: DateTime.now().year,
-                                onYearSelected: (year) {
-                                  print("Năm được chọn: ");
-                                },
-                                height: 45,
-                                textSize: 14,
-                                type: CustomTextFieldType.yearPicker,
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-
-                    /// Row 1: Hãng xe - Loại xe
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Obx(
-                            () => CustomTextField(
-                              enabled: controller.isEditMode.value,
-                              label: "Hãng xe",
-                              hintText: "Chọn hãng xe",
-                              controller: TextEditingController(
-                                text: controller.selectedBrand.value,
-                              ),
-                              suffixIcon: const Icon(Icons.arrow_drop_down),
-                              backgroundColor: AppColors.white,
-                              height: 45,
-                              textSize: 14,
-                              type: CustomTextFieldType.dropdown,
-                              onTap: () => controller.showBrandBottomSheet(),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          flex: 1,
-                          child: Obx(
-                            () => CustomTextField(
-                              enabled: controller.isEditMode.value,
-                              label: "Loại xe",
-                              hintText: "Chọn loại xe",
-                              controller: TextEditingController(
-                                text: controller.selectedTypeCar.value,
-                              ),
-                              suffixIcon: const Icon(Icons.arrow_drop_down),
-                              backgroundColor: AppColors.white,
-                              height: 45,
-                              textSize: 14,
-                              type: CustomTextFieldType.dropdown,
-                              onTap: () => controller.showTypeCarBottomSheet(),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-
-                    /// Row 2: Màu xe - Mẫu xe
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Obx(
-                            () => CustomTextField(
-                              enabled: controller.isEditMode.value,
-                              label: "Màu xe",
-                              hintText: "Chọn màu xe",
-                              controller: TextEditingController(
-                                text: controller.selectedColor.value,
-                              ),
-                              suffixIcon: const Icon(Icons.arrow_drop_down),
-                              backgroundColor: AppColors.white,
-                              height: 45,
-                              textSize: 14,
-                              type: CustomTextFieldType.dropdown,
-                              onTap: () => controller.showColorBottomSheet(),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          flex: 1,
-                          child: Obx(
-                            () => CustomTextField(
-                              enabled: controller.isEditMode.value,
-                              label: "Mẫu xe",
-                              hintText: "Chọn mẫu xe",
-                              controller: TextEditingController(
-                                text: controller.selectedModel.value,
-                              ),
-                              suffixIcon: const Icon(Icons.arrow_drop_down),
-                              backgroundColor: AppColors.white,
-                              height: 45,
-                              textSize: 14,
-                              type: CustomTextFieldType.dropdown,
-                              onTap: () => controller.showModelBottomSheet(),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-
-                    /// Row 3: Trạng thái xe
-                    Obx(
-                      () => CustomTextField(
-                        enabled: controller.isEditMode.value,
-                        label: "Trạng thái xe",
-                        hintText: "Chọn trạng thái xe",
-                        controller: TextEditingController(
-                          text: controller.selectedStatus.value,
-                        ),
-                        suffixIcon: const Icon(Icons.arrow_drop_down),
-                        backgroundColor: AppColors.white,
-                        height: 45,
-                        textSize: 14,
-                        type: CustomTextFieldType.dropdown,
-                        onTap: () => controller.showStatusBottomSheet(),
                       ),
-                    ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: CustomTextField(
+                          enabled: controller.isEditMode.value,
+                          label: "Năm sản xuất",
+                          controller: controller.releaseYearController,
+                          startYear: 2000,
+                          endYear: DateTime.now().year,
+                          onYearSelected: (year) {
+                            print("Năm được chọn: $year");
+                          },
+                          height: 45,
+                          textSize: 14,
+                          type: CustomTextFieldType.yearPicker,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+
+                  /// Hãng xe - Loại xe
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomTextField(
+                          enabled: controller.isEditMode.value,
+                          label: "Hãng xe",
+                          hintText: "Chọn hãng xe",
+                          controller: controller.brandController,
+                          suffixIcon: const Icon(Icons.arrow_drop_down),
+                          backgroundColor: AppColors.white,
+                          height: 45,
+                          textSize: 14,
+                          type: CustomTextFieldType.dropdown,
+                          onTap: controller.showBrandBottomSheet,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: CustomTextField(
+                          enabled: controller.isEditMode.value,
+                          label: "Loại xe",
+                          hintText: "Chọn loại xe",
+                          controller: controller.typeCarController,
+                          suffixIcon: const Icon(Icons.arrow_drop_down),
+                          backgroundColor: AppColors.white,
+                          height: 45,
+                          textSize: 14,
+                          type: CustomTextFieldType.dropdown,
+                          onTap: controller.showTypeCarBottomSheet,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+
+                  /// Màu xe - Mẫu xe
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomTextField(
+                          enabled: controller.isEditMode.value,
+                          label: "Màu xe",
+                          hintText: "Chọn màu xe",
+                          controller: controller.colorController,
+                          suffixIcon: const Icon(Icons.arrow_drop_down),
+                          backgroundColor: AppColors.white,
+                          height: 45,
+                          textSize: 14,
+                          type: CustomTextFieldType.dropdown,
+                          onTap: controller.showColorBottomSheet,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: CustomTextField(
+                          enabled: controller.isEditMode.value,
+                          label: "Mẫu xe",
+                          hintText: "Chọn mẫu xe",
+                          controller: controller.modelController,
+                          suffixIcon: const Icon(Icons.arrow_drop_down),
+                          backgroundColor: AppColors.white,
+                          height: 45,
+                          textSize: 14,
+                          type: CustomTextFieldType.dropdown,
+                          onTap: controller.showModelBottomSheet,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+
+                  /// Trạng thái xe
+                  CustomTextField(
+                    enabled: controller.isEditMode.value,
+                    label: "Trạng thái xe",
+                    hintText: "Chọn trạng thái xe",
+                    controller: controller.statusController,
+                    suffixIcon: const Icon(Icons.arrow_drop_down),
+                    backgroundColor: AppColors.white,
+                    height: 45,
+                    textSize: 14,
+                    type: CustomTextFieldType.dropdown,
+                    onTap: controller.showStatusBottomSheet,
+                  ),
+                  if (controller.isEditMode.value) ...[
                     const SizedBox(height: 30),
                     PrimaryButton(
                       isMaxParent: true,
                       text: "Cập nhật Thông tin xe",
-                      onPressed: () {},
+                      onPressed: controller.updateCarInfo,
                     ),
-                  ],
-                ),
+                  ]
+                ],
               ),
-              const SizedBox(height: 20),
-              ExpandSectionWidget(
-                title: "Thông tin mua bán (ĐVTT/VND)",
-                controller: controller.expandVehicle,
-                child: Column(
-                  children: [
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Obx(() {
-                            return CustomTextField(
+            ),
+
+            const SizedBox(height: 20),
+
+            /// Thông tin mua bán
+            ExpandSectionWidget(
+              title: "Thông tin mua bán (ĐVTT/VND)",
+              controller: controller.expandVehicle,
+              child: Column(
+                children: [
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomTextField(
+                          enabled: controller.isEditMode.value,
+                          label: "Giá niêm yết bán",
+                          hintText: "",
+                          backgroundColor: AppColors.white,
+                          height: 45,
+                          textSize: 14,
+                          type: CustomTextFieldType.text,
+                          controller: controller.priceController,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: CustomTextField(
+                          enabled: controller.isEditMode.value,
+                          label: "Lợi nhuận",
+                          hintText: "",
+                          controller: controller.profitController,
+                          height: 45,
+                          textSize: 14,
+                          type: CustomTextFieldType.text,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+
+                  /// Ngày & Giá mua - bán
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            CustomTextField(
                               enabled: controller.isEditMode.value,
-                              label: "Giá niêm yết bán",
+                              label: "Ngày mua",
+                              controller: controller.importDateController,
+                              type: CustomTextFieldType.datePicker,
+                              firstDate: DateTime(2020),
+                              lastDate: DateTime.now(),
+                              onDateSelected: (date) {
+                                print("Ngày mua: ${date.toIso8601String()}");
+                              },
+                              height: 45,
+                              textSize: 14,
+                            ),
+                            const SizedBox(height: 10),
+                            CustomTextField(
+                              enabled: controller.isEditMode.value,
+                              label: "Giá mua",
+                              hintText: "125,000,000",
+                              backgroundColor: AppColors.white,
+                              height: 45,
+                              textSize: 14,
+                              type: CustomTextFieldType.text,
+                              controller: controller.importPriceController,
+                            ),
+                            const SizedBox(height: 10),
+                            CustomTextField(
+                              enabled: controller.isEditMode.value,
+                              label: "Chi phí mua",
                               hintText: "",
                               backgroundColor: AppColors.white,
                               height: 45,
                               textSize: 14,
                               type: CustomTextFieldType.text,
-                              controller: controller.priceController,
-                            );
-                          }),
+                              controller: controller.importCostController,
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          flex: 1,
-                          child: Obx(() {
-                            return CustomTextField(
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            CustomTextField(
                               enabled: controller.isEditMode.value,
-                              label: "Lợi nhuận",
-                              hintText: "",
-                              controller: controller.profitController,
+                              label: "Ngày bán",
+                              controller: controller.soldDateController,
+                              type: CustomTextFieldType.datePicker,
+                              firstDate: DateTime(2020),
+                              lastDate: DateTime.now(),
+                              onDateSelected: (date) {
+                                print("Ngày bán: ${date.toIso8601String()}");
+                              },
+                              height: 45,
+                              textSize: 14,
+                            ),
+                            const SizedBox(height: 10),
+                            CustomTextField(
+                              enabled: controller.isEditMode.value,
+                              label: "Giá bán",
+                              hintText: "125,000,000",
+                              backgroundColor: AppColors.white,
                               height: 45,
                               textSize: 14,
                               type: CustomTextFieldType.text,
-                            );
-                          }),
+                              controller: controller.soldPriceController,
+                            ),
+                            const SizedBox(height: 10),
+                            CustomTextField(
+                              enabled: controller.isEditMode.value,
+                              label: "Chi phí bán",
+                              hintText: "",
+                              backgroundColor: AppColors.white,
+                              height: 45,
+                              textSize: 14,
+                              type: CustomTextFieldType.text,
+                              controller: controller.soldCostController,
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-
-                    /// Row 3: Ngày bán - Giá bán - Chi phí bán
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: [
-                              Obx(
-                                () {
-                                  return CustomTextField(
-                                    enabled: controller.isEditMode.value,
-                                    label: "Ngày mua",
-                                    controller: controller.importDateController,
-                                    type: CustomTextFieldType.datePicker,
-                                    firstDate: DateTime(2020),
-                                    lastDate: DateTime.now(),
-                                    onDateSelected: (date) {
-                                      print(
-                                          "Ngày đã chọn: ${date.toIso8601String()}");
-                                    },
-                                    height: 45,
-                                    textSize: 14,
-                                  );
-                                },
-                              ),
-                              const SizedBox(height: 10),
-                              Obx(() {
-                                return CustomTextField(
-                                  enabled: controller.isEditMode.value,
-                                  label: "Giá mua",
-                                  hintText: "125,000,000",
-                                  backgroundColor: AppColors.white,
-                                  height: 45,
-                                  textSize: 14,
-                                  type: CustomTextFieldType.text,
-                                  controller: controller.importPriceController,
-                                );
-                              }),
-                              const SizedBox(height: 10),
-                              Obx(() {
-                                return CustomTextField(
-                                  enabled: controller.isEditMode.value,
-                                  label: "Chi phí mua",
-                                  hintText: "",
-                                  backgroundColor: AppColors.white,
-                                  height: 45,
-                                  textSize: 14,
-                                  type: CustomTextFieldType.text,
-                                  controller: controller.importCostController,
-                                );
-                              }),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: [
-                              Obx(() {
-                                return CustomTextField(
-                                  enabled: controller.isEditMode.value,
-                                  label: "Ngày bán",
-                                  controller: controller.soldDateController,
-                                  type: CustomTextFieldType.datePicker,
-                                  firstDate: DateTime(2020),
-                                  lastDate: DateTime.now(),
-                                  onDateSelected: (date) {
-                                    print(
-                                        "Ngày đã chọn: ${date.toIso8601String()}");
-                                  },
-                                  height: 45,
-                                  textSize: 14,
-                                );
-                              }),
-                              const SizedBox(height: 10),
-                              Obx(() {
-                                return CustomTextField(
-                                  enabled: controller.isEditMode.value,
-                                  label: "Giá bán",
-                                  hintText: "125,000,000",
-                                  backgroundColor: AppColors.white,
-                                  height: 45,
-                                  textSize: 14,
-                                  type: CustomTextFieldType.text,
-                                  controller: controller.soldPriceController,
-                                );
-                              }),
-                              const SizedBox(height: 10),
-                              Obx(() {
-                                return CustomTextField(
-                                  enabled: controller.isEditMode.value,
-                                  label: "Chi phí bán",
-                                  hintText: "",
-                                  backgroundColor: AppColors.white,
-                                  height: 45,
-                                  textSize: 14,
-                                  type: CustomTextFieldType.text,
-                                  controller: controller.soldCostController,
-                                );
-                              }),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
+                  ),
+                  if (controller.isEditMode.value) ...[
                     const SizedBox(height: 30),
-
                     PrimaryButton(
                       isMaxParent: true,
                       text: "Cập nhật mua bán",
-                      onPressed: () {},
+                      onPressed: controller.updateTransactionInfo,
                     ),
-                    const SizedBox(height: 20),
                   ],
-                ),
+                  const SizedBox(height: 10),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

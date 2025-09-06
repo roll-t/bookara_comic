@@ -69,6 +69,7 @@ class SelectBottomSheet extends StatelessWidget {
                   title: TextWidget(text: item.title.orNA()),
                   onTap: () {
                     onSelected(item);
+                    Get.back();
                   },
                 );
               },
