@@ -22,7 +22,6 @@ class BottomSheetController extends GetxController {
   /// Chọn một item
   void selectItem(ItemModel item) {
     itemSelected.value = item;
-    Get.back();
   }
 
   /// Reset về mặc định (chưa chọn)

@@ -3,11 +3,13 @@ import 'package:auto_find/core/extension/empty_extension.dart';
 import 'package:auto_find/core/model/ui/item_model.dart';
 import 'package:auto_find/core/ui/widgets/bottom_sheet/select_bottom_sheet_widget.dart';
 import 'package:auto_find/core/ui/widgets/expand/expand_controller.dart';
+import 'package:auto_find/core/utils/keyboard_utils.dart';
 import 'package:auto_find/core/utils/mixin_controller/argument_handle_mixin_controller.dart';
 import 'package:auto_find/core/utils/time_utils.dart';
 import 'package:auto_find/main/showroom/data/model/car_model.dart';
 import 'package:auto_find/main/showroom/domain/usecase/car_usecase.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
@@ -213,9 +215,12 @@ class CarDetailController extends GetxController
 
   /// Cập nhật thông tin cơ bản của xe
   Future<void> updateCarInfo() async {
+    KeyboardUtils.hiddenKeyboard();
     try {
-      if (carDetail.value == null) return;
-      final updatedCar = carDetail.value!.copyWith(
+      final currentCar = carDetail.value;
+      if (currentCar == null) return;
+
+      final updatedCar = currentCar.copyWith(
         name: nameController.text,
         plate: plateController.text,
         releaseYear: int.tryParse(releaseYearController.text),
@@ -226,8 +231,14 @@ class CarDetailController extends GetxController
         status: selectedStatus.value,
         price: double.tryParse(priceController.text),
         profit: double.tryParse(profitController.text),
-        des: carDetail.value?.des, // giữ nguyên nếu chưa cho sửa mô tả
+        des: currentCar.des,
       );
+
+      // 🔍 So sánh dữ liệu cũ và mới
+      if (updatedCar.toJson().toString() == currentCar.toJson().toString()) {
+        Fluttertoast.showToast(msg: "Nội dung không có gì thay đổi");
+        return;
+      }
 
       await _carUsecase.updateCar(updatedCar);
       carDetail.value = updatedCar;
@@ -239,28 +250,33 @@ class CarDetailController extends GetxController
 
   /// Cập nhật thông tin mua bán xe
   Future<void> updateTransactionInfo() async {
+    KeyboardUtils.hiddenKeyboard();
     try {
-      if (carDetail.value == null) return;
+      final currentCar = carDetail.value;
+      if (currentCar == null) return;
 
-      final updatedCar = carDetail.value!.copyWith(
+      final updatedCar = currentCar.copyWith(
         importDate: DateTime.tryParse(importDateController.text),
         importPrice: double.tryParse(importPriceController.text),
         importCost: double.tryParse(importCostController.text),
         soldDate: DateTime.tryParse(soldDateController.text),
         soldPrice: double.tryParse(soldPriceController.text),
         soldCost: double.tryParse(soldCostController.text),
-        soldDes: carDetail.value?.soldDes,
+        soldDes: currentCar.soldDes,
         profit: double.tryParse(profitController.text),
       );
+
+      // 🔍 So sánh dữ liệu cũ và mới
+      if (updatedCar.toJson().toString() == currentCar.toJson().toString()) {
+        Fluttertoast.showToast(msg: "Nội dung không có gì thay đổi");
+        return;
+      }
 
       await _carUsecase.updateCar(updatedCar);
       carDetail.value = updatedCar;
       update(["FORM_ID"]);
-
-      Fluttertoast.showToast(msg: "Cập nhật thông tin mua/bán thành công ✅");
     } catch (e) {
       AppLogger.e("❌ updateTransactionInfo error: $e");
-      Fluttertoast.showToast(msg: "Lỗi khi cập nhật thông tin mua/bán");
     }
   }
 

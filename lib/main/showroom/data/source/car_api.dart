@@ -1,3 +1,4 @@
+import 'package:auto_find/core/config/const/app_enum.dart';
 import 'package:auto_find/core/config/result.dart';
 import 'package:auto_find/core/services/network/api_client.dart';
 import 'package:auto_find/core/services/network/api_endpoint.dart';
@@ -39,13 +40,27 @@ class CarApi {
     );
   }
 
-  /// Cập nhật xe
-  Future<Result> updateCar(int carId, CarModel car) {
-    return _client.put(
-      ApiEndpoint.carDetail(carId),
-      data: car.toJson(),
+/// Cập nhật xe
+Future<Result> updateCar(int carId, CarModel car) async {
+  final response = await _client.put(
+    ApiEndpoint.carDetail(carId),
+    data: car.toJson(),
+  );
+
+  if (response.data is Map<String, dynamic>) {
+    return Result(
+      status: Results.success,
+      data: response.data["data"],
+      message: response.data["message"]?.toString(),
     );
   }
+
+  return Result(
+    status: Results.error,
+    data: null,
+    message: "Phản hồi không hợp lệ",
+  );
+}
 
   /// Xoá mềm xe
   Future<Result> deleteCar(int carId) {

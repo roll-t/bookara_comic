@@ -2,8 +2,8 @@ import 'package:auto_find/core/config/const/app_enum.dart';
 
 class Result<T> {
   final Results status;
-  final String? message;
-  final T? data;
+  String? message;
+  T? data;
 
   Result({
     required this.status,

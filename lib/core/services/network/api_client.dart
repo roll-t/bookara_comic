@@ -185,7 +185,10 @@ class ApiClient extends GetxService {
       final response = await _dio.put(path, data: data);
       return _handleResponse(response);
     } on DioException catch (e) {
-      return Result(status: Results.error, message: _handleError(e));
+      return Result(
+        status: Results.error,
+        message: _handleError(e),
+      );
     }
   }
 
@@ -197,7 +200,10 @@ class ApiClient extends GetxService {
       final response = await _dio.delete(path, data: data);
       return _handleResponse(response);
     } on DioException catch (e) {
-      return Result(status: Results.error, message: _handleError(e));
+      return Result(
+        status: Results.error,
+        message: _handleError(e),
+      );
     }
   }
 

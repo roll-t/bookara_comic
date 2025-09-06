@@ -29,4 +29,5 @@ Map<String, String> vi = {
   AppContent.theme: AppContent.theme,
   AppContent.selectThem: AppContent.selectThem,
   "Báo cáo": "Báo cáo",
+  "Car updated": "Xe đã cập nhật",
 };

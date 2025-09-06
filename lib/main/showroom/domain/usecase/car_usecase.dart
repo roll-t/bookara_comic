@@ -32,7 +32,6 @@ class CarUsecase {
   }
 
   Future<void> updateCar(CarModel car) {
-    
     return _repository.updateCar(car);
   }
 
