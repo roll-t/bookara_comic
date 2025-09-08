@@ -7,7 +7,7 @@ class CarUsecase {
 
   CarUsecase(this._repository);
 
-  Future<ListModel> getCars({
+  Future<ListModel<CarModel>> getCars({
     int pageSize = 20,
     String? startAfter,
   }) async {

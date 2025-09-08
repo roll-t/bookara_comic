@@ -2,12 +2,16 @@ import 'package:auto_find/core/config/const/app_logger.dart';
 import 'package:auto_find/core/extension/empty_extension.dart';
 import 'package:auto_find/core/model/ui/item_model.dart';
 import 'package:auto_find/core/ui/widgets/bottom_sheet/select_bottom_sheet_widget.dart';
+import 'package:auto_find/core/ui/widgets/dialogs/dialog_utils.dart';
 import 'package:auto_find/core/ui/widgets/expand/expand_controller.dart';
 import 'package:auto_find/core/utils/keyboard_utils.dart';
 import 'package:auto_find/core/utils/mixin_controller/argument_handle_mixin_controller.dart';
 import 'package:auto_find/core/utils/time_utils.dart';
 import 'package:auto_find/main/showroom/data/model/car_model.dart';
+import 'package:auto_find/main/showroom/domain/usecase/brand_product_usecase.dart';
 import 'package:auto_find/main/showroom/domain/usecase/car_usecase.dart';
+import 'package:auto_find/main/showroom/domain/usecase/color_uscase.dart';
+import 'package:auto_find/main/showroom/domain/usecase/type_car_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -15,7 +19,16 @@ import 'package:get/get.dart';
 class CarDetailController extends GetxController
     with ArgumentHandlerMixinController<CarModel> {
   final CarUsecase _carUsecase;
-  CarDetailController(this._carUsecase);
+  final BrandProductUsecase _brandUsecase;
+  final TypeCarUsecase _typeCarUsecase;
+  final ColorUsecase _colorUsecase;
+
+  CarDetailController(
+    this._carUsecase,
+    this._brandUsecase,
+    this._typeCarUsecase,
+    this._colorUsecase,
+  );
 
   /// observable lưu chi tiết xe
   Rxn<CarModel> carDetail = Rxn<CarModel>();
@@ -44,9 +57,10 @@ class CarDetailController extends GetxController
   final soldCostController = TextEditingController();
 
   // dropdown (hãng xe, loại xe, màu xe, mẫu xe, trạng thái)
-  RxString selectedBrand = ''.obs;
-  RxString selectedTypeCar = ''.obs;
-  RxString selectedColor = ''.obs;
+  Rx<ItemModel> selectedBrand = ItemModel().obs;
+  Rx<ItemModel> selectedTypeCar = ItemModel().obs;
+  Rx<ItemModel> selectedColor = ItemModel().obs;
+
   RxString selectedModel = ''.obs;
   RxString selectedStatus = ''.obs;
 
@@ -58,40 +72,26 @@ class CarDetailController extends GetxController
   final statusController = TextEditingController();
 
   /// Dropdown list có sẵn
-  final List<String> brandList = [
-    "Toyota",
-    "Honda",
-    "Hyundai",
-    "Ford",
-    "Mazda",
-    "VinFast"
+  final List<ItemModel> brandList = [];
+
+  final List<ItemModel> typeCarList = [];
+
+  final List<ItemModel> colorList = [];
+
+  final List<ItemModel> modelList = [
+    ItemModel(id: "pickup_truck", title: "Pickup Truck"),
+    ItemModel(id: "mpv", title: "MPV"),
+    ItemModel(id: "hatchback", title: "Hatchback"),
+    ItemModel(id: "sedan", title: "Sedan"),
+    ItemModel(id: "suv", title: "SUV"),
   ];
-  final List<String> typeCarList = [
-    "Sedan",
-    "SUV",
-    "Hatchback",
-    "Pickup",
-    "MPV",
-    "Coupe"
-  ];
-  final List<String> colorList = [
-    "Đỏ",
-    "Trắng",
-    "Đen",
-    "Xám",
-    "Xanh",
-    "Vàng",
-  ];
-  final List<String> modelList = [
-    "Standard",
-    "Luxury",
-    "Premium",
-    "Sport",
-  ];
-  final List<String> statusList = [
-    "Xe mới",
-    "Xe đã qua sử dụng",
-    "Xe trưng bày"
+
+  final List<ItemModel> statusList = [
+    ItemModel(id: "new", title: "Xe mới nhập"),
+    ItemModel(id: "cleaning", title: "Xe đem đi dọn"),
+    ItemModel(id: "reserved", title: "Xe đã cọc"),
+    ItemModel(id: "showroom", title: "Xe đang ở Auto"),
+    ItemModel(id: "sold", title: "Xe đã bán"),
   ];
 
   @override
@@ -101,9 +101,8 @@ class CarDetailController extends GetxController
 
   void initializedData() {
     bool hasArg = handleArgumentFromGet();
-    if (hasArg) {
-      fetchCarDetail(argsData?.id ?? 0);
-    }
+    if (!hasArg) return;
+    fetchCarDetail(argsData?.id ?? 0);
   }
 
   /// Gọi API lấy chi tiết xe
@@ -112,7 +111,6 @@ class CarDetailController extends GetxController
       isLoading.value = true;
       final car = await _carUsecase.getCarDetail(id);
       carDetail.value = car;
-      print(">>> Car Detail: ${car.toJson()}");
 
       /// ---- Fill dữ liệu vào controller ----
       nameController.text = car.name.orNA();
@@ -131,14 +129,14 @@ class CarDetailController extends GetxController
       soldCostController.text = (car.soldCost ?? 0).toString();
 
       // ---- Fill dropdown ----
-      selectedBrand.value = car.brand.orNA();
-      brandController.text = selectedBrand.value;
+      selectedBrand.value = ItemModel(title: car.brand.orNA());
+      brandController.text = (selectedBrand.value.title).orNA();
 
-      selectedColor.value = car.color.orNA();
-      colorController.text = selectedColor.value;
+      selectedColor.value = ItemModel(title: car.color.orNA());
+      colorController.text = (selectedColor.value.title).orNA();
 
-      selectedTypeCar.value = car.type.orNA();
-      typeCarController.text = selectedTypeCar.value;
+      selectedTypeCar.value = ItemModel(title: car.type.orNA());
+      typeCarController.text = (selectedTypeCar.value.title).orNA();
 
       selectedModel.value = car.product.orNA();
       modelController.text = selectedModel.value;
@@ -146,7 +144,7 @@ class CarDetailController extends GetxController
       selectedStatus.value = car.status.orNA();
       statusController.text = selectedStatus.value;
     } catch (e) {
-      print("❌ Lỗi khi fetchCarDetail: $e");
+      AppLogger.e("❌ Lỗi khi fetchCarDetail: $e");
       Get.snackbar("Lỗi", "Không thể lấy thông tin xe");
     } finally {
       isLoading.value = false;
@@ -154,7 +152,17 @@ class CarDetailController extends GetxController
     }
   }
 
-  void toggleEditMode() {
+  void toggleEditMode() async {
+    if (brandList.isEmpty || typeCarList.isEmpty || colorList.isEmpty) {
+      DialogUtils.showProgressDialog();
+      await Future.wait([
+        fetchAllBrands(),
+        fetchAllTypes(),
+        fetchAllColors(),
+      ]);
+      Get.back();
+    }
+
     if (!TimeUtils.canPerformAction(cooldownMs: 500)) return;
     Fluttertoast.showToast(
       msg: isEditMode.value ? "Tắt chế độ chỉnh sửa" : "Bật chế độ chỉnh sửa",
@@ -166,15 +174,46 @@ class CarDetailController extends GetxController
     ]);
   }
 
+  /// Gọi API lấy toàn bộ brand
+  Future<void> fetchAllBrands() async {
+    try {
+      final listBrandModel = await _brandUsecase.getAllBrands();
+      brandList.addAll(listBrandModel.map((e) => e.toItemModel()));
+    } catch (e) {
+      AppLogger.e("❌ Lỗi khi fetchAllBrands: $e");
+      Fluttertoast.showToast(msg: "Không thể tải danh sách hãng xe");
+    }
+  }
+
+  /// Gọi API lấy toàn bộ type car
+  Future<void> fetchAllTypes() async {
+    try {
+      final listTypeModel = await _typeCarUsecase.getAllTypes();
+      typeCarList.addAll(listTypeModel.map((e) => e.toItemModel()));
+    } catch (e) {
+      Fluttertoast.showToast(msg: "Không thể tải danh sách loại xe");
+    }
+  }
+
+  /// Gọi API lấy toàn bộ màu
+  Future<void> fetchAllColors() async {
+    try {
+      final listColorModel = await _colorUsecase.getAllColors();
+      colorList.addAll(listColorModel.map((e) => e.toItemModel()));
+    } catch (e) {
+      Fluttertoast.showToast(msg: "Không thể tải danh sách màu");
+    }
+  }
+
   /// Chọn dropdown
   void showSelectBottomSheet({
     required String title,
-    required List<String> list,
+    required List<ItemModel> list,
     required void Function(ItemModel item) onSelected,
   }) {
     SelectBottomSheet.show(
       title: title,
-      items: list.map((e) => ItemModel(title: e)).toList(),
+      items: list.map((e) => e).toList(),
       onSelected: onSelected,
     );
   }
@@ -183,17 +222,18 @@ class CarDetailController extends GetxController
         title: "Chọn hãng xe",
         list: brandList,
         onSelected: (item) {
-          selectedBrand.value = item.title.orNA();
-          brandController.text = selectedBrand.value;
+          selectedBrand.value = item;
+          brandController.text = (selectedBrand.value.title).orNA();
         },
       );
 
+  /// BottomSheet chọn loại xe
   void showTypeCarBottomSheet() => showSelectBottomSheet(
         title: "Chọn loại xe",
-        list: typeCarList,
+        list: typeCarList, // 🔹 dùng list từ API
         onSelected: (item) {
-          selectedTypeCar.value = item.title.orNA();
-          typeCarController.text = selectedTypeCar.value;
+          selectedTypeCar.value = item;
+          typeCarController.text = (selectedTypeCar.value.title).orNA();
         },
       );
 
@@ -201,8 +241,8 @@ class CarDetailController extends GetxController
         title: "Chọn màu xe",
         list: colorList,
         onSelected: (item) {
-          selectedColor.value = item.title.orNA();
-          colorController.text = selectedColor.value;
+          selectedColor.value = item;
+          colorController.text = (selectedColor.value.title).orNA();
         },
       );
 
@@ -235,9 +275,9 @@ class CarDetailController extends GetxController
         name: nameController.text,
         plate: plateController.text,
         releaseYear: int.tryParse(releaseYearController.text),
-        brand: selectedBrand.value,
-        type: selectedTypeCar.value,
-        color: selectedColor.value,
+        brand: selectedBrand.value.title,
+        type: selectedTypeCar.value.title,
+        color: selectedColor.value.title,
         product: selectedModel.value,
         status: selectedStatus.value,
         price: double.tryParse(priceController.text),
@@ -307,7 +347,6 @@ class CarDetailController extends GetxController
     soldPriceController.dispose();
     soldCostController.dispose();
 
-    // dispose dropdown controllers
     brandController.dispose();
     typeCarController.dispose();
     colorController.dispose();
