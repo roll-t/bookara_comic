@@ -9,7 +9,6 @@ import 'package:auto_find/core/utils/time_utils.dart';
 import 'package:auto_find/main/showroom/data/model/car_model.dart';
 import 'package:auto_find/main/showroom/domain/usecase/car_usecase.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
@@ -75,8 +74,20 @@ class CarDetailController extends GetxController
     "MPV",
     "Coupe"
   ];
-  final List<String> colorList = ["Đỏ", "Trắng", "Đen", "Xám", "Xanh", "Vàng"];
-  final List<String> modelList = ["Standard", "Luxury", "Premium", "Sport"];
+  final List<String> colorList = [
+    "Đỏ",
+    "Trắng",
+    "Đen",
+    "Xám",
+    "Xanh",
+    "Vàng",
+  ];
+  final List<String> modelList = [
+    "Standard",
+    "Luxury",
+    "Premium",
+    "Sport",
+  ];
   final List<String> statusList = [
     "Xe mới",
     "Xe đã qua sử dụng",
